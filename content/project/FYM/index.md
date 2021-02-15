@@ -1,10 +1,10 @@
 ---
-date: "2019-01-01T00:00:00Z"
-external_link: "https://kids.frontiersin.org/collection/11796/soil-biodiversity"
+date: "2020-01-01T00:00:00Z"
+external_link: ""
 image:
-  caption: ""
+  caption: "Collection cover"
   focal_point: Smart
-summary: "TreeDì - 林地 - TreeDiversity Interactions: The role of tree-tree interactions in local neighbourhoods in Chinese subtropical forests"
+summary: Collection in Frontiers for Young Minds on Soil Biodiversity aiming to shared scientific discoveries with the next generations
 authors:
 - admin 
 - Malte Jochum
@@ -19,6 +19,8 @@ url_pdf: ""
 url_slides: ""
 url_video: ""
 ---
+
+Find out about our collection, the articles and their authors [here](https://kids.frontiersin.org/collection/11796/soil-biodiversity)
 
 About this collection:
 
