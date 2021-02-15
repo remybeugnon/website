@@ -1,8 +1,8 @@
 ---
-date: "2016-04-27T00:00:00Z"
+date: "2018-07-01T00:00:00Z"
 external_link: ""
 image:
-  caption: Photo by rawpixel on Unsplash
+  caption: BEF China
   focal_point: Smart
 summary: "TreeDì - 林地 - TreeDiversity Interactions: The role of tree-tree interactions in local neighbourhoods in Chinese subtropical forests"
 tags:
