@@ -16,7 +16,7 @@ subtitle:
 # - Add/remove as many `feature` blocks below as you like.
 # - For available icons, see: https://wowchemy.com/docs/page-builder/#icons
 feature:
-- description: 15%
+- description: 10%
   icon: hiking
   icon_pack: fas
   name: Field
@@ -31,7 +31,11 @@ feature:
 - description: 30%
   icon: pencil-alt
   icon_pack: fas
-  name: writing
+  name: Writing
+- description: 5%
+  icon: conversation
+  icon_pack: ai
+  name: Talks
 
 # Uncomment to use emoji icons.
 #- icon = ":smile:"

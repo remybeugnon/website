@@ -10,9 +10,9 @@ active: false
 headless: false
 
 # Order that this section appears on the page.
-weight: 15
+weight: 35
 
-title: Hugo Academic Theme Demo
+title: Moments
 subtitle:
 
 design:
@@ -28,16 +28,11 @@ design:
     padding: ["20px", "0", "20px", "0"]
 ---
 
-Welcome to the demo of the **academic resumé template** for Wowchemy, the Website Builder for Hugo.
-
-[Explore similar templates](https://wowchemy.com/templates/)
-
-**Over 500,000 [Amazing Websites](https://wowchemy.com/) have Already Been Built with Wowchemy**
-
-**[Join](https://wowchemy.com/templates/) the Most Empowered Hugo Community**
-
-{{% callout note %}}
-This homepage section is an example of adding [elements](https://wowchemy.com/docs/content/writing-markdown-latex/) to the [*Blank* widget](https://wowchemy.com/docs/getting-started/page-builder/).
-
-Backgrounds can be applied to any section. Here, the *background* option is set give an *image parallax* effect.
-{{% /callout %}}
+<a class="twitter-timeline" 
+data-height="500" 
+data-width="500" 
+tweet-limit = 5 
+data-dnt="true" 
+href="https://twitter.com/BeugnonRemy?ref_src=twsrc%5Etfw">Tweets by BeugnonRemy
+</a> 
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 

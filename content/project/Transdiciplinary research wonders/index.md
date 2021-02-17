@@ -4,7 +4,7 @@ external_link: ""
 image:
   caption: "Credential Forbes"
   focal_point: Smart
-summary: Soon this new project
+summary: Will be out soon
 authors:
 - admin 
 - Marie Suennemann
