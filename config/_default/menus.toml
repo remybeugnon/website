@@ -21,8 +21,7 @@
   name = "Talks"
   url = "#talks"
   weight = 50
-
-
+  
 [[main]]
   name = "Supervision"
   url = "courses/"
