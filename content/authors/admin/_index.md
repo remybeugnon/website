@@ -21,6 +21,9 @@ social:
 - icon: orcid
   icon_pack: fab
   link: https://orcid.org/0000-0003-2457-5688
+- icon: publons
+  icon_pack: ai
+  link: https://publons.com/researcher/3282453/remy-beugnon/
 - icon: cv
   icon_pack: ai
   link: 'author/remy-beugnon/Rémy Beugnon CV.pdf'
