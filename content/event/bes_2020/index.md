@@ -14,24 +14,11 @@ location: Online
 projects:
 - TreeDi
 publishDate: "2020-12-14T00:00:00Z"
-slides: bes2020
 summary: Talk to the BES 2020
 tags: []
-title: Example Talk
+title: BES 2020
 url_code: ""
-url_pdf: ""
+url_pdf: "event/bes_2020/talk.pdf"
 url_slides: ""
 url_video: ""
 ---
-
-{{% callout note %}}
-Click on the **Slides** button above to view the built-in slides feature.
-{{% /callout %}}
-
-Slides can be added in a few ways:
-
-- **Create** slides using Wowchemy's [*Slides*](https://wowchemy.com/docs/managing-content/#create-slides) feature and link using `slides` parameter in the front matter of the talk file
-- **Upload** an existing slide deck to `static/` and link using `url_slides` parameter in the front matter of the talk file
-- **Embed** your slides (e.g. Google Slides) or presentation video on this page using [shortcodes](https://wowchemy.com/docs/writing-markdown-latex/).
-
-Further event details, including [page elements](https://wowchemy.com/docs/writing-markdown-latex/) such as image galleries, can be added to the body of this page.
