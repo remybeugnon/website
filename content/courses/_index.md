@@ -2,8 +2,8 @@
 header:
   caption: ""
   image: ""
-title: Courses
+title: Students
 type: page
 ---
 
-I teach the following courses:
+My students and their projects:

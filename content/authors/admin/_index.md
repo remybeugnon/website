@@ -30,6 +30,7 @@ social:
   
 superuser: false
 title: Remy Beugnon
+user_groups: ["Researchers"]
 ---
 
   My interest is to understand ecosystem functioning and more specially soil functioning. I am interested to understand how organisms are interacting and how they are integrated in the whole ecosystem. We are losing species from all phyla in all ecosystems all around the world, the consequences for ecosystem functioning are unpredictable. Understanding how species are interacting and link to their environment is a prerequisite to understand ecosystem functioning and the consequences of species loss. My research is based on a tree Biodiversity-Ecosystem Functioning experiment; BEF China; where I am focusing on tree-tree interactions consequences for soil functioning from soil carbon and nitrogen cycling modeling to microbial community composition and functioning measurements and including decomposition experiments. I am doing this work as part of the TreeDì doctoral school (TreeDì) which is aiming to understand tree – tree interactions in Chinese subtropical forest within the BEF China platform.
