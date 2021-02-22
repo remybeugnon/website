@@ -25,7 +25,7 @@ tags:
 - Soil fauna
 
 title: Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
-url_code: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7326606/"
+url_code: ""
 url_dataset: ""
 url_pdf: "/publication/Cesarz et al 2019/Cesarz et al 2019.pdf"
 url_poster: ""

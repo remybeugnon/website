@@ -1,0 +1,44 @@
+---
+title: "Hot in Press"
+author: admin
+date: '`r format(Sys.Date(), "%Y-%m-%d")`'
+categories: ["literature research"]
+tags: ["literature"]
+summary: Review of the articles we found in the past few weeks
+---
+
+<style>
+  .col2 {
+    columns: 2 200px;         /* number of columns and width in pixels*/
+    -webkit-columns: 2 200px; /* chrome, safari */
+    -moz-columns: 2 200px;    /* firefox */
+  }
+  .col3 {
+    columns: 3 100px;
+    -webkit-columns: 3 100px;
+    -moz-columns: 3 100px;
+  }
+</style>
+
+<div class="col2">
+
+# Article from last week
+```{r,echo=FALSE, warning=FALSE, message=FALSE}
+library(googlesheets4)
+library(dplyr)
+
+form = read_sheet("https://docs.google.com/spreadsheets/d/1RbL6vgRC_ZvTYL8Qh3uoAFBNeuach2gnLiNW92KxwAA/edit?usp=sharing")
+form$Horodateur = form$Horodateur %>% stringr::str_sub(.,1,10) %>% as.Date(.,format = "%Y-%m-%d")
+
+form %>% filter(Horodateur > (format(Sys.Date()-7, "%Y-%m-%d")) ) %>%
+  select(Title) %>%
+  kableExtra::kable()
+
+```
+
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd53dAnWEsl-tP6eomio6LSx-zgUwd6s-SMEIX0960AQMptGA/viewform?embedded=true" height = "400" frameborder="0" marginheight="0" marginwidth="0">Chargement…</iframe>
+
+
+</div>
+
+# Previously
