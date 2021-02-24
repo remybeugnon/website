@@ -6,39 +6,65 @@ categories: ["literature research"]
 tags: ["literature"]
 summary: Review of the articles we found in the past few weeks
 ---
-
-<style>
-  .col2 {
-    columns: 2 200px;         /* number of columns and width in pixels*/
-    -webkit-columns: 2 200px; /* chrome, safari */
-    -moz-columns: 2 200px;    /* firefox */
-  }
-  .col3 {
-    columns: 3 100px;
-    -webkit-columns: 3 100px;
-    -moz-columns: 3 100px;
-  }
-</style>
-
-<div class="col2">
-
-# Article from last week
+## In press this week
 ```{r,echo=FALSE, warning=FALSE, message=FALSE}
 library(googlesheets4)
 library(dplyr)
+library(kableExtra)
+library(lubridate)
 
 form = read_sheet("https://docs.google.com/spreadsheets/d/1RbL6vgRC_ZvTYL8Qh3uoAFBNeuach2gnLiNW92KxwAA/edit?usp=sharing")
 form$Horodateur = form$Horodateur %>% stringr::str_sub(.,1,10) %>% as.Date(.,format = "%Y-%m-%d")
 
+form = 
+  form %>% 
+  distinct(Title, .keep_all = TRUE) %>% 
+  distinct(`DOI (full URL)`, .keep_all = TRUE) %>%
+  filter(!is.na(Title))
+
 form %>% filter(Horodateur > (format(Sys.Date()-7, "%Y-%m-%d")) ) %>%
-  select(Title) %>%
-  kableExtra::kable()
+  mutate(text=paste(Title, " <a href=\"",`DOI (full URL)`,"\">(DOI)</a>",sep="")) %>%
+  select(text) %>%
+  kable(., format = "html", escape = FALSE, col.names = NULL) %>%
+  kable_styling(bootstrap_options = c("hover", "condensed")) 
 
 ```
 
-<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd53dAnWEsl-tP6eomio6LSx-zgUwd6s-SMEIX0960AQMptGA/viewform?embedded=true" height = "400" frameborder="0" marginheight="0" marginwidth="0">Chargement…</iframe>
+## If you find something nice just contribute
 
-
+<div style="text-align:center">
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd53dAnWEsl-tP6eomio6LSx-zgUwd6s-SMEIX0960AQMptGA/viewform?embedded=true" height = "500" width = "500" frameborder="0" marginheight="0" marginwidth="0">Chargement…</iframe>
 </div>
 
-# Previously
+## Previously in "Hot in Press"
+### This month
+```{r,echo=FALSE, warning=FALSE, message=FALSE}
+form %>% filter(Horodateur < (format(Sys.Date()-7, "%Y-%m-%d")) & 
+                  Horodateur > format(floor_date(as.Date(Sys.Date()), "month"), "%Y-%m-%d")) %>%
+  mutate(text=paste(Title, " <a href=\"",`DOI (full URL)`,"\">(DOI)</a>",sep="")) %>%
+  select(text) %>%
+  kable(., format = "html", escape = FALSE, col.names = NULL) %>%
+  kable_styling(bootstrap_options = c("hover", "condensed")) 
+
+```
+
+### This year
+```{r,echo=FALSE, warning=FALSE, message=FALSE}
+form %>% filter(Horodateur < format(floor_date(as.Date(Sys.Date()), "month"), "%Y-%m-%d") & 
+                  Horodateur > format(floor_date(as.Date(Sys.Date()), "year"), "%Y-%m-%d")) %>%
+  mutate(text=paste(Title, " <a href=\"",`DOI (full URL)`,"\">(DOI)</a>",sep="")) %>%
+  select(text) %>%
+  kable(., format = "html", escape = FALSE, col.names = NULL) %>%
+  kable_styling(bootstrap_options = c("hover", "condensed")) 
+
+```
+
+### Even before 
+```{r,echo=FALSE, warning=FALSE, message=FALSE}
+form %>% filter(Horodateur < format(floor_date(as.Date(Sys.Date()), "year"), "%Y-%m-%d")) %>%
+  mutate(text=paste(Title, " <a href=\"",`DOI (full URL)`,"\">(DOI)</a>",sep="")) %>%
+  select(text) %>%
+  kable(., format = "html", escape = FALSE, col.names = NULL) %>%
+  kable_styling(bootstrap_options = c("hover", "condensed")) 
+
+```
