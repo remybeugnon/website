@@ -26,7 +26,7 @@ social:
   link: https://publons.com/researcher/3282453/remy-beugnon/
 - icon: cv
   icon_pack: ai
-  link: 'author/remy-beugnon/Rémy Beugnon CV.pdf'
+  link: 'author/remy-beugnon/remybeugnon.pdf'
   
 superuser: false
 title: Remy Beugnon
