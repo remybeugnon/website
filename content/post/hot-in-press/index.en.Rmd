@@ -23,7 +23,7 @@ form =
   filter(!is.na(Title))
 
 form %>% filter(Horodateur > (format(Sys.Date()-7, "%Y-%m-%d")) ) %>%
-  mutate(text=paste(Title, " <a href=\"",`DOI (full URL)`,"\">(DOI)</a>",sep="")) %>%
+  mutate(text=paste("<b>", Title, "</b>", " <a href=\"",`DOI (full URL)`,"\">(DOI) </a> ", if(!is.na(Keywords)){Keywords}, if(!is.na(`Comments:`)){`Comments:`},sep="")) %>%
   select(text) %>%
   kable(., format = "html", escape = FALSE, col.names = NULL) %>%
   kable_styling(bootstrap_options = c("hover", "condensed")) 
@@ -33,18 +33,21 @@ form %>% filter(Horodateur > (format(Sys.Date()-7, "%Y-%m-%d")) ) %>%
 ## If you find something nice just contribute
 
 <div style="text-align:center">
-<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd53dAnWEsl-tP6eomio6LSx-zgUwd6s-SMEIX0960AQMptGA/viewform?embedded=true" height = "500" width = "500" frameborder="0" marginheight="0" marginwidth="0">Chargement…</iframe>
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd53dAnWEsl-tP6eomio6LSx-zgUwd6s-SMEIX0960AQMptGA/viewform?embedded=true" height = "800" width = "500" frameborder="0" marginheight="0" marginwidth="0">Chargement…</iframe>
 </div>
 
 ## Previously in "Hot in Press"
 ### This month
 ```{r,echo=FALSE, warning=FALSE, message=FALSE}
-form %>% filter(Horodateur < (format(Sys.Date()-7, "%Y-%m-%d")) & 
+
+if((format(Sys.Date()-7, "%Y-%m-%d"))>format(floor_date(as.Date(Sys.Date()), "month"), "%Y-%m-%d")){
+  form %>% filter(Horodateur < (format(Sys.Date()-7, "%Y-%m-%d")) & 
                   Horodateur > format(floor_date(as.Date(Sys.Date()), "month"), "%Y-%m-%d")) %>%
-  mutate(text=paste(Title, " <a href=\"",`DOI (full URL)`,"\">(DOI)</a>",sep="")) %>%
+  mutate(text=paste("<b>", Title, "</b>", " <a href=\"",`DOI (full URL)`,"\">(DOI) </a> ", if(!is.na(Keywords)){Keywords}, if(!is.na(`Comments:`)){`Comments:`},sep="")) %>%
   select(text) %>%
   kable(., format = "html", escape = FALSE, col.names = NULL) %>%
   kable_styling(bootstrap_options = c("hover", "condensed")) 
+}
 
 ```
 
@@ -52,7 +55,7 @@ form %>% filter(Horodateur < (format(Sys.Date()-7, "%Y-%m-%d")) &
 ```{r,echo=FALSE, warning=FALSE, message=FALSE}
 form %>% filter(Horodateur < format(floor_date(as.Date(Sys.Date()), "month"), "%Y-%m-%d") & 
                   Horodateur > format(floor_date(as.Date(Sys.Date()), "year"), "%Y-%m-%d")) %>%
-  mutate(text=paste(Title, " <a href=\"",`DOI (full URL)`,"\">(DOI)</a>",sep="")) %>%
+  mutate(text=paste("<b>", Title, "</b>", " <a href=\"",`DOI (full URL)`,"\">(DOI) </a> ", if(!is.na(Keywords)){Keywords}, if(!is.na(`Comments:`)){`Comments:`},sep="")) %>%
   select(text) %>%
   kable(., format = "html", escape = FALSE, col.names = NULL) %>%
   kable_styling(bootstrap_options = c("hover", "condensed")) 
@@ -62,7 +65,7 @@ form %>% filter(Horodateur < format(floor_date(as.Date(Sys.Date()), "month"), "%
 ### Even before 
 ```{r,echo=FALSE, warning=FALSE, message=FALSE}
 form %>% filter(Horodateur < format(floor_date(as.Date(Sys.Date()), "year"), "%Y-%m-%d")) %>%
-  mutate(text=paste(Title, " <a href=\"",`DOI (full URL)`,"\">(DOI)</a>",sep="")) %>%
+  mutate(text=paste("<b>", Title, "</b>", " <a href=\"",`DOI (full URL)`,"\">(DOI)</a> ", if(!is.na(Keywords)){Keywords}, if(!is.na(`Comments:`)){`Comments:`},sep="")) %>%
   select(text) %>%
   kable(., format = "html", escape = FALSE, col.names = NULL) %>%
   kable_styling(bootstrap_options = c("hover", "condensed")) 
