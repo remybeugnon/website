@@ -4,7 +4,7 @@ author: admin
 date: '`r format(Sys.Date(), "%Y-%m-%d")`'
 categories: ["literature research"]
 tags: ["literature"]
-summary: Review of the articles we found in the past few weeks
+summary: Review of the articles we found in the past few weeks.
 ---
 ## In press this week
 ```{r,echo=FALSE, warning=FALSE, message=FALSE}
@@ -30,7 +30,7 @@ form %>% filter(Horodateur > (format(Sys.Date()-7, "%Y-%m-%d")) ) %>%
 
 ```
 
-## If you find something nice just contribute
+## If you find something nice feel free to contribute
 
 <div style="text-align:center">
 <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd53dAnWEsl-tP6eomio6LSx-zgUwd6s-SMEIX0960AQMptGA/viewform?embedded=true" height = "800" width = "500" frameborder="0" marginheight="0" marginwidth="0">Chargement…</iframe>
