@@ -4,16 +4,14 @@ external_link: ""
 image:
   caption: "Credential Forbes"
   focal_point: Smart
-summary: Will be out soon
+summary: What does transdisciplinary research means for ecologists?  
 authors:
 - admin 
 - Marie Suennemann
 tags:
 title: Transdiciplinary wonders
-url_code: ""
-url_pdf: ""
-url_slides: ""
-url_video: ""
 ---
 
-Will be out soon
+Ecology is by definition an aggregation of life science disciplines, with tools regularly drawn from other disciplines such as mathematics, engineering or chemistry. When researchers integrate these other disciplines into their research framework, rather than just using their tools, the story becomes transdisciplinary! 
+At a time when funding agencies keep calling for more transdisciplinary in research, we need to take a closer look at what this means for researchers and their work. What can we learn and gain from it? What are the main limitations and drawbacks? 
+In this project, we aim to describe and understand what transdisciplinary research means in practice by conducting a series of short interviews with researchers at the interface between ecology and other disciplines such as mathematics, physics, medicine, citizen science, social science, philosophy or politics.

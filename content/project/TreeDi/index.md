@@ -9,6 +9,9 @@ tags:
 - PhD
 - BEF
 - Soil
+authors:
+- admin 
+- Georg Haehn
 title: TreeDì
 url_code: ""
 url_pdf: ""
