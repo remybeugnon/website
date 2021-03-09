@@ -9,7 +9,7 @@ authors:
 - admin 
 - Marie Suennemann
 tags:
-title: TransdiSciplinary wonders
+title: Transdisciplinary wonders
 ---
 
 Ecology is by definition an aggregation of life science disciplines, with tools regularly drawn from other disciplines such as mathematics, engineering or chemistry. When researchers integrate these other disciplines into their research framework, rather than just using their tools, the story becomes transdisciplinary! 
