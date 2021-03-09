@@ -4,7 +4,7 @@ external_link: ""
 image:
   caption: "Credential Forbes"
   focal_point: Smart
-summary: What does transdisciplinary research means for ecologists?  
+summary: What does transdisciplinary research mean for ecologists?  
 authors:
 - admin 
 - Marie Suennemann
