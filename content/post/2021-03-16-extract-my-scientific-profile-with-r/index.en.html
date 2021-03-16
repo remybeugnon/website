@@ -50,14 +50,6 @@ Made a fancy figure for job/grant applications summarizing my publications and r
 )
 
 invisible(lapply(libs, library, character.only = T))</code></pre>
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
 </div>
 <div id="data-collection" class="section level1">
 <h1>Data collection</h1>
@@ -117,7 +109,7 @@ my_request</code></pre>
 ## [1] &quot;1&quot;
 ## 
 ## $WebEnv
-## [1] &quot;MCID_6050ccfe5252d921ae297e94&quot;
+## [1] &quot;MCID_6050f8a65afcd968ef7f35c5&quot;
 ## 
 ## $IdList
 ## $IdList$Id
@@ -132,8 +124,8 @@ my_request</code></pre>
 ## 
 ## $OriginalQuery
 ## [1] &quot;testing[Title]+AND+soil[Title]+AND+nematode[Title]+AND+extraction[Title]+AND+efficiency[Title]+AND+different[Title]+AND+variations[Title]+AND+baermann-funnel[Title]+AND+method[Title]&quot;</code></pre>
-<p>1.3 Use <strong>get_pubmed_ids_by_fulltitle()</strong> function to fetch the reference</p>
-<p>The function will return a string of characters with all PubMed data in the xml format. However, some of your articles may not be available on PubMed, for example, thesis, gray literature, or small journals. When this is the case, either the information needed is available on Google Sholar and you can use the <em>scholar</em> package functions to grep them, or you may need to proceed manually to fill your dataset.</p>
+<p>1.3 Use <strong>fetch_pubmed_data()</strong> function to fetch the reference</p>
+<p>The function will return a string of characters with all PubMed data in the xml format. However, some of your articles may not be available on PubMed, for example, thesis, gray literature, or small journals. When this is the case, either the information needed is available on Google Scholar and you can use the <em>scholar</em> package functions to grep them, or you may need to proceed manually to fill your dataset.</p>
 <pre class="r"><code>my_xml &lt;- fetch_pubmed_data(my_request)
 
 my_xml</code></pre>
@@ -163,9 +155,7 @@ for(j in 1 : length(pub$title)){
     {
       my_entrez_id &lt;- get_pubmed_ids_by_fulltitle(pub$title[j], field = &quot;[Title]&quot;)
       my_xml &lt;- fetch_pubmed_data(my_entrez_id)
-    
-      affiliation = 
-    
+
       affiliations = bind_rows(
         affiliations, 
         data.frame(
@@ -186,25 +176,21 @@ for(j in 1 : length(pub$title)){
         affiliation = &quot;NOT FOUND&quot;)
       )
   next }  # To continue the script in the next occurrence
-}</code></pre>
-<pre><code>## Killing the request! Something is not working. Please, try again later
-## Killing the request! Something is not working. Please, try again later
-## Killing the request! Something is not working. Please, try again later</code></pre>
-<pre class="r"><code>affiliations</code></pre>
-<pre><code>##                                                                                                             title
-## 1                                                                                                            &lt;NA&gt;
-## 2            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
-## 3            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
-## 4            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
-## 5            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
-## 6            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
-## 7            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
-## 8            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
-## 9            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
-## 10           Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
-## 11 Plant functional trait identity and diversity effects on soil meso-and macrofauna in an experimental grassland
-## 12                                          Do invasive earthworms affect the functional traits of native plants?
-## 13     Diplôme de Master 2 Mention Biodiversité—Écologie—Évolution Parcours DARWIN: Biologie Évolutive &amp; Écologie
+}
+
+affiliations
+save(affiliations, file = &quot;affiliation.RData&quot;)</code></pre>
+<pre><code>##                                                                                                   title
+## 1                                                                                                  &lt;NA&gt;
+## 2  Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 3  Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 4  Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 5  Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 6  Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 7  Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 8  Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 9  Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 10 Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
 ##                                                                                                                   affiliation
 ## 1                                                                                                                        &lt;NA&gt;
 ## 2  German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.
@@ -215,10 +201,7 @@ for(j in 1 : length(pub$title)){
 ## 7                                    Institute of Biology, University of Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.
 ## 8  German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.
 ## 9                                    Institute of Biology, University of Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.
-## 10                     Institute of Ecology, Friedrich Schiller University of Jena, Dornburger Str. 159, 07743 Jena, Germany.
-## 11                                                                                                                  NOT FOUND
-## 12                                                                                                                  NOT FOUND
-## 13                                                                                                                  NOT FOUND</code></pre>
+## 10                     Institute of Ecology, Friedrich Schiller University of Jena, Dornburger Str. 159, 07743 Jena, Germany.</code></pre>
 <p>1.6 Extraction of the cities and countries from the affiliations</p>
 <p>Once you have all the affiliations you may like to plot them on a map. For that, you need to extract the cities and countries. The following code is most likely not the most efficient way to do it, but it gives a first idea.</p>
 <p>1.6.1 List of cities</p>
@@ -265,26 +248,23 @@ for(af in unique(affiliations$affiliation)){
 affiliations = left_join(affiliations, df.cities, by = &quot;affiliation&quot;)
 
 affiliations</code></pre>
-<pre><code>##                                                                                                             title
-## 1                                                                                                            &lt;NA&gt;
-## 2            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
-## 3            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
-## 4            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
-## 5            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
-## 6            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
-## 7            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
-## 8            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
-## 9            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
-## 10           Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
-## 11           Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
-## 12           Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
-## 13           Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
-## 14           Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
-## 15           Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
-## 16           Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
-## 17 Plant functional trait identity and diversity effects on soil meso-and macrofauna in an experimental grassland
-## 18                                          Do invasive earthworms affect the functional traits of native plants?
-## 19     Diplôme de Master 2 Mention Biodiversité—Écologie—Évolution Parcours DARWIN: Biologie Évolutive &amp; Écologie
+<pre><code>##                                                                                                   title
+## 1                                                                                                  &lt;NA&gt;
+## 2  Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 3  Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 4  Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 5  Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 6  Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 7  Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 8  Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 9  Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 10 Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 11 Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 12 Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 13 Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 14 Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 15 Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 16 Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
 ##                                                                                                                   affiliation
 ## 1                                                                                                                        &lt;NA&gt;
 ## 2  German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.
@@ -302,9 +282,6 @@ affiliations</code></pre>
 ## 14 German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.
 ## 15                                   Institute of Biology, University of Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.
 ## 16                     Institute of Ecology, Friedrich Schiller University of Jena, Dornburger Str. 159, 07743 Jena, Germany.
-## 17                                                                                                                  NOT FOUND
-## 18                                                                                                                  NOT FOUND
-## 19                                                                                                                  NOT FOUND
 ##       City Country   lat  long
 ## 1     &lt;NA&gt;    &lt;NA&gt;    NA    NA
 ## 2    Halle Germany 52.07  8.35
@@ -321,28 +298,117 @@ affiliations</code></pre>
 ## 13    Jena Germany 50.93 11.58
 ## 14 Leipzig Germany 51.35 12.40
 ## 15 Leipzig Germany 51.35 12.40
-## 16    Jena Germany 50.93 11.58
-## 17    &lt;NA&gt;    &lt;NA&gt;    NA    NA
-## 18    &lt;NA&gt;    &lt;NA&gt;    NA    NA
-## 19    &lt;NA&gt;    &lt;NA&gt;    NA    NA</code></pre>
+## 16    Jena Germany 50.93 11.58</code></pre>
 </div>
 </div>
 <div id="example-of-outputs" class="section level1">
 <h1>Example of outputs</h1>
-<div id="wordcloud-of-you-manuscript-titles" class="section level2">
-<h2>Wordcloud of you manuscript titles</h2>
-<pre class="r"><code>library(&quot;tm&quot;)</code></pre>
-<pre><code>## Loading required package: NLP</code></pre>
-<pre><code>## 
-## Attaching package: &#39;NLP&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
-## 
-##     annotate</code></pre>
-<pre class="r"><code>library(&quot;SnowballC&quot;)
-library(&quot;wordcloud&quot;)</code></pre>
-<pre><code>## Loading required package: RColorBrewer</code></pre>
-<pre class="r"><code>library(&quot;wordcloud2&quot;)
+<div id="table-of-publications" class="section level2">
+<h2>Table of publications</h2>
+<pre class="r"><code>pub %&gt;% 
+  data.frame() %&gt;%
+  select(Title = title, Authors = author, 
+         Journal = journal, `Vol(Issue),page` = number,
+         Year = year) %&gt;%
+  kableExtra::kable()</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Title
+</th>
+<th style="text-align:left;">
+Authors
+</th>
+<th style="text-align:left;">
+Journal
+</th>
+<th style="text-align:left;">
+Vol(Issue),page
+</th>
+<th style="text-align:right;">
+Year
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+</td>
+<td style="text-align:left;">
+S Cesarz, AE Schulz, R Beugnon, N Eisenhauer
+</td>
+<td style="text-align:left;">
+Soil organisms
+</td>
+<td style="text-align:left;">
+91 (2), 61
+</td>
+<td style="text-align:right;">
+2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Plant functional trait identity and diversity effects on soil meso-and macrofauna in an experimental grassland
+</td>
+<td style="text-align:left;">
+R Beugnon, K Steinauer, AD Barnes, A Ebeling, C Roscher, …
+</td>
+<td style="text-align:left;">
+Advances in Ecological Research
+</td>
+<td style="text-align:left;">
+61, 163-184
+</td>
+<td style="text-align:right;">
+2019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Do invasive earthworms affect the functional traits of native plants?
+</td>
+<td style="text-align:left;">
+L Thouvenot, O Ferlian, R Beugnon, T Künne, A Lochner, MP Thakur, …
+</td>
+<td style="text-align:left;">
+Frontiers in Plant Science
+</td>
+<td style="text-align:left;">
+12, 424
+</td>
+<td style="text-align:right;">
+2021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Diplôme de Master 2 Mention Biodiversité—Écologie—Évolution Parcours DARWIN: Biologie Évolutive &amp; Écologie
+</td>
+<td style="text-align:left;">
+R Beugnon
+</td>
+<td style="text-align:left;">
+Montpellier SupAgro
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:right;">
+2018
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="wordcloud-of-your-manuscript-titles" class="section level2">
+<h2>Wordcloud of your manuscript titles</h2>
+<pre class="r"><code>library(&quot;tm&quot;)
+library(&quot;SnowballC&quot;)
+library(&quot;wordcloud2&quot;)
 
+# List of words to remove
 list.stop = c(&#39;affect&#39;, &#39;effects&#39;, &#39;using&#39;)
 
 docs &lt;- Corpus(VectorSource(pub$title))
@@ -381,6 +447,20 @@ wordcloud2(data = d,
            color = col.pal(10))</code></pre>
 <div id="htmlwidget-1" style="width:672px;height:480px;" class="wordcloud2 html-widget"></div>
 <script type="application/json" data-for="htmlwidget-1">{"x":{"word":["soil","functional","baermannfunnel","different","efficiency","extraction","method","nematode","testing","variations","diversity","experimental","grassland","identity","macrofauna","meso","plant","trait","earthworms","invasive","native","plants","traits","biodiversité—écologie—évolution","biologie","darwin","diplôme","master","mention","parcours","écologie","évolutive"],"freq":[2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"fontFamily":"Segoe UI","fontWeight":"bold","color":["#A52A2A","#923025","#803620","#6E3D1C","#5B4317","#494A12","#37500E","#245709","#125D04","#006400"],"minSize":0,"weightFactor":90,"backgroundColor":"white","gridSize":0,"minRotation":-0.785398163397448,"maxRotation":0.785398163397448,"shuffle":true,"rotateRatio":0.4,"shape":"circle","ellipticity":0.65,"figBase64":null,"hover":null},"evals":[],"jsHooks":{"render":[{"code":"function(el,x){\n                        console.log(123);\n                        if(!iii){\n                          window.location.reload();\n                          iii = False;\n\n                        }\n  }","data":null}]}}</script>
+<p>Example with my PhD supervisor Nico Eisenhauer with quite some more publications</p>
+<pre><code>##                      word freq
+## soil                 soil  159
+## plant               plant  139
+## diversity       diversity  112
+## biodiversity biodiversity   58
+## microbial       microbial   50
+## grassland       grassland   50
+## ecosystem       ecosystem   47
+## communities   communities   45
+## species           species   40
+## community       community   38</code></pre>
+<div id="htmlwidget-2" style="width:672px;height:480px;" class="wordcloud2 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"word":["soil","plant","diversity","biodiversity","microbial","grassland","ecosystem","communities","species","community","earthworms","global","experimental","earthworm","functioning","change","functional","composition","across","climate","properties","warming","nematode","experiment","interactions","biomass","productivity","litter","stability","research","tree","changes","forest","food","richness","function","impacts","mechanisms","functions","invasive","nutrient","carbon","experiments","grasslands","different","elevated","gradient","temporal","biodiversity–ecosystem","ecosystems","relationships","spatial","leaf","trophic","drought","webs","abiotic","biotic","plants","multiple","shifts","activity","enhances","invasion","belowground","nitrogen","decomposition","identity","conditions","seed","data","increases","root","biota","groups","environmental","relationship","temperate","forests","ecological","traits","growth","herbivory","responses","response","multitrophic","bacterial","animal","competition","north","performance","common","exotic","fauna","use","loss","storage","chemistry","organisms","promotes","drives","drivers","drive","density","structure","underlying","organic","via","native","herbivore","inputs","soils","alters","chemical","levels","ecology","longterm","link","high","establishment","brazil","northeast","availability","resource","invertebrates","review","group","distribution","influence","future","aboveground","assessment","processes","management","nutrients","assembly","taxonomic","history","fertilization","land","landuse","time","deciduous","increasing","deposition","fungal","model","years","lands","restored","facets","linking","diverse","increase","along","introduced","efficiency","two","world","web","approach","depend","mycorrhizal","invertebrate","predictors","predators","interactively","modulate","impact","science","trait","northern","temperature","control","production","phenology","decline","determine","general","call","microorganisms","microarthropods","modeling","structural","open","stronger","action","main","exudates","genotypic","interactive","complementarity","factors","irrespective","invasibility","niche","degraded","collembola","direct","indirect","flooding","reduce","american","meta‐analysis","key","importance","extraction","methods","consequences","integration","theory","towards","arbuscular","fungi","decomposer","monocultures","respiration","synthesis","arthropods","seedling","deer","wheat","herbaceous","engineers","rates","canopy","agricultural","challenges","policy","flood","long‐term","maintains","net","area","consistent","indicators","specific","lumbricus","terrestris","determines","matter","water","abundance","america","networks","test","enhance","contrasting","modulates","biological","faunal","alter","evidence","poor","dispersal","abovegroundbelowground","method","variations","mixtures","effect","maps","worms","decreasing","international","destabilizing","eutrophication","scales","collaboration","vol","author","correction","bottom","resistance","redundancy","habitats","multifunctionality","summer","benefits","sustainable","equation","patterns","understanding","year","antagonistic","improves","pathogens","driver","long","term","mediating","dissimilarity","recommendations","aboveground–belowground","organization","enzymes","enrichment","stabilizes","microbiome","rhizosphere","early","links","grasses","legumes","comparison","strength","endogeic","seeds","energy","disturbances","infiltration","functionally","vary","understand","region","size","resources","damage","directions","network","survival","seedlings","pathways","affects","induce","anecic","behavior","selected","declines","strengthen","cascades","new","state","emergence","detritivores","reduced","warmer","mass","gaps","ground","address","needed","sustainability","event","linkages","shape","priorities","growing","divergence","diversitydependent","despite","invariant","population","substantially","causes","dynamics","influenced","systems","complex","environments","greater","positive","resilience","three","content","possible","scale","competitive","perspective","addition","precipitation","aromatic","pahs","polycyclic","arthropod","prey","system","heterogeneity","integrative","database","biogeography","quality","insect","pedobiologia","consumption","hosts","feedbacks","nematodes","biodiversityecosystem","inorganic","cascading","success","dark","side","peatland","macrofauna","meso","detrimental","sustains","chambers","overyielding","can","evolution","stable","explain","limited","partitioning","mapping","turned","upside","gastropods","gut","characteristics","tibetan","intensive","removal","presence","surface","differences","testing","terrestrial","negative","implications","stressors","abundances","european","boreal","gradients","pathogen","status","archives","halfempty","sequencing","young","differ","ecotron","idiv","mineralization","gross","roadmap","comment","artificial","body","differential","parasitoids","indices","oxford","…","graminoids","metaanalysis","knowledge","diversityecosystem","access","journal","jena","controlling","changing","cos","induced","input","throughfall","extremes","escalate","fades","hypothesis","singular","support","microflora","vegetation","agroecosystems","causal","sem","questions","fostering","protection","soil‐borne","engineer","identification","surpasses","opposingly","cause","collapse","implementations","laboratory","four","seasonal","humidity","source","robust","disease","probiotic","suppression","biomes","stage","dimensionality","intraspecific","predict","relatedness","delayed","due","diversity–stability","aggregate","cocktails","exudate","flux","texture","invaders","unseen","extinction","quiet","recognizing","reintroducing","phylogenetically","earthworm–seed","dry","nondestructive","widespread","real","reveal","evaluate","services","traitbased","biodiversity–multifunctionality","measured","number","glomus","interrelated","intraradices","land‐use","semi‐arid","type","garden","stocks","role","light","season","pesticides","nutrition","great","lakes","understory","capacity","burial","incorporation","low","initial","worming’","‘global","bodysize","ecotonal","hierarchies","temperate–boreal","nonlinearity","steady","wave","decomposers","synergistic","guilds","interacting","reflect","bank","drier","feeding","buffer","early‐stage","diversityinvasibility","associated","ecotone","temperateboreal","fuel","erode","bacterium","biocontrol","expression","‐","‐ground","reliability","pathogensuppressive","potential","unravelling","surface‐active","antifungal","affected","less","negatively","species‐rich","frequent","short‐term","variation","components","consumer","browsing","central","europe","independent","silvicultural","southeastern","ungulate","cancels","plant‐feeding","decade","later","millennium","revisiting","society","ammonification","diversification","stimulates","buckthorn","cathartica","interact","rhamnus","beneficially","detrimentally","rather","better","cafe","integrating","artifacts","roof","separating","layer","mismatches","microbe‐rhizosphere","mobilisation","shapes","cooperation","evolutionary","predicts","make","trade","reproducibility","study","variability","energetic","attenuate","nonsignificant","significant","decade‐long","inconsistent","proportion","soilborne","disparity","floodinduced","modified","‘worming’","constant","seasons","semiarid","shift","moderate","subordinate","enzymatic","attenuation","compounds","natural","oxygenated","mutual","mycorrhizae","coexistence","magnifies","predation","reduces","enchytraeid","hardwood","individual","respond","stress","unimodally","near‐surface","soiltemp","motif","top","blind","spots","island","rhizodeposit","sequestration","subtropical","platform","toward","develop","established","forces","hypotheses","novel","structuring","cycling","depends","fast","microcosms","approaches","recent","strategies","trends","indirectly","parasitoid","seed‐feeding","stimulating","suppress","wasps","buffers","stabilize","weak","whales’","‘trophic","nematicide","transferring","‘realworld’ecosystems","macrodetritivore","behind","leaching","herb","invader","mediate","tall","regrowth","conceptual","diversity–ecosystem","framework","implementation","mycorrhiza","colonization","convergence","density‐dependent","resident","drainage","facilitates","subsequent","black","box","list","red","emanating","invasions","side‐swiped","barley","genotype","taxon","alleviate","extensive","grasslanduse","consecutive","higher","perturbations","increased","like","transgressive","elicits","legacy","metabolome","age","atlantic","brazilian","northeastern","atmospheric","chains","detritus‐based","inter‐annual","interdisciplinarity","additive","contribution","aphids","belowground–aboveground","deciphering","help","involving","isotope","labelling","disturbance–diversity","explained","marsh","salt","motifs","representation","agriculture","agroforestry","amphibian","colombia","montane","smallscale","feedback","outcome","plantsoil","connecting","realworld","ages","eucalyptus","grandis","plantations","realistic","results","flow","association","bird","foster","interspecific","stoichiometry","demand","harrison","metabolic","scaling","supply","morphological","selection","current","databases","initiatives","microclimatic","wood","level","related","non‐trophic","acquisition","baitlamina","dye","textile","visual","erosion","vulnerability","oak","inflexible","lost","space","speciespoor","mitigate","dispersallimited","endozoochory","service","shuttle","controls","herbivores","mammalian","pools","consumers","ratios","managed","capitulum","densitydependent","generate","intermediate","lotus","peak","yield","agrienvironment","endangered","helpers","herbs","unforeseen","weeds","outweighs","threat","collaborative","establishing","mineralisation","allocation","basal","exceed","concentrations","impair","pollutant","tropospheric","absence","evaluation","live","melladová","zquez","china","desert","dunes","sand","stabilised","succession","tengger","diphenols","discrepancies","ferrocenyl","large","reactivity","small","baermannfunnel","metaanalytic","advances","driving","laser","reveals","scanning","accelerated","mesocosm","regulates","localscale","reassessments","frugivores","interaction","ambient","climatic","defences","diversityherbivory","neighbourinduced","mediates","complexity","generality","predicting","trade‐offs","biorxiv","cooccurrence","recovery","ecoevolutionary","collected","meta","mechanistic","preface","cats","free‐ranging","genetic","lumbricidae","urban–rural","associations","congeneric","performances","lasius","niger","nitrate","alone","biodiversityn","cycle","pool","sizes","tracer","transformation","varying","dissimilar","altering","maintain","diversity‐dependent","plant–soil","primary","underlie","eastern","mites","plateau","springtails","table","zoige","accelerates","accumulation","grown","hydrocarbon","paddy","rice","fly","gallmaking","mortality","rate","spring","tephritid","timing","co‐occurrence","culture","effective","monitoring","needs","differently","infestation","metabolites","mycorrhized","secondary","defense","infection","trees","extrinsic","intrinsic","lessons","value","wbf","steam","sterilization","co‐limited","processing","remains","concentration","earthworms–","ecologists","soil”","“intestines","empirical","inferring","intransitivity","outcomes","ranks","soildwelling","inconsistently","mutualists","acids","fatty","generalist","indicated","isotopes","niches","natura","nonpriority","priority","baermann","funnel","alpherakjj","caterpillars","gynaephora","suppresses","biodiversitätsmanipulation","kontrollierten","multitrophische","umweltbedingungen","unter","significance","treetree","conserving","targeting","tracking","magnitude","agronomy","analysers","ecotrons","powerful","versatile","local","modulated","leads","ammonium","immobilization","β‐","γ‐diversity","biogeochemical","coupling","economy","jointly","life‐cycle","monoculture","preprint","version","even","wagg","wrong","bodies","buildings","moisture","organism","bardgett","pp£","press","university","wardle","geneva","health","individuals","ivpp","omanization","prepared","price","rozendaal","vector","passage","reinforces","treatments","asynchrony","destabilizes","homogenization","fertilized","intensify","calculations","considerations","energyflux","flux’s","sake","anthropocene","projections","profiles","classes","diversity”","“global","macroecology","multidimensionality","mediated","biodegradable","dissolved","downward","transport","aridity","decrease","overgrazing","spore","sustain","viability","dominant","non‐native","building","mar","decadelong","america—different","histories","life","lumbricid","map","putting","potentialities","del","los","mapa","mundial","nematodos","suelo","fieldwide","organisms–","information","issue","–","allows","rapid","regain","simulated","diversitystability","form","soil‐mediated","dominance","modules","stabilising","asymetric","predator","specialization","controlled","manipulation","biodiversityâ","nonâ","ekkehard","resolution","respect","torne","von","альтметрики","canadian","western","compounded","pest","improved","seminatural","abovegroundmelowground","einer","interaktionen","oberirdischunterirdische","sich","verändernden","welt","experimenting","field","frontiers","minds","outputs","recherche","résultats","nezbytné","politice","pro","problému","společné","udržitelnosti","zemědělské","změny","řešení","login","register","asynchronous","fluctuations","die","forschen","für","umwelt","modify","diversityproductivity","phytoplankton","spectral","immigration","mesocosms","mycelial","agents","demystifying","enigma","scenarios","cover","motivation","exclusion","insects","molluscs","govern"],"freq":[159,139,112,58,50,50,47,45,40,38,36,32,32,31,29,28,24,22,21,20,20,20,20,19,18,18,16,16,16,16,16,15,15,15,15,15,14,14,14,14,13,12,12,12,12,11,11,11,11,11,11,11,11,10,10,10,10,10,10,10,10,9,9,9,9,9,9,9,9,9,9,8,8,8,8,8,8,8,8,8,8,8,8,8,8,7,7,7,7,7,7,7,7,7,7,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"fontFamily":"Segoe UI","fontWeight":"bold","color":["#A52A2A","#923025","#803620","#6E3D1C","#5B4317","#494A12","#37500E","#245709","#125D04","#006400"],"minSize":0,"weightFactor":1.13207547169811,"backgroundColor":"white","gridSize":0,"minRotation":-0.785398163397448,"maxRotation":0.785398163397448,"shuffle":true,"rotateRatio":0.4,"shape":"circle","ellipticity":0.65,"figBase64":null,"hover":null},"evals":[],"jsHooks":{"render":[{"code":"function(el,x){\n                        console.log(123);\n                        if(!iii){\n                          window.location.reload();\n                          iii = False;\n\n                        }\n  }","data":null}]}}</script>
 </div>
 <div id="map-of-you-collaborators" class="section level2">
 <h2>Map of you collaborators</h2>
@@ -390,10 +470,10 @@ ggplot(data =  ne_countries(scale = &quot;medium&quot;, returnclass = &quot;sf&q
   geom_sf() +
   geom_point(data = affiliations, 
              aes(x = long, y = lat), 
-             size = 5,
+             size = 2,
              color = &#39;red&#39;,
              fill = &quot;blue&quot;) +
   labs(x = &#39;&#39;, y = &#39;&#39;)</code></pre>
-<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 </div>
 </div>

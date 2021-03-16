@@ -33,7 +33,7 @@ Now we are ready to start!
 
 We will need  to extract our scientific profile the R packages *scholar* and *easyPubMed*. The first will allow us the extract our scientific profile from Google Scholar, and the second to have more in-depth information about the articles on PubMed. 
 
-```{r, echo=T, include=T, warning=F}
+```{r, echo=T, include=T, warning=F, message=FALSE}
 libs <- c(
   'dplyr',
   'ggplot2',
@@ -50,7 +50,7 @@ invisible(lapply(libs, library, character.only = T))
 
 The package *scholar* is pretty handy, we will use the function **get_publication()** to extract the list of publications from Google Scholar. This function will reference your publications, titles, 5-6 first authors, journal, journal references (volume, pages), number of citations, year, and two Google Scholar ID "cid" and "pubid". the latest been the Google Scholar reference of your publication. This "pubid" will be useful in other scholar function like **get_complete_authors()**.
 
-```{r, echo=T, include=T, warning=F}
+```{r, echo=T, include=T, warning=F, message=FALSE}
 scholar.id = "fEd4WGYAAAAJ" 
 pub = get_publications(scholar.id)
 pub
@@ -66,7 +66,7 @@ As exemple, Google Scholar doesn't provide the affilation of your co-authors. Th
 
 1.1 Find the title in "pub"
     
-```{r, echo=T, include=T, warning=F}
+```{r, echo=T, include=T, warning=F, message=FALSE}
 title = pub$title[1]
 
 title
@@ -74,17 +74,17 @@ title
 
 1.2 Use **get_pubmed_ids_by_fulltitle()** function to built your PubMed request
 
-```{r, echo=T, include=T, warning=F}
+```{r, echo=T, include=T, warning=F, message=FALSE}
 my_request <- get_pubmed_ids_by_fulltitle(title, field = "[Title]")
 
 my_request
 ```
 
-1.3 Use **get_pubmed_ids_by_fulltitle()** function to fetch the reference
+1.3 Use **fetch_pubmed_data()** function to fetch the reference
 
-The function will return a string of characters with all PubMed data in the xml format. However, some of your articles may not be available on PubMed, for example, thesis, gray literature, or small journals. When this is the case, either the information needed is available on Google Sholar and you can use the *scholar* package functions to grep them, or you may need to proceed manually to fill your dataset. 
+The function will return a string of characters with all PubMed data in the xml format. However, some of your articles may not be available on PubMed, for example, thesis, gray literature, or small journals. When this is the case, either the information needed is available on Google Scholar and you can use the *scholar* package functions to grep them, or you may need to proceed manually to fill your dataset. 
     
-```{r, echo=T, include=T, warning=F}
+```{r, echo=T, include=T, warning=F, message=FALSE}
 my_xml <- fetch_pubmed_data(my_request)
 
 my_xml
@@ -95,7 +95,7 @@ As you can see the output isn't super handy; the *easyPubMed* package provide a 
 
 For example the affiliation:
 
-```{r, echo=T, include=T, warning=F}
+```{r, echo=T, include=T, warning=F, message=FALSE}
 custom_grep(my_xml, tag = "Affiliation") %>% unlist
 ```
 
@@ -105,7 +105,7 @@ For example, you can find the following tags in the output: Year, Journal, ISSN,
 
 In this example, we will extract the affiliations of the authors from all papers. (This step can take quite some time to be performed)
 
-```{r, echo=T, include=T, warning=F}
+```{r, echo=T, include=T, warning=F, eval=F, message=FALSE}
 affiliations = data.frame(matrix(NA, ncol = 2, nrow = 1))
 colnames(affiliations) = c('title', 'affiliation')
 
@@ -115,9 +115,7 @@ for(j in 1 : length(pub$title)){
     {
       my_entrez_id <- get_pubmed_ids_by_fulltitle(pub$title[j], field = "[Title]")
       my_xml <- fetch_pubmed_data(my_entrez_id)
-    
-      affiliation = 
-    
+
       affiliations = bind_rows(
         affiliations, 
         data.frame(
@@ -141,6 +139,13 @@ for(j in 1 : length(pub$title)){
 }
 
 affiliations
+save(affiliations, file = "affiliation.RData")
+```
+
+```{r, echo=F}
+load("affiliation.RData")
+
+affiliations
 ```
 
 1.6 Extraction of the cities and countries from the affiliations
@@ -152,7 +157,7 @@ Once you have all the affiliations you may like to plot them on a map. For that,
 
 You will need the list of cities with their spatial positions (longitude and latitude). I am using the dataset **world.cities** from the package *maps*, but there are a lot of other possibilities. 
 
-```{r, echo=T, include=T, warning=F}
+```{r, echo=T, include=T, warning=F, message=FALSE}
 library(maps)
 
 head(world.cities)
@@ -160,7 +165,7 @@ head(world.cities)
 
 We will create a new dataset with all cities 
 
-```{r, echo=T, include=T, warning=F}
+```{r, echo=T, include=T, warning=F, message=FALSE}
 
 # New dataset
 df.cities = data.frame(matrix(NA, ncol = 5, nrow = 1))
@@ -197,16 +202,60 @@ affiliations
 
 # Example of outputs
 
-## Wordcloud of you manuscript titles
+## Table of publications
 
-```{r, echo=T, include=T, warning=F}
+```{r, echo=T, message=F, warning=F}
+pub %>% 
+  data.frame() %>%
+  select(Title = title, Authors = author, 
+         Journal = journal, `Vol(Issue),page` = number,
+         Year = year) %>%
+  kableExtra::kable()
+```
+
+## Wordcloud of your manuscript titles
+
+```{r, echo=T, include=T, warning=F, message=FALSE}
 library("tm")
 library("SnowballC")
 library("wordcloud2")
 
+# List of words to remove
 list.stop = c('affect', 'effects', 'using')
 
 docs <- Corpus(VectorSource(pub$title))
+toSpace <- content_transformer(function (x , pattern ) gsub(pattern, " ", x))
+docs <- docs %>%
+  tm_map(., toSpace, "/") %>%
+  tm_map(., toSpace, "@") %>%
+  tm_map(., toSpace, "\\|") %>%
+  tm_map(., content_transformer(tolower)) %>%
+  tm_map(., removeNumbers) %>%
+  tm_map(., removeWords, stopwords("english")) %>%
+  tm_map(., removeWords, list.stop) %>%
+  tm_map(., removePunctuation) %>%
+  tm_map(., stripWhitespace)
+
+dtm <- TermDocumentMatrix(docs)
+m <- as.matrix(dtm)
+v <- sort(rowSums(m),decreasing=TRUE)
+d <- data.frame(word = names(v),freq=v)
+head(d, 10)
+
+
+col.pal = colorRampPalette(colors = c('brown','Darkgreen'))
+
+wordcloud2(data = d, 
+           size = 1, 
+           color = col.pal(10))
+```
+
+Example with my PhD supervisor Nico Eisenhauer with quite some more publications
+
+```{r, echo=F, include=T, warning=F, message=F}
+scholar.id2 = "OV0sKRkAAAAJ" 
+pub2 = get_publications(scholar.id2)
+docs <- Corpus(VectorSource(pub2$title))
 toSpace <- content_transformer(function (x , pattern ) gsub(pattern, " ", x))
 docs <- docs %>%
   tm_map(., toSpace, "/") %>%
@@ -242,9 +291,8 @@ ggplot(data =  ne_countries(scale = "medium", returnclass = "sf")) +
   geom_sf() +
   geom_point(data = affiliations, 
              aes(x = long, y = lat), 
-             size = 5,
+             size = 2,
              color = 'red',
              fill = "blue") +
   labs(x = '', y = '')
 ```
-
