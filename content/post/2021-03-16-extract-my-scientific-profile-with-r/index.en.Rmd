@@ -250,38 +250,6 @@ wordcloud2(data = d,
            color = col.pal(10))
 ```
 
-Example with my PhD supervisor Nico Eisenhauer with quite some more publications
-
-```{r, echo=F, include=T, warning=F, message=F}
-scholar.id2 = "OV0sKRkAAAAJ" 
-pub2 = get_publications(scholar.id2)
-docs <- Corpus(VectorSource(pub2$title))
-toSpace <- content_transformer(function (x , pattern ) gsub(pattern, " ", x))
-docs <- docs %>%
-  tm_map(., toSpace, "/") %>%
-  tm_map(., toSpace, "@") %>%
-  tm_map(., toSpace, "\\|") %>%
-  tm_map(., content_transformer(tolower)) %>%
-  tm_map(., removeNumbers) %>%
-  tm_map(., removeWords, stopwords("english")) %>%
-  tm_map(., removeWords, list.stop) %>%
-  tm_map(., removePunctuation) %>%
-  tm_map(., stripWhitespace)
-
-dtm <- TermDocumentMatrix(docs)
-m <- as.matrix(dtm)
-v <- sort(rowSums(m),decreasing=TRUE)
-d <- data.frame(word = names(v),freq=v)
-head(d, 10)
-
-
-col.pal = colorRampPalette(colors = c('brown','Darkgreen'))
-
-wordcloud2(data = d, 
-           size = 1, 
-           color = col.pal(10))
-```
-
 ## Map of you collaborators
 
 ```{r, echo=T, include=T, warning=F}
