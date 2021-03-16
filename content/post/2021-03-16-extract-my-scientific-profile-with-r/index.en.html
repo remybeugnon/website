@@ -1,0 +1,399 @@
+---
+title: Extract your scientific profile with R
+author: 'admin'
+slug: extract-my-scientific-profile-with-r
+subtitle: ''
+summary: ''
+date: '2021-03-16'
+categories: ["literature research"]
+tags: ["literature", "R", "tutorial"]
+authors: ['admin']
+lastmod: '2021-03-16T10:56:08+01:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+---
+
+<script src="{{< blogdown/postref >}}index.en_files/htmlwidgets/htmlwidgets.js"></script>
+<link href="{{< blogdown/postref >}}index.en_files/wordcloud2/wordcloud.css" rel="stylesheet" />
+<script src="{{< blogdown/postref >}}index.en_files/wordcloud2/wordcloud2-all.js"></script>
+<script src="{{< blogdown/postref >}}index.en_files/wordcloud2/hover.js"></script>
+<script src="{{< blogdown/postref >}}index.en_files/wordcloud2-binding/wordcloud2.js"></script>
+
+
+It may become quite exhausting to keep up-to-date your scientific profile and have a good overview of what is out there. With this small R tutorial, you can extract your profile information from <a href="https://scholar.google.com/">Google Scholar</a> and play around with it.
+This post was highly inspired by the tweet from <a href="https://twitter.com/alperezqui">Alvaro L Perez-Quintero</a>
+<blockquote class="twitter-tweet">
+<p lang="en" dir="ltr">
+Made a fancy figure for job/grant applications summarizing my publications and really proud of how it turned out (apologies for the bragging, but also, hire me). <a href="https://t.co/D0je3PW1uF">pic.twitter.com/D0je3PW1uF</a>
+</p>
+— Alvaro L Perez-Quintero (<span class="citation">@alperezqui</span>) <a href="https://twitter.com/alperezqui/status/1365042068435918855?ref_src=twsrc%5Etfw">February 25, 2021</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p>Alvaro code to build this figure is available on GitHub (<a href="https://github.com/alperezq/FancyPubFigures">code</a>)</p>
+<div id="what-do-you-need" class="section level2">
+<h2>What do you need?</h2>
+<p>First of all, you need to update your Google Scholar profile. Google will automatically detect all your publications. You can allow Google to update your profile automatically (<a href="https://scholar.google.com/scholar_settings?hl=en">here</a>); however, if you have a common name or share it with another scientist, this may be tricky.</p>
+<p>Once your Google Scholar profile is up-to-date, you will need your Google Scholar ID. To find it, go on your Google Scholar page; you will find your ID in the URL between “user=” and “&amp;”. For example, my URL is: <a href="https://scholar.google.com/citations?user=fEd4WGYAAAAJ&amp;hl=en" class="uri">https://scholar.google.com/citations?user=fEd4WGYAAAAJ&amp;hl=en</a>, so my ID is: “fEd4WGYAAAAJ”.</p>
+<p>Now we are ready to start!</p>
+</div>
+<div id="packages" class="section level2">
+<h2>Packages</h2>
+<p>We will need to extract our scientific profile the R packages <em>scholar</em> and <em>easyPubMed</em>. The first will allow us the extract our scientific profile from Google Scholar, and the second to have more in-depth information about the articles on PubMed.</p>
+<pre class="r"><code>libs &lt;- c(
+  &#39;dplyr&#39;,
+  &#39;ggplot2&#39;,
+  &#39;scholar&#39;,
+  &#39;easyPubMed&#39;
+)
+
+invisible(lapply(libs, library, character.only = T))</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+</div>
+<div id="data-collection" class="section level1">
+<h1>Data collection</h1>
+<div id="extraction-of-your-scientific-publication-from-google-scholar" class="section level2">
+<h2>Extraction of your scientific publication from Google Scholar</h2>
+<p>The package <em>scholar</em> is pretty handy, we will use the function <strong>get_publication()</strong> to extract the list of publications from Google Scholar. This function will reference your publications, titles, 5-6 first authors, journal, journal references (volume, pages), number of citations, year, and two Google Scholar ID “cid” and “pubid”. the latest been the Google Scholar reference of your publication. This “pubid” will be useful in other scholar function like <strong>get_complete_authors()</strong>.</p>
+<pre class="r"><code>scholar.id = &quot;fEd4WGYAAAAJ&quot; 
+pub = get_publications(scholar.id)
+pub</code></pre>
+<pre><code>##                                                                                                            title
+## 1           Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 2 Plant functional trait identity and diversity effects on soil meso-and macrofauna in an experimental grassland
+## 3                                          Do invasive earthworms affect the functional traits of native plants?
+## 4     Diplôme de Master 2 Mention Biodiversité—Écologie—Évolution Parcours DARWIN: Biologie Évolutive &amp; Écologie
+##                                                                  author
+## 1                          S Cesarz, AE Schulz, R Beugnon, N Eisenhauer
+## 2          R Beugnon, K Steinauer, AD Barnes, A Ebeling, C Roscher, ...
+## 3 L Thouvenot, O Ferlian, R Beugnon, T Künne, A Lochner, MP Thakur, ...
+## 4                                                             R Beugnon
+##                           journal      number cites year                 cid
+## 1                  Soil organisms  91 (2), 61     5 2019 9973965598904659566
+## 2 Advances in Ecological Research 61, 163-184     4 2019 3770229238311880035
+## 3      Frontiers in Plant Science     12, 424     0 2021                &lt;NA&gt;
+## 4             Montpellier SupAgro                 0 2018                &lt;NA&gt;
+##          pubid
+## 1 2osOgNQ5qMEC
+## 2 9yKSN-GCB0IC
+## 3 qjMakFHDy7sC
+## 4 d1gkVwhDpl0C</code></pre>
+<p>As the information provided by the Google Scholar are quite limited, we will use the <em>easyPubMed</em> to extract more information about the artible.</p>
+</div>
+<div id="get-the-full-references-of-each-article" class="section level2">
+<h2>Get the full references of each article</h2>
+<p>As exemple, Google Scholar doesn’t provide the affilation of your co-authors. Therefore, we will extract this information from PubMed.</p>
+<ol style="list-style-type: decimal">
+<li>Find your article on PubMed using its title</li>
+</ol>
+<p>1.1 Find the title in “pub”</p>
+<pre class="r"><code>title = pub$title[1]
+
+title</code></pre>
+<pre><code>## [1] &quot;Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method&quot;</code></pre>
+<p>1.2 Use <strong>get_pubmed_ids_by_fulltitle()</strong> function to built your PubMed request</p>
+<pre class="r"><code>my_request &lt;- get_pubmed_ids_by_fulltitle(title, field = &quot;[Title]&quot;)
+
+my_request</code></pre>
+<pre><code>## $Count
+## [1] &quot;1&quot;
+## 
+## $RetMax
+## [1] &quot;1&quot;
+## 
+## $RetStart
+## [1] &quot;0&quot;
+## 
+## $QueryKey
+## [1] &quot;1&quot;
+## 
+## $WebEnv
+## [1] &quot;MCID_6050ccfe5252d921ae297e94&quot;
+## 
+## $IdList
+## $IdList$Id
+## [1] &quot;32607134&quot;
+## 
+## 
+## $QueryTranslation
+## [1] &quot;testing[Title] AND soil[Title] AND nematode[Title] AND extraction[Title] AND efficiency[Title] AND different[Title] AND variations[Title] AND baermann-funnel[Title] AND method[Title]&quot;
+## 
+## $TranslationSet
+## list()
+## 
+## $OriginalQuery
+## [1] &quot;testing[Title]+AND+soil[Title]+AND+nematode[Title]+AND+extraction[Title]+AND+efficiency[Title]+AND+different[Title]+AND+variations[Title]+AND+baermann-funnel[Title]+AND+method[Title]&quot;</code></pre>
+<p>1.3 Use <strong>get_pubmed_ids_by_fulltitle()</strong> function to fetch the reference</p>
+<p>The function will return a string of characters with all PubMed data in the xml format. However, some of your articles may not be available on PubMed, for example, thesis, gray literature, or small journals. When this is the case, either the information needed is available on Google Sholar and you can use the <em>scholar</em> package functions to grep them, or you may need to proceed manually to fill your dataset.</p>
+<pre class="r"><code>my_xml &lt;- fetch_pubmed_data(my_request)
+
+my_xml</code></pre>
+<pre><code>## [1] &quot;&lt;?xml version=\&quot;1.0\&quot; ?&gt;&lt;!DOCTYPE PubmedArticleSet PUBLIC \&quot;-//NLM//DTD PubMedArticle, 1st January 2019//EN\&quot; \&quot;https://dtd.nlm.nih.gov/ncbi/pubmed/out/pubmed_190101.dtd\&quot;&gt;&lt;PubmedArticleSet&gt;&lt;PubmedArticle&gt;    &lt;MedlineCitation Status=\&quot;PubMed-not-MEDLINE\&quot; Owner=\&quot;NLM\&quot;&gt;        &lt;PMID Version=\&quot;1\&quot;&gt;32607134&lt;/PMID&gt;        &lt;DateRevised&gt;            &lt;Year&gt;2021&lt;/Year&gt;            &lt;Month&gt;01&lt;/Month&gt;            &lt;Day&gt;10&lt;/Day&gt;        &lt;/DateRevised&gt;        &lt;Article PubModel=\&quot;Print-Electronic\&quot;&gt;            &lt;Journal&gt;                &lt;ISSN IssnType=\&quot;Print\&quot;&gt;1864-6417&lt;/ISSN&gt;                &lt;JournalIssue CitedMedium=\&quot;Print\&quot;&gt;                    &lt;Volume&gt;91&lt;/Volume&gt;                    &lt;Issue&gt;2&lt;/Issue&gt;                    &lt;PubDate&gt;                        &lt;Year&gt;2019&lt;/Year&gt;                        &lt;Month&gt;Aug&lt;/Month&gt;                        &lt;Day&gt;01&lt;/Day&gt;                    &lt;/PubDate&gt;                &lt;/JournalIssue&gt;                &lt;Title&gt;Soil organisms&lt;/Title&gt;                &lt;ISOAbbreviation&gt;Soil Org&lt;/ISOAbbreviation&gt;            &lt;/Journal&gt;            &lt;ArticleTitle&gt;Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method.&lt;/ArticleTitle&gt;            &lt;Pagination&gt;                &lt;MedlinePgn&gt;61-72&lt;/MedlinePgn&gt;            &lt;/Pagination&gt;            &lt;ELocationID EIdType=\&quot;doi\&quot; ValidYN=\&quot;Y\&quot;&gt;10.25674/so91201&lt;/ELocationID&gt;            &lt;Abstract&gt;                &lt;AbstractText&gt;Nematodes are increasingly used as powerful bioindicators of soil food web composition and functioning in ecological studies. Todays&#39; ecological research aims to investigate not only local relationships but global patterns, which requires consistent methodology across locations. Thus, a common and easy extraction protocol of soil nematodes is needed. In this study, we present a detailed protocol of the Baermann-funnel method and highlight how different soil pre-treatments and equipment (soil type, soil height, sieving, and filter type) can affect extraction efficiency and community composition by using natural nematode communities. We found that highest nematode extraction efficiency was achieved using lowest soil height as indicated by the thickness of the soil sample in the extractor (1, 2, or 4 cm soil height) in combination with soil sieving (instead of no sieving), and by using milk filters (instead of paper towels). PCA at the family level revealed that different pre-treatments significantly affected nematode community composition. Increasing the height of the soil sample by adding more soil increased the proportion of larger-sized nematodes likely because those are able to overcome long distances but selected against small nematodes. Sieving is suggested to break up soil aggregates and, therefore, facilitate moving in general. Interestingly, sieving did not negatively affect larger nematodes that are supposed to have a higher probability of getting bruised during sieving but, even if not significant, tended to yield more extracted nematodes than no sieving. We therefore recommend to use small heights of sieved soil with milk filter to extract free-living soil nematodes with the Baermann-funnel method. The present study shows that variations in the extraction protocol can alter the total density and community composition of extracted nematodes and provides recommendations for an efficient and standardized approach in future studies. Having a simple, cheap, and standardized extraction protocol can facilitate the assessment of soil biodiversity in global contexts.&lt;/AbstractText&gt;            &lt;/Abstract&gt;            &lt;AuthorList CompleteYN=\&quot;Y\&quot;&gt;                &lt;Author ValidYN=\&quot;Y\&quot;&gt;                    &lt;LastName&gt;Cesarz&lt;/LastName&gt;                    &lt;ForeName&gt;Simone&lt;/ForeName&gt;                    &lt;Initials&gt;S&lt;/Initials&gt;                    &lt;AffiliationInfo&gt;                        &lt;Affiliation&gt;German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.&lt;/Affiliation&gt;                    &lt;/AffiliationInfo&gt;                    &lt;AffiliationInfo&gt;                        &lt;Affiliation&gt;Institute of Biology, University of Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.&lt;/Affiliation&gt;                    &lt;/AffiliationInfo&gt;                    &lt;AffiliationInfo&gt;                        &lt;Affiliation&gt;Institute of Ecology, Friedrich Schiller University of Jena, Dornburger Str. 159, 07743 Jena, Germany.&lt;/Affiliation&gt;                    &lt;/AffiliationInfo&gt;                &lt;/Author&gt;                &lt;Author ValidYN=\&quot;Y\&quot;&gt;                    &lt;LastName&gt;Eva Schulz&lt;/LastName&gt;                    &lt;ForeName&gt;Annika&lt;/ForeName&gt;                    &lt;Initials&gt;A&lt;/Initials&gt;                    &lt;AffiliationInfo&gt;                        &lt;Affiliation&gt;Institute of Ecology, Friedrich Schiller University of Jena, Dornburger Str. 159, 07743 Jena, Germany.&lt;/Affiliation&gt;                    &lt;/AffiliationInfo&gt;                &lt;/Author&gt;                &lt;Author ValidYN=\&quot;Y\&quot;&gt;                    &lt;LastName&gt;Beugnon&lt;/LastName&gt;                    &lt;ForeName&gt;RÃ©my&lt;/ForeName&gt;                    &lt;Initials&gt;R&lt;/Initials&gt;                    &lt;AffiliationInfo&gt;                        &lt;Affiliation&gt;German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.&lt;/Affiliation&gt;                    &lt;/AffiliationInfo&gt;                    &lt;AffiliationInfo&gt;                        &lt;Affiliation&gt;Institute of Biology, University of Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.&lt;/Affiliation&gt;                    &lt;/AffiliationInfo&gt;                &lt;/Author&gt;                &lt;Author ValidYN=\&quot;Y\&quot;&gt;                    &lt;LastName&gt;Eisenhauer&lt;/LastName&gt;                    &lt;ForeName&gt;Nico&lt;/ForeName&gt;                    &lt;Initials&gt;N&lt;/Initials&gt;                    &lt;AffiliationInfo&gt;                        &lt;Affiliation&gt;German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.&lt;/Affiliation&gt;                    &lt;/AffiliationInfo&gt;                    &lt;AffiliationInfo&gt;                        &lt;Affiliation&gt;Institute of Biology, University of Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.&lt;/Affiliation&gt;                    &lt;/AffiliationInfo&gt;                    &lt;AffiliationInfo&gt;                        &lt;Affiliation&gt;Institute of Ecology, Friedrich Schiller University of Jena, Dornburger Str. 159, 07743 Jena, Germany.&lt;/Affiliation&gt;                    &lt;/AffiliationInfo&gt;                &lt;/Author&gt;            &lt;/AuthorList&gt;            &lt;Language&gt;eng&lt;/Language&gt;            &lt;GrantList CompleteYN=\&quot;Y\&quot;&gt;                &lt;Grant&gt;                    &lt;GrantID&gt;677232&lt;/GrantID&gt;                    &lt;Acronym&gt;ERC_&lt;/Acronym&gt;                    &lt;Agency&gt;European Research Council&lt;/Agency&gt;                    &lt;Country&gt;International&lt;/Country&gt;                &lt;/Grant&gt;            &lt;/GrantList&gt;            &lt;PublicationTypeList&gt;                &lt;PublicationType UI=\&quot;D016428\&quot;&gt;Journal Article&lt;/PublicationType&gt;            &lt;/PublicationTypeList&gt;            &lt;ArticleDate DateType=\&quot;Electronic\&quot;&gt;                &lt;Year&gt;2019&lt;/Year&gt;                &lt;Month&gt;08&lt;/Month&gt;                &lt;Day&gt;06&lt;/Day&gt;            &lt;/ArticleDate&gt;        &lt;/Article&gt;        &lt;MedlineJournalInfo&gt;            &lt;Country&gt;Germany&lt;/Country&gt;            &lt;MedlineTA&gt;Soil Org&lt;/MedlineTA&gt;            &lt;NlmUniqueID&gt;101490173&lt;/NlmUniqueID&gt;        &lt;/MedlineJournalInfo&gt;        &lt;KeywordList Owner=\&quot;NOTNLM\&quot;&gt;            &lt;Keyword MajorTopicYN=\&quot;N\&quot;&gt;comparability&lt;/Keyword&gt;            &lt;Keyword MajorTopicYN=\&quot;N\&quot;&gt;extraction methods&lt;/Keyword&gt;            &lt;Keyword MajorTopicYN=\&quot;N\&quot;&gt;reproducibility&lt;/Keyword&gt;            &lt;Keyword MajorTopicYN=\&quot;N\&quot;&gt;soil organisms&lt;/Keyword&gt;        &lt;/KeywordList&gt;    &lt;/MedlineCitation&gt;    &lt;PubmedData&gt;        &lt;History&gt;            &lt;PubMedPubDate PubStatus=\&quot;entrez\&quot;&gt;                &lt;Year&gt;2020&lt;/Year&gt;                &lt;Month&gt;7&lt;/Month&gt;                &lt;Day&gt;2&lt;/Day&gt;                &lt;Hour&gt;6&lt;/Hour&gt;                &lt;Minute&gt;0&lt;/Minute&gt;            &lt;/PubMedPubDate&gt;            &lt;PubMedPubDate PubStatus=\&quot;pubmed\&quot;&gt;                &lt;Year&gt;2020&lt;/Year&gt;                &lt;Month&gt;7&lt;/Month&gt;                &lt;Day&gt;2&lt;/Day&gt;                &lt;Hour&gt;6&lt;/Hour&gt;                &lt;Minute&gt;0&lt;/Minute&gt;            &lt;/PubMedPubDate&gt;            &lt;PubMedPubDate PubStatus=\&quot;medline\&quot;&gt;                &lt;Year&gt;2020&lt;/Year&gt;                &lt;Month&gt;7&lt;/Month&gt;                &lt;Day&gt;2&lt;/Day&gt;                &lt;Hour&gt;6&lt;/Hour&gt;                &lt;Minute&gt;1&lt;/Minute&gt;            &lt;/PubMedPubDate&gt;        &lt;/History&gt;        &lt;PublicationStatus&gt;ppublish&lt;/PublicationStatus&gt;        &lt;ArticleIdList&gt;            &lt;ArticleId IdType=\&quot;pubmed\&quot;&gt;32607134&lt;/ArticleId&gt;            &lt;ArticleId IdType=\&quot;doi\&quot;&gt;10.25674/so91201&lt;/ArticleId&gt;            &lt;ArticleId IdType=\&quot;pmc\&quot;&gt;PMC7326606&lt;/ArticleId&gt;            &lt;ArticleId IdType=\&quot;mid\&quot;&gt;EMS86615&lt;/ArticleId&gt;        &lt;/ArticleIdList&gt;        &lt;?nihms?&gt;        &lt;ReferenceList&gt;            &lt;Reference&gt;                &lt;Citation&gt;Ambio. 2016 Feb;45(1):29-41&lt;/Citation&gt;                &lt;ArticleIdList&gt;                    &lt;ArticleId IdType=\&quot;pubmed\&quot;&gt;26264716&lt;/ArticleId&gt;                &lt;/ArticleIdList&gt;            &lt;/Reference&gt;            &lt;Reference&gt;                &lt;Citation&gt;J Exp Biol. 2000 Aug;203(Pt 16):2467-78&lt;/Citation&gt;                &lt;ArticleIdList&gt;                    &lt;ArticleId IdType=\&quot;pubmed\&quot;&gt;10903161&lt;/ArticleId&gt;                &lt;/ArticleIdList&gt;            &lt;/Reference&gt;            &lt;Reference&gt;                &lt;Citation&gt;J Nematol. 1989 Jul;21(3):370-8&lt;/Citation&gt;                &lt;ArticleIdList&gt;                    &lt;ArticleId IdType=\&quot;pubmed\&quot;&gt;19287622&lt;/ArticleId&gt;                &lt;/ArticleIdList&gt;            &lt;/Reference&gt;            &lt;Reference&gt;                &lt;Citation&gt;Annu Rev Phytopathol. 1999;37:127-149&lt;/Citation&gt;                &lt;ArticleIdList&gt;                    &lt;ArticleId IdType=\&quot;pubmed\&quot;&gt;11701819&lt;/ArticleId&gt;                &lt;/ArticleIdList&gt;            &lt;/Reference&gt;            &lt;Reference&gt;                &lt;Citation&gt;J Ecol. 2014 Nov;102(6):1673-1687&lt;/Citation&gt;                &lt;ArticleIdList&gt;                    &lt;ArticleId IdType=\&quot;pubmed\&quot;&gt;25558092&lt;/ArticleId&gt;                &lt;/ArticleIdList&gt;            &lt;/Reference&gt;            &lt;Reference&gt;                &lt;Citation&gt;Nature. 2019 Aug;572(7768):194-198&lt;/Citation&gt;                &lt;ArticleIdList&gt;                    &lt;ArticleId IdType=\&quot;pubmed\&quot;&gt;31341281&lt;/ArticleId&gt;                &lt;/ArticleIdList&gt;            &lt;/Reference&gt;            &lt;Reference&gt;                &lt;Citation&gt;J Nematol. 1983 Jul;15(3):450-4&lt;/Citation&gt;                &lt;ArticleIdList&gt;                    &lt;ArticleId IdType=\&quot;pubmed\&quot;&gt;19295832&lt;/ArticleId&gt;                &lt;/ArticleIdList&gt;            &lt;/Reference&gt;            &lt;Reference&gt;                &lt;Citation&gt;Oecologia. 1990 May;83(1):14-19&lt;/Citation&gt;                &lt;ArticleIdList&gt;                    &lt;ArticleId IdType=\&quot;pubmed\&quot;&gt;28313236&lt;/ArticleId&gt;                &lt;/ArticleIdList&gt;            &lt;/Reference&gt;            &lt;Reference&gt;                &lt;Citation&gt;Nat Microbiol. 2018 Feb;3(2):189-196&lt;/Citation&gt;                &lt;ArticleIdList&gt;                    &lt;ArticleId IdType=\&quot;pubmed\&quot;&gt;29158606&lt;/ArticleId&gt;                &lt;/ArticleIdList&gt;            &lt;/Reference&gt;            &lt;Reference&gt;                &lt;Citation&gt;J Nematol. 1993 Sep;25(3):315-31&lt;/Citation&gt;                &lt;ArticleIdList&gt;                    &lt;ArticleId IdType=\&quot;pubmed\&quot;&gt;19279775&lt;/ArticleId&gt;                &lt;/ArticleIdList&gt;            &lt;/Reference&gt;            &lt;Reference&gt;                &lt;Citation&gt;Nature. 2019 Aug;572(7768):187-188&lt;/Citation&gt;                &lt;ArticleIdList&gt;                    &lt;ArticleId IdType=\&quot;pubmed\&quot;&gt;31384050&lt;/ArticleId&gt;                &lt;/ArticleIdList&gt;            &lt;/Reference&gt;            &lt;Reference&gt;                &lt;Citation&gt;Oecologia. 2017 Jul;184(3):715-728&lt;/Citation&gt;                &lt;ArticleIdList&gt;                    &lt;ArticleId IdType=\&quot;pubmed\&quot;&gt;28608023&lt;/ArticleId&gt;                &lt;/ArticleIdList&gt;            &lt;/Reference&gt;            &lt;Reference&gt;                &lt;Citation&gt;Science. 2018 Jan 19;359(6373):320-325&lt;/Citation&gt;                &lt;ArticleIdList&gt;                    &lt;ArticleId IdType=\&quot;pubmed\&quot;&gt;29348236&lt;/ArticleId&gt;                &lt;/ArticleIdList&gt;            &lt;/Reference&gt;            &lt;Reference&gt;                &lt;Citation&gt;Nat Ecol Evol. 2017 Mar 23;1(4):103&lt;/Citation&gt;                &lt;ArticleIdList&gt;                    &lt;ArticleId IdType=\&quot;pubmed\&quot;&gt;28812674&lt;/ArticleId&gt;                &lt;/ArticleIdList&gt;            &lt;/Reference&gt;            &lt;Reference&gt;                &lt;Citation&gt;Trends Ecol Evol. 1999 Jun;14(6):224-228&lt;/Citation&gt;                &lt;ArticleIdList&gt;                    &lt;ArticleId IdType=\&quot;pubmed\&quot;&gt;10354624&lt;/ArticleId&gt;                &lt;/ArticleIdList&gt;            &lt;/Reference&gt;            &lt;Reference&gt;                &lt;Citation&gt;PLoS One. 2013 Jun 18;8(6):e66653&lt;/Citation&gt;                &lt;ArticleIdList&gt;                    &lt;ArticleId IdType=\&quot;pubmed\&quot;&gt;23825552&lt;/ArticleId&gt;                &lt;/ArticleIdList&gt;            &lt;/Reference&gt;        &lt;/ReferenceList&gt;    &lt;/PubmedData&gt;&lt;/PubmedArticle&gt;&lt;/PubmedArticleSet&gt;&quot;</code></pre>
+<p>1.4 Extract information from a reference</p>
+<p>As you can see the output isn’t super handy; the <em>easyPubMed</em> package provide a tool to deal with that: <strong>custom_grep()</strong>. The function will return the content of specified tag.</p>
+<p>For example the affiliation:</p>
+<pre class="r"><code>custom_grep(my_xml, tag = &quot;Affiliation&quot;) %&gt;% unlist</code></pre>
+<pre><code>## [1] &quot;German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.&quot;
+## [2] &quot;Institute of Biology, University of Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.&quot;                                  
+## [3] &quot;Institute of Ecology, Friedrich Schiller University of Jena, Dornburger Str. 159, 07743 Jena, Germany.&quot;                    
+## [4] &quot;Institute of Ecology, Friedrich Schiller University of Jena, Dornburger Str. 159, 07743 Jena, Germany.&quot;                    
+## [5] &quot;German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.&quot;
+## [6] &quot;Institute of Biology, University of Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.&quot;                                  
+## [7] &quot;German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.&quot;
+## [8] &quot;Institute of Biology, University of Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.&quot;                                  
+## [9] &quot;Institute of Ecology, Friedrich Schiller University of Jena, Dornburger Str. 159, 07743 Jena, Germany.&quot;</code></pre>
+<p>For example, you can find the following tags in the output: Year, Journal, ISSN, ArticleTitle, Abstract, AuthorList, Affiliation, Keyword …</p>
+<p>1.5 Extraction of all the references</p>
+<p>In this example, we will extract the affiliations of the authors from all papers. (This step can take quite some time to be performed)</p>
+<pre class="r"><code>affiliations = data.frame(matrix(NA, ncol = 2, nrow = 1))
+colnames(affiliations) = c(&#39;title&#39;, &#39;affiliation&#39;)
+
+for(j in 1 : length(pub$title)){
+  skip_to_next &lt;- FALSE
+  tryCatch( # I use tryCatch to catch the papers not found on PubMed
+    {
+      my_entrez_id &lt;- get_pubmed_ids_by_fulltitle(pub$title[j], field = &quot;[Title]&quot;)
+      my_xml &lt;- fetch_pubmed_data(my_entrez_id)
+    
+      affiliation = 
+    
+      affiliations = bind_rows(
+        affiliations, 
+        data.frame(
+          title = pub$title[j],
+          affiliation = custom_grep(my_xml, tag = &quot;Affiliation&quot;) %&gt;% unlist
+          )
+        )
+    }, error = function(e){ 
+      skip_to_next &lt;&lt;- TRUE
+    }
+    )
+  
+  if(skip_to_next) { 
+    affiliations = bind_rows(
+      affiliations,
+      data.frame(
+        title = pub$title[j], 
+        affiliation = &quot;NOT FOUND&quot;)
+      )
+  next }  # To continue the script in the next occurrence
+}</code></pre>
+<pre><code>## Killing the request! Something is not working. Please, try again later
+## Killing the request! Something is not working. Please, try again later
+## Killing the request! Something is not working. Please, try again later</code></pre>
+<pre class="r"><code>affiliations</code></pre>
+<pre><code>##                                                                                                             title
+## 1                                                                                                            &lt;NA&gt;
+## 2            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 3            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 4            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 5            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 6            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 7            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 8            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 9            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 10           Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 11 Plant functional trait identity and diversity effects on soil meso-and macrofauna in an experimental grassland
+## 12                                          Do invasive earthworms affect the functional traits of native plants?
+## 13     Diplôme de Master 2 Mention Biodiversité—Écologie—Évolution Parcours DARWIN: Biologie Évolutive &amp; Écologie
+##                                                                                                                   affiliation
+## 1                                                                                                                        &lt;NA&gt;
+## 2  German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.
+## 3                                    Institute of Biology, University of Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.
+## 4                      Institute of Ecology, Friedrich Schiller University of Jena, Dornburger Str. 159, 07743 Jena, Germany.
+## 5                      Institute of Ecology, Friedrich Schiller University of Jena, Dornburger Str. 159, 07743 Jena, Germany.
+## 6  German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.
+## 7                                    Institute of Biology, University of Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.
+## 8  German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.
+## 9                                    Institute of Biology, University of Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.
+## 10                     Institute of Ecology, Friedrich Schiller University of Jena, Dornburger Str. 159, 07743 Jena, Germany.
+## 11                                                                                                                  NOT FOUND
+## 12                                                                                                                  NOT FOUND
+## 13                                                                                                                  NOT FOUND</code></pre>
+<p>1.6 Extraction of the cities and countries from the affiliations</p>
+<p>Once you have all the affiliations you may like to plot them on a map. For that, you need to extract the cities and countries. The following code is most likely not the most efficient way to do it, but it gives a first idea.</p>
+<p>1.6.1 List of cities</p>
+<p>You will need the list of cities with their spatial positions (longitude and latitude). I am using the dataset <strong>world.cities</strong> from the package <em>maps</em>, but there are a lot of other possibilities.</p>
+<pre class="r"><code>library(maps)
+
+head(world.cities)</code></pre>
+<pre><code>##                 name country.etc   pop   lat  long capital
+## 1 &#39;Abasan al-Jadidah   Palestine  5629 31.31 34.34       0
+## 2 &#39;Abasan al-Kabirah   Palestine 18999 31.32 34.35       0
+## 3       &#39;Abdul Hakim    Pakistan 47788 30.55 72.11       0
+## 4 &#39;Abdullah-as-Salam      Kuwait 21817 29.36 47.98       0
+## 5              &#39;Abud   Palestine  2456 32.03 35.07       0
+## 6            &#39;Abwein   Palestine  3434 32.03 35.20       0</code></pre>
+<p>We will create a new dataset with all cities</p>
+<pre class="r"><code># New dataset
+df.cities = data.frame(matrix(NA, ncol = 5, nrow = 1))
+colnames(df.cities) = c(&#39;affiliation&#39;, &#39;City&#39;, &#39;Country&#39;, &#39;lat&#39;, &#39;long&#39;)
+
+for(af in unique(affiliations$affiliation)){
+  city = world.cities$name[lapply(world.cities$name, function(x) {
+  grepl(pattern = x, 
+        x = af, 
+        fixed = T)}) %&gt;% unlist] 
+
+  country = world.cities$country.etc[lapply(world.cities$country.etc, function(x) {
+    grepl(pattern = x, 
+          x = af, 
+          fixed = T)}) %&gt;% unlist]
+
+  c = 
+    world.cities %&gt;% 
+    mutate(affiliation = af) %&gt;%
+    filter(name %in% city &amp; country.etc %in% country) %&gt;%
+    select(affiliation, City = name, Country = country.etc, lat, long) %&gt;%
+    filter(!duplicated(City)) # To remove multiple entries
+
+  df.cities = bind_rows(
+    df.cities,
+    c
+  )
+}
+
+affiliations = left_join(affiliations, df.cities, by = &quot;affiliation&quot;)
+
+affiliations</code></pre>
+<pre><code>##                                                                                                             title
+## 1                                                                                                            &lt;NA&gt;
+## 2            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 3            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 4            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 5            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 6            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 7            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 8            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 9            Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 10           Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 11           Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 12           Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 13           Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 14           Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 15           Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 16           Testing soil nematode extraction efficiency using different variations of the Baermann-funnel method
+## 17 Plant functional trait identity and diversity effects on soil meso-and macrofauna in an experimental grassland
+## 18                                          Do invasive earthworms affect the functional traits of native plants?
+## 19     Diplôme de Master 2 Mention Biodiversité—Écologie—Évolution Parcours DARWIN: Biologie Évolutive &amp; Écologie
+##                                                                                                                   affiliation
+## 1                                                                                                                        &lt;NA&gt;
+## 2  German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.
+## 3  German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.
+## 4  German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.
+## 5                                    Institute of Biology, University of Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.
+## 6                      Institute of Ecology, Friedrich Schiller University of Jena, Dornburger Str. 159, 07743 Jena, Germany.
+## 7                      Institute of Ecology, Friedrich Schiller University of Jena, Dornburger Str. 159, 07743 Jena, Germany.
+## 8  German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.
+## 9  German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.
+## 10 German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.
+## 11                                   Institute of Biology, University of Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.
+## 12 German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.
+## 13 German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.
+## 14 German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.
+## 15                                   Institute of Biology, University of Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany.
+## 16                     Institute of Ecology, Friedrich Schiller University of Jena, Dornburger Str. 159, 07743 Jena, Germany.
+## 17                                                                                                                  NOT FOUND
+## 18                                                                                                                  NOT FOUND
+## 19                                                                                                                  NOT FOUND
+##       City Country   lat  long
+## 1     &lt;NA&gt;    &lt;NA&gt;    NA    NA
+## 2    Halle Germany 52.07  8.35
+## 3     Jena Germany 50.93 11.58
+## 4  Leipzig Germany 51.35 12.40
+## 5  Leipzig Germany 51.35 12.40
+## 6     Jena Germany 50.93 11.58
+## 7     Jena Germany 50.93 11.58
+## 8    Halle Germany 52.07  8.35
+## 9     Jena Germany 50.93 11.58
+## 10 Leipzig Germany 51.35 12.40
+## 11 Leipzig Germany 51.35 12.40
+## 12   Halle Germany 52.07  8.35
+## 13    Jena Germany 50.93 11.58
+## 14 Leipzig Germany 51.35 12.40
+## 15 Leipzig Germany 51.35 12.40
+## 16    Jena Germany 50.93 11.58
+## 17    &lt;NA&gt;    &lt;NA&gt;    NA    NA
+## 18    &lt;NA&gt;    &lt;NA&gt;    NA    NA
+## 19    &lt;NA&gt;    &lt;NA&gt;    NA    NA</code></pre>
+</div>
+</div>
+<div id="example-of-outputs" class="section level1">
+<h1>Example of outputs</h1>
+<div id="wordcloud-of-you-manuscript-titles" class="section level2">
+<h2>Wordcloud of you manuscript titles</h2>
+<pre class="r"><code>library(&quot;tm&quot;)</code></pre>
+<pre><code>## Loading required package: NLP</code></pre>
+<pre><code>## 
+## Attaching package: &#39;NLP&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
+## 
+##     annotate</code></pre>
+<pre class="r"><code>library(&quot;SnowballC&quot;)
+library(&quot;wordcloud&quot;)</code></pre>
+<pre><code>## Loading required package: RColorBrewer</code></pre>
+<pre class="r"><code>library(&quot;wordcloud2&quot;)
+
+list.stop = c(&#39;affect&#39;, &#39;effects&#39;, &#39;using&#39;)
+
+docs &lt;- Corpus(VectorSource(pub$title))
+toSpace &lt;- content_transformer(function (x , pattern ) gsub(pattern, &quot; &quot;, x))
+docs &lt;- docs %&gt;%
+  tm_map(., toSpace, &quot;/&quot;) %&gt;%
+  tm_map(., toSpace, &quot;@&quot;) %&gt;%
+  tm_map(., toSpace, &quot;\\|&quot;) %&gt;%
+  tm_map(., content_transformer(tolower)) %&gt;%
+  tm_map(., removeNumbers) %&gt;%
+  tm_map(., removeWords, stopwords(&quot;english&quot;)) %&gt;%
+  tm_map(., removeWords, list.stop) %&gt;%
+  tm_map(., removePunctuation) %&gt;%
+  tm_map(., stripWhitespace)
+
+dtm &lt;- TermDocumentMatrix(docs)
+m &lt;- as.matrix(dtm)
+v &lt;- sort(rowSums(m),decreasing=TRUE)
+d &lt;- data.frame(word = names(v),freq=v)
+head(d, 10)</code></pre>
+<pre><code>##                          word freq
+## soil                     soil    2
+## functional         functional    2
+## baermannfunnel baermannfunnel    1
+## different           different    1
+## efficiency         efficiency    1
+## extraction         extraction    1
+## method                 method    1
+## nematode             nematode    1
+## testing               testing    1
+## variations         variations    1</code></pre>
+<pre class="r"><code>col.pal = colorRampPalette(colors = c(&#39;brown&#39;,&#39;Darkgreen&#39;))
+
+wordcloud2(data = d, 
+           size = 1, 
+           color = col.pal(10))</code></pre>
+<div id="htmlwidget-1" style="width:672px;height:480px;" class="wordcloud2 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"word":["soil","functional","baermannfunnel","different","efficiency","extraction","method","nematode","testing","variations","diversity","experimental","grassland","identity","macrofauna","meso","plant","trait","earthworms","invasive","native","plants","traits","biodiversité—écologie—évolution","biologie","darwin","diplôme","master","mention","parcours","écologie","évolutive"],"freq":[2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"fontFamily":"Segoe UI","fontWeight":"bold","color":["#A52A2A","#923025","#803620","#6E3D1C","#5B4317","#494A12","#37500E","#245709","#125D04","#006400"],"minSize":0,"weightFactor":90,"backgroundColor":"white","gridSize":0,"minRotation":-0.785398163397448,"maxRotation":0.785398163397448,"shuffle":true,"rotateRatio":0.4,"shape":"circle","ellipticity":0.65,"figBase64":null,"hover":null},"evals":[],"jsHooks":{"render":[{"code":"function(el,x){\n                        console.log(123);\n                        if(!iii){\n                          window.location.reload();\n                          iii = False;\n\n                        }\n  }","data":null}]}}</script>
+</div>
+<div id="map-of-you-collaborators" class="section level2">
+<h2>Map of you collaborators</h2>
+<pre class="r"><code>library(rnaturalearth)
+
+ggplot(data =  ne_countries(scale = &quot;medium&quot;, returnclass = &quot;sf&quot;)) + 
+  geom_sf() +
+  geom_point(data = affiliations, 
+             aes(x = long, y = lat), 
+             size = 5,
+             color = &#39;red&#39;,
+             fill = &quot;blue&quot;) +
+  labs(x = &#39;&#39;, y = &#39;&#39;)</code></pre>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+</div>
+</div>

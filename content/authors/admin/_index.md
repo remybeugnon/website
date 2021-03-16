@@ -26,10 +26,10 @@ social:
   link: https://publons.com/researcher/3282453/remy-beugnon/
 - icon: cv
   icon_pack: ai
-  link: 'author/remy-beugnon/remybeugnon.pdf'
+  link: 'author/remy-beugnon/2021-03-11.pdf'
   
 superuser: false
-title: Remy Beugnon
+title: Rémy Beugnon
 user_groups: ["Researchers"]
 ---
 (I am still building the site ... sorry for the typos and broken links)

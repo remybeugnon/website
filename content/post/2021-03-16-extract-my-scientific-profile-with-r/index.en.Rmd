@@ -1,0 +1,250 @@
+---
+title: Extract your scientific profile with R
+author: 'admin'
+slug: extract-my-scientific-profile-with-r
+subtitle: ''
+summary: ''
+date: '`r format(Sys.Date(), "%Y-%m-%d")`'
+categories: ["literature research"]
+tags: ["literature", "R", "tutorial"]
+authors: ['admin']
+lastmod: '2021-03-16T10:56:08+01:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+---
+
+It may become quite exhausting to keep up-to-date your scientific profile and have a good overview of what is out there. With this small R tutorial, you can extract your profile information from [Google Scholar](https://scholar.google.com/) and play around with it. 
+This post was highly inspired by the tweet from [Alvaro L Perez-Quintero](https://twitter.com/alperezqui) 
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Made a fancy figure for job/grant applications summarizing my publications and really proud of how it turned out (apologies for the bragging, but also, hire me). <a href="https://t.co/D0je3PW1uF">pic.twitter.com/D0je3PW1uF</a></p>&mdash; Alvaro L Perez-Quintero (@alperezqui) <a href="https://twitter.com/alperezqui/status/1365042068435918855?ref_src=twsrc%5Etfw">February 25, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+Alvaro code to build this figure is available on GitHub ([ code ](https://github.com/alperezq/FancyPubFigures))
+
+## What do you need?
+
+First of all, you need to update your Google Scholar profile. Google will automatically detect all your publications. You can allow Google to update your profile automatically ([here]( https://scholar.google.com/scholar_settings?hl=en)); however, if you have a common name or share it with another scientist, this may be tricky. 
+
+Once your Google Scholar profile is up-to-date, you will need your Google Scholar ID. To find it, go on your Google Scholar page; you will find your ID in the URL between “user=” and “&”. For example, my URL is: https://scholar.google.com/citations?user=fEd4WGYAAAAJ&hl=en, so my ID is: “fEd4WGYAAAAJ”.
+
+Now we are ready to start! 
+
+## Packages 
+
+We will need  to extract our scientific profile the R packages *scholar* and *easyPubMed*. The first will allow us the extract our scientific profile from Google Scholar, and the second to have more in-depth information about the articles on PubMed. 
+
+```{r, echo=T, include=T, warning=F}
+libs <- c(
+  'dplyr',
+  'ggplot2',
+  'scholar',
+  'easyPubMed'
+)
+
+invisible(lapply(libs, library, character.only = T))
+```
+
+# Data collection
+
+## Extraction of your scientific publication from Google Scholar
+
+The package *scholar* is pretty handy, we will use the function **get_publication()** to extract the list of publications from Google Scholar. This function will reference your publications, titles, 5-6 first authors, journal, journal references (volume, pages), number of citations, year, and two Google Scholar ID "cid" and "pubid". the latest been the Google Scholar reference of your publication. This "pubid" will be useful in other scholar function like **get_complete_authors()**.
+
+```{r, echo=T, include=T, warning=F}
+scholar.id = "fEd4WGYAAAAJ" 
+pub = get_publications(scholar.id)
+pub
+```
+
+As the information provided by the Google Scholar are quite limited, we will use the *easyPubMed* to extract more information about the artible. 
+
+## Get the full references of each article
+
+As exemple, Google Scholar doesn't provide the affilation of your co-authors. Therefore, we will extract this information from PubMed. 
+
+1. Find your article on PubMed using its title
+
+1.1 Find the title in "pub"
+    
+```{r, echo=T, include=T, warning=F}
+title = pub$title[1]
+
+title
+```
+
+1.2 Use **get_pubmed_ids_by_fulltitle()** function to built your PubMed request
+
+```{r, echo=T, include=T, warning=F}
+my_request <- get_pubmed_ids_by_fulltitle(title, field = "[Title]")
+
+my_request
+```
+
+1.3 Use **get_pubmed_ids_by_fulltitle()** function to fetch the reference
+
+The function will return a string of characters with all PubMed data in the xml format. However, some of your articles may not be available on PubMed, for example, thesis, gray literature, or small journals. When this is the case, either the information needed is available on Google Sholar and you can use the *scholar* package functions to grep them, or you may need to proceed manually to fill your dataset. 
+    
+```{r, echo=T, include=T, warning=F}
+my_xml <- fetch_pubmed_data(my_request)
+
+my_xml
+```
+1.4 Extract information from a reference
+
+As you can see the output isn't super handy; the *easyPubMed* package provide a tool to deal with that: **custom_grep()**. The function will return the content of specified tag. 
+
+For example the affiliation:
+
+```{r, echo=T, include=T, warning=F}
+custom_grep(my_xml, tag = "Affiliation") %>% unlist
+```
+
+For example, you can find the following tags in the output: Year, Journal, ISSN, ArticleTitle, Abstract, AuthorList, Affiliation, Keyword ...
+
+1.5 Extraction of all the references
+
+In this example, we will extract the affiliations of the authors from all papers. (This step can take quite some time to be performed)
+
+```{r, echo=T, include=T, warning=F}
+affiliations = data.frame(matrix(NA, ncol = 2, nrow = 1))
+colnames(affiliations) = c('title', 'affiliation')
+
+for(j in 1 : length(pub$title)){
+  skip_to_next <- FALSE
+  tryCatch( # I use tryCatch to catch the papers not found on PubMed
+    {
+      my_entrez_id <- get_pubmed_ids_by_fulltitle(pub$title[j], field = "[Title]")
+      my_xml <- fetch_pubmed_data(my_entrez_id)
+    
+      affiliation = 
+    
+      affiliations = bind_rows(
+        affiliations, 
+        data.frame(
+          title = pub$title[j],
+          affiliation = custom_grep(my_xml, tag = "Affiliation") %>% unlist
+          )
+        )
+    }, error = function(e){ 
+      skip_to_next <<- TRUE
+    }
+    )
+  
+  if(skip_to_next) { 
+    affiliations = bind_rows(
+      affiliations,
+      data.frame(
+        title = pub$title[j], 
+        affiliation = "NOT FOUND")
+      )
+  next }  # To continue the script in the next occurrence
+}
+
+affiliations
+```
+
+1.6 Extraction of the cities and countries from the affiliations
+
+Once you have all the affiliations you may like to plot them on a map. For that, you need to extract the cities and countries. The following code is most likely not the most efficient way to do it, but it gives a first idea. 
+
+
+1.6.1 List of cities
+
+You will need the list of cities with their spatial positions (longitude and latitude). I am using the dataset **world.cities** from the package *maps*, but there are a lot of other possibilities. 
+
+```{r, echo=T, include=T, warning=F}
+library(maps)
+
+head(world.cities)
+```
+
+We will create a new dataset with all cities 
+
+```{r, echo=T, include=T, warning=F}
+
+# New dataset
+df.cities = data.frame(matrix(NA, ncol = 5, nrow = 1))
+colnames(df.cities) = c('affiliation', 'City', 'Country', 'lat', 'long')
+
+for(af in unique(affiliations$affiliation)){
+  city = world.cities$name[lapply(world.cities$name, function(x) {
+  grepl(pattern = x, 
+        x = af, 
+        fixed = T)}) %>% unlist] 
+
+  country = world.cities$country.etc[lapply(world.cities$country.etc, function(x) {
+    grepl(pattern = x, 
+          x = af, 
+          fixed = T)}) %>% unlist]
+
+  c = 
+    world.cities %>% 
+    mutate(affiliation = af) %>%
+    filter(name %in% city & country.etc %in% country) %>%
+    select(affiliation, City = name, Country = country.etc, lat, long) %>%
+    filter(!duplicated(City)) # To remove multiple entries
+
+  df.cities = bind_rows(
+    df.cities,
+    c
+  )
+}
+
+affiliations = left_join(affiliations, df.cities, by = "affiliation")
+
+affiliations
+```
+
+# Example of outputs
+
+## Wordcloud of you manuscript titles
+
+```{r, echo=T, include=T, warning=F}
+library("tm")
+library("SnowballC")
+library("wordcloud2")
+
+list.stop = c('affect', 'effects', 'using')
+
+docs <- Corpus(VectorSource(pub$title))
+toSpace <- content_transformer(function (x , pattern ) gsub(pattern, " ", x))
+docs <- docs %>%
+  tm_map(., toSpace, "/") %>%
+  tm_map(., toSpace, "@") %>%
+  tm_map(., toSpace, "\\|") %>%
+  tm_map(., content_transformer(tolower)) %>%
+  tm_map(., removeNumbers) %>%
+  tm_map(., removeWords, stopwords("english")) %>%
+  tm_map(., removeWords, list.stop) %>%
+  tm_map(., removePunctuation) %>%
+  tm_map(., stripWhitespace)
+
+dtm <- TermDocumentMatrix(docs)
+m <- as.matrix(dtm)
+v <- sort(rowSums(m),decreasing=TRUE)
+d <- data.frame(word = names(v),freq=v)
+head(d, 10)
+
+
+col.pal = colorRampPalette(colors = c('brown','Darkgreen'))
+
+wordcloud2(data = d, 
+           size = 1, 
+           color = col.pal(10))
+```
+
+## Map of you collaborators
+
+```{r, echo=T, include=T, warning=F}
+library(rnaturalearth)
+
+ggplot(data =  ne_countries(scale = "medium", returnclass = "sf")) + 
+  geom_sf() +
+  geom_point(data = affiliations, 
+             aes(x = long, y = lat), 
+             size = 5,
+             color = 'red',
+             fill = "blue") +
+  labs(x = '', y = '')
+```
+

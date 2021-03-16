@@ -6,3 +6,5 @@ header:
 title: Publications
 view: 4
 ---
+
+{{< figure src="title-cloud.jpeg" id="title-cloud" >}}
