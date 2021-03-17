@@ -5,7 +5,7 @@ slug: extract-my-scientific-profile-with-r
 subtitle: ''
 summary: ''
 date: '`r format(Sys.Date(), "%Y-%m-%d")`'
-categories: ["literature research"]
+categories: ["literature research", "tutorial"]
 tags: ["literature", "R", "tutorial"]
 authors: ['admin']
 lastmod: '2021-03-16T10:56:08+01:00'
@@ -89,7 +89,7 @@ my_xml <- fetch_pubmed_data(my_request)
 
 my_xml
 ```
-1.4 Extract information from a reference
+2. Extract information from a reference
 
 As you can see the output isn't super handy; the *easyPubMed* package provide a tool to deal with that: **custom_grep()**. The function will return the content of specified tag. 
 
@@ -101,7 +101,7 @@ custom_grep(my_xml, tag = "Affiliation") %>% unlist
 
 For example, you can find the following tags in the output: Year, Journal, ISSN, ArticleTitle, Abstract, AuthorList, Affiliation, Keyword ...
 
-1.5 Extraction of all the references
+3. Extraction of all the references
 
 In this example, we will extract the affiliations of the authors from all papers. (This step can take quite some time to be performed)
 
@@ -139,7 +139,6 @@ for(j in 1 : length(pub$title)){
 }
 
 affiliations
-save(affiliations, file = "affiliation.RData")
 ```
 
 ```{r, echo=F}
@@ -148,12 +147,12 @@ load("affiliation.RData")
 affiliations
 ```
 
-1.6 Extraction of the cities and countries from the affiliations
+5. Extraction of the cities and countries from the affiliations
 
 Once you have all the affiliations you may like to plot them on a map. For that, you need to extract the cities and countries. The following code is most likely not the most efficient way to do it, but it gives a first idea. 
 
 
-1.6.1 List of cities
+5.1 List of cities
 
 You will need the list of cities with their spatial positions (longitude and latitude). I am using the dataset **world.cities** from the package *maps*, but there are a lot of other possibilities. 
 
@@ -202,7 +201,7 @@ affiliations
 
 # Example of outputs
 
-## Table of publications
+## Table of your publications
 
 ```{r, echo=T, message=F, warning=F}
 pub %>% 
@@ -250,7 +249,7 @@ wordcloud2(data = d,
            color = col.pal(10))
 ```
 
-## Map of you collaborators
+## Map of your collaborators
 
 ```{r, echo=T, include=T, warning=F}
 library(rnaturalearth)
