@@ -34,9 +34,7 @@ form %>% filter(Horodateur > (format(Sys.Date()-7, "%Y-%m-%d")) ) %>%
 
 ## If you find something nice feel free to contribute
 
-<div style="text-align:center">
-<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd53dAnWEsl-tP6eomio6LSx-zgUwd6s-SMEIX0960AQMptGA/viewform?embedded=true" height = "800" width = "500" frameborder="0" marginheight="0" marginwidth="0">Chargement…</iframe>
-</div>
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd53dAnWEsl-tP6eomio6LSx-zgUwd6s-SMEIX0960AQMptGA/viewform?embedded=true" height = "1000" width = "800" frameborder="0" marginheight="0" marginwidth="0">Chargement…</iframe>
 
 ## Previously in "Hot in Press"
 ### This month

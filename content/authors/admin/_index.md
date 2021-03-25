@@ -32,8 +32,6 @@ superuser: false
 title: Rémy Beugnon
 user_groups: ["Researchers"]
 ---
-(I am still building the site ... sorry for the typos and broken links)
-
-  My interest is to understand ecosystem functioning, specially soil functioning. I would like in my studies to add a small piece to the understanding of organisms interact and their integration in the whole ecosystem.
-We can all agree that we are losing species from all phyla in all ecosystems all around the world. The consequences of such loss for ecosystem functioning are unpredictable. Understanding how species interact and how they are link to their environment is a prerequisite to understand ecosystem functioning and the consequences of species loss. 
-My research is based on a tree Biodiversity-Ecosystem Functioning experiment (BEF China), where I am focusing on tree-tree interactions effects for soil functioning from soil carbon and nitrogen cycling modeling to microbial community and its functioning through decomposition experiments. I am doing this work as part of the TreeDì doctoral school which is aiming to understand tree – tree interactions in Chinese subtropical forest within the BEF China platform.
+  My interest is to understand ecosystem functioning, specially soil functioning. I would like in my studies to add a small piece to the understanding of organism interactions and their integration in the ecosystem.
+We can all agree that we are losing species from all phyla in all ecosystems all around the world. The consequences of such loss for ecosystem functioning remains unpredictable. Understanding how species interact and how they are link to their environment is a prerequisite to understand ecosystem functioning and the consequences of species loss. 
+My research is based on a tree Biodiversity Ecosystem Functioning experiment ([BEF China](https://bef-china.com/)), where I am focusing on tree-tree interactions effects for soil functioning from soil carbon and nitrogen cycling modeling to microbial community and its functioning through decomposition experiments. I am doing this work as part of the [TreeDì]({{< relref "/project/TreeDi" >}}) doctoral school which is aiming to understand tree – tree interactions in Chinese subtropical forest within the BEF China platform.
