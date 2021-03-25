@@ -1,0 +1,81 @@
+---
+title: ""
+author: admin
+date: '`r format(Sys.Date(), "%Y-%m-%d")`'
+categories: ["analysis"]
+tags: ["survey"]
+summary: How to automatically analyse a lab survey with R
+---
+## Inport the Google Sheet
+```{r,echo=TRUE, warning=FALSE, message=FALSE}
+library(googlesheets4)
+library(dplyr)
+library(kableExtra)
+
+form = read_sheet("https://docs.google.com/spreadsheets/d/1n3tFeJqkQ1ppG3no9NSYtIg2v_1Ml4eTgYki9hHXCcA/edit?usp=sharing")
+
+head(form)
+```
+## List of questions 
+
+```{r,echo=TRUE, warning=FALSE, message=FALSE}
+form %>% colnames %>% kable
+```
+### Analysis: "3 words to describ the lab"
+
+#### Answers
+```{r,echo=TRUE, warning=FALSE, message=FALSE}
+R1 = form$`What 3 words would you use to describe our lab culture?`
+head(R1)
+```
+
+### Building the corpus
+
+[Nice totorial on text mining](https://www.red-gate.com/simple-talk/sql/bi/text-mining-and-sentiment-analysis-with-r/)
+
+```{r,echo=TRUE, warning=FALSE, message=FALSE}
+library(SnowballC)
+library(tm)
+
+TextDoc <- Corpus(VectorSource(R1))
+
+ #Replacing "/", "@" and "|" with space
+toSpace <- content_transformer(function (x , pattern ) gsub(pattern, " ", x))
+your.stop.words = c()
+TextDoc =  TextDoc %>%
+  tm_map(., toSpace, "/") %>%
+  tm_map(., toSpace, "@") %>%
+  tm_map(., toSpace, "\\|") %>%
+  # tm_map(., toSpace, ",") %>%
+  # Convert the text to lower case
+  tm_map(., content_transformer(tolower)) %>%
+  # Remove numbers
+  tm_map(., removeNumbers) %>%
+  # Remove english common stopwords
+  tm_map(., removeWords, stopwords("english")) %>%
+  # Remove your own stop word
+  tm_map(., removeWords, your.stop.words) %>%
+  # Remove punctuations
+  tm_map(., removePunctuation) %>%
+  # Eliminate extra white spaces
+  tm_map(., stripWhitespace)# %>%
+  # Text stemming - which reduces words to their root form
+  # tm_map(., stemDocument)
+
+# Build a term-document matrix
+TextDoc_dtm <- TermDocumentMatrix(TextDoc)
+dtm_m <- as.matrix(TextDoc_dtm)
+# Sort by descearing value of frequency
+dtm_v <- sort(rowSums(dtm_m),decreasing=TRUE)
+dtm_d <- data.frame(word = names(dtm_v),freq=dtm_v)
+# Display the top 5 most frequent words
+head(dtm_d, 5)
+```
+
+#### Ploting the results
+
+```{r,echo=TRUE, warning=FALSE, message=FALSE}
+library(wordcloud)
+
+wordcloud(words = dtm_d$word, freq = dtm_d$freq)
+```
