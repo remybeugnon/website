@@ -16,9 +16,11 @@ library(lubridate)
 form = read_sheet("https://docs.google.com/spreadsheets/d/1RbL6vgRC_ZvTYL8Qh3uoAFBNeuach2gnLiNW92KxwAA/edit?usp=sharing")
 form$Horodateur = form$Horodateur %>% stringr::str_sub(.,1,10) %>% as.Date(.,format = "%Y-%m-%d")
 
+form = form[order(form$Horodateur,  decreasing = T),]
+
 form = 
   form %>% 
-  distinct(Title, .keep_all = TRUE) %>% 
+  # distinct(Title, .keep_all = TRUE) %>% 
   distinct(`DOI (full URL)`, .keep_all = TRUE) %>%
   filter(!is.na(Title))
 
