@@ -2,7 +2,7 @@
 date: "2021-01-01T00:00:00Z"
 external_link: ""
 image:
-  caption: "Credential Forbes"
+  caption: " "
   focal_point: Smart
 summary: What does transdisciplinary research mean for ecologists?  
 authors:
