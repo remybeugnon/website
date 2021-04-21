@@ -272,7 +272,21 @@ In this project, we aim to describe and understand what transdisciplinary resear
 
 # 5. What is the best advice for a young scientist pursuing this path? 
 
-Soon on Twitter!
+<blockquote class="twitter-tweet" data-conversation="none"><p lang="en" dir="ltr">Transdisciplinary projects are long-term projects, with possible uncertainty of funding and publications. Does it make sense at all for a young researcher to go down the path of transdisciplinary research? [1/8]</p>&mdash; GfÖ (@GfoeSoc) <a href="https://twitter.com/GfoeSoc/status/1384773775548456960?ref_src=twsrc%5Etfw">April 21, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
+<blockquote class="twitter-tweet" data-conversation="none"><p lang="en" dir="ltr">This was our last question to our interviewees: &quot;What advice would you give to a young researcher who wants to engage in transdisciplinary research? How would you support her/him as PI? [2/8]</p>&mdash; GfÖ (@GfoeSoc) <a href="https://twitter.com/GfoeSoc/status/1384773822344273922?ref_src=twsrc%5Etfw">April 21, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
+<blockquote class="twitter-tweet" data-conversation="none"><p lang="en" dir="ltr">The first problem the young researchers encounter is the time frame of their contracts: “It takes at least a couple of years to do interdisciplinary research, this is why it&#39;s difficult to do serious interdisciplinary research during a PhD.” (Martin Quaas) [3/8]</p>&mdash; GfÖ (@GfoeSoc) <a href="https://twitter.com/GfoeSoc/status/1384773863016390656?ref_src=twsrc%5Etfw">April 21, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
+<blockquote class="twitter-tweet" data-conversation="none"><p lang="en" dir="ltr">You must first be established in your own discipline. [4/8]</p>&mdash; GfÖ (@GfoeSoc) <a href="https://twitter.com/GfoeSoc/status/1384773909925531650?ref_src=twsrc%5Etfw">April 21, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
+<blockquote class="twitter-tweet" data-conversation="none"><p lang="en" dir="ltr">“If I was an advisor to a PhD student or early careers scientists, I would advise them to develop strong skill sets first - these can then be applied also in interdisciplinary settings.” (Aletta Bonn) [5/8]</p>&mdash; GfÖ (@GfoeSoc) <a href="https://twitter.com/GfoeSoc/status/1384773949385478144?ref_src=twsrc%5Etfw">April 21, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
+<blockquote class="twitter-tweet" data-conversation="none"><p lang="en" dir="ltr">“First, become an expert in your field first. Second, building interdisciplinary narratives by emailing people, having chats, meeting with people at conferences.” (Rob Salguero-Gómez) [6/8]</p>&mdash; GfÖ (@GfoeSoc) <a href="https://twitter.com/GfoeSoc/status/1384773983392964608?ref_src=twsrc%5Etfw">April 21, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
+<blockquote class="twitter-tweet" data-conversation="none"><p lang="en" dir="ltr">“I do not encourage early career researchers to do interdisciplinary research, but sometimes they are interested in problems that require interdisciplinarity.” (Martin Quaas) [7/8]</p>&mdash; GfÖ (@GfoeSoc) <a href="https://twitter.com/GfoeSoc/status/1384774039386873857?ref_src=twsrc%5Etfw">April 21, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
+<blockquote class="twitter-tweet" data-conversation="none"><p lang="en" dir="ltr">“The best advice I have for PhD students and postdocs is to just follow your passion, follow your ideas. That idea of security doesn&#39;t exist in our world, we create this false sense of security for ourselves.” (Brent Reynolds) [8/8]</p>&mdash; GfÖ (@GfoeSoc) <a href="https://twitter.com/GfoeSoc/status/1384774091857616897?ref_src=twsrc%5Etfw">April 21, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
 
 <a name="conclu"></a>
 
