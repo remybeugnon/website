@@ -2,8 +2,8 @@
     "sortOrder": [
         {
             "columnIndex": 2,
-            "ascending": true
+            "ascending": false
         }
     ],
-    "path": "~/Website/remybeugnon/content/project/Transdiciplinary research wonders"
+    "path": "~/Website/remybeugnon/content/post/2021-05-07-intro-to-stat-in-R"
 }

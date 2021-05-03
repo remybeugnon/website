@@ -1,9 +1,8 @@
 ---
-title: Introduction to stat in R
+title: "Introduction to stat in R: Cheatsheet"
 author: 'admin'
 slug: intro-to-stat-in-R
-subtitle: ''
-summary: ''
+subtitle: 'Cheatsheet'
 date: '`r format(Sys.Date(), "%Y-%m-%d")`'
 categories: ["tutorial", "stat"]
 tags: ["R", "tutorial", "stat"]
@@ -37,7 +36,7 @@ summary: 'Introduction to statistical analyses with R: the process to get throug
 
 # Introduction <a name="intro"></a>
 
-In each step, the I will provide several coding ways to achieve your goals in R: just pick the one you like.  
+The slides of this lecture can be find [here](Lecture-intro-to-stat-in-R.pdf)  
 
 ## Stepwise analyses
 
