@@ -14,6 +14,7 @@ image:
   caption: ''
   focal_point: ''
   preview_only: no
+summary: 'Introduction to statistical analyses with R: the process to get through it'
 ---
 
 # Content
@@ -36,7 +37,7 @@ image:
 
 # Introduction <a name="intro"></a>
 
-In each step, the I will provide several coding ways to achieve your goals in R. Just pick the one you like.  
+In each step, the I will provide several coding ways to achieve your goals in R: just pick the one you like.  
 
 ## Stepwise analyses
 
@@ -456,9 +457,9 @@ data handling with [dplyr package](https://dplyr.tidyverse.org/)
 
   - [glm' r documentation](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/glm)
 
-  - [Tutorial](https://www.datacamp.com/community/tutorials/generalized-linear-models)
+  - [Tutorial 1](https://www.datacamp.com/community/tutorials/generalized-linear-models)
 
-  - [Tutorial](https://www.statmethods.net/advstats/glm.html)
+  - [Tutorial 2](https://www.statmethods.net/advstats/glm.html)
 
 * Non-linear models: 
 
@@ -483,6 +484,13 @@ data handling with [dplyr package](https://dplyr.tidyverse.org/)
   - the Bible for SEM: [Jon Lefcheck book](https://jslefche.github.io/sem_book/)
 
   - [Tutorial](https://lavaan.ugent.be/tutorial/sem.html)
+  
+* Spatio-temporal analyses with R: 
+
+  - The Bible for Spatio-temporal modeling: [book](https://spacetimewithr.org/index) ([pdf](https://spacetimewithr.org/Spatio-Temporal%20Statistics%20with%20R.pdf))
+
+  - Dealing with temporal auto-correlation in R: [Tutorial](https://rpubs.com/markpayne/164550)
+
   
 ## Model quality
 
