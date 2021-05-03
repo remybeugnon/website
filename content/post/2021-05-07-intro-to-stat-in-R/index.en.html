@@ -1,0 +1,503 @@
+---
+title: Introduction to stat in R
+author: 'admin'
+slug: intro-to-stat-in-R
+subtitle: ''
+summary: ''
+date: '2021-05-03'
+categories: ["tutorial", "stat"]
+tags: ["R", "tutorial", "stat"]
+authors: ['admin']
+lastmod: '2021-05-07T10:56:08+01:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+---
+
+
+
+<div id="content" class="section level1">
+<h1>Content</h1>
+<p><a href="#intro">Introduction</a></p>
+<ol style="list-style-type: decimal">
+<li><p><a href="#p1">Check your data</a></p></li>
+<li><p><a href="#p2">Build your hypothesis</a></p></li>
+<li><p><a href="#p3">Build your model</a></p></li>
+<li><p><a href="#p4">Check your model fit. Are the statistical assumptions met?</a></p></li>
+<li><p><a href="#p5">No, data transformation and corrections</a></p></li>
+<li><p><a href="#p6">Yes, extract your results</a></p></li>
+</ol>
+<p><a href="#p7">Useful links</a></p>
+</div>
+<div id="introduction" class="section level1">
+<h1>Introduction <a name="intro"></a></h1>
+<p>In each step, the I will provide several coding ways to achieve your goals in R. Just pick the one you like.</p>
+<div id="stepwise-analyses" class="section level2">
+<h2>Stepwise analyses</h2>
+<ol style="list-style-type: decimal">
+<li><p>Check your data</p></li>
+<li><p>Build your hypothesis</p></li>
+<li><p>Build your model</p></li>
+<li><p>Check your model fit. Are the statistical assumptions met?</p></li>
+<li><p>No, data transformation and corrections</p></li>
+<li><p>Yes, extract your results</p></li>
+</ol>
+</div>
+</div>
+<div id="check-your-data" class="section level1">
+<h1>1. Check your data <a name="p1"></a></h1>
+<div id="load-your-data" class="section level2">
+<h2>1.1. Load your data</h2>
+<p>How to load your data in “df”:</p>
+<p>.csv file</p>
+<pre class="r"><code>df = read.csv(file = &#39;name-of-your-file.csv&#39;)</code></pre>
+<p>.txt file</p>
+<pre class="r"><code>df = read.delim(file = &#39;name-of-your-file.txt&#39;)</code></pre>
+<p>.xlsx file (Excel files also with xls)</p>
+<pre class="r"><code>library(readxl)
+
+df = read_xlsx(path = &#39;name-of-your-file.xlsx&#39;, sheet = &#39;name of the sheet&#39;)</code></pre>
+</div>
+<div id="your-dataset-structure" class="section level2">
+<h2>1.2. Your dataset structure</h2>
+<p>Look at your dataframe:</p>
+<pre class="r"><code>View(df)</code></pre>
+<p>Explore the structure:</p>
+<pre class="r"><code>str(df)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    180 obs. of  6 variables:
+##  $ TSP          : chr  &quot;1-E34&quot; &quot;10-G17&quot; &quot;100-Q21&quot; &quot;101-Q21&quot; ...
+##  $ C.loss_Mi1   : num  88.3 56.9 86.8 59.4 59.1 ...
+##  $ N.loss_Mi1   : num  96 55 84.1 58.7 68.3 ...
+##  $ lit.rich     : int  1 1 2 1 1 2 1 1 2 2 ...
+##  $ neigh.sp.rich: int  1 1 2 2 2 2 3 1 2 2 ...
+##  $ fall         : num  74 21.8 72 38.2 66.1 ...</code></pre>
+</div>
+<div id="your-data-structure" class="section level2">
+<h2>1.3. Your data structure</h2>
+<div id="plot-all-the-variables" class="section level3">
+<h3>1.3.1. Plot all the variables</h3>
+<pre class="r"><code>plot(df)</code></pre>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+<div id="plot-the-variables-distribution" class="section level3">
+<h3>1.3.2. Plot the variables’ distribution</h3>
+<p>Example with C loss during decomposition (“C.loss_Mi1”)</p>
+<pre class="r"><code>boxplot(df$C.loss_Mi1)</code></pre>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+ggplot2 version</p>
+<pre class="r"><code>library(ggplot2)
+
+ggplot(data = df, aes(y = C.loss_Mi1, x = &quot; &quot;)) + # structure of the graph
+  geom_boxplot() +                                # add the boxplot
+  geom_jitter() +                                 # show the points distribution 
+  labs(x = &#39;&#39;, y = &quot;C loss [%]&quot;) +                # add labels to the axis
+  theme_classic()                                 # make it pretty</code></pre>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+<div id="compare-this-distribution-to-the-possible-range-of-data" class="section level3">
+<h3>1.3.3. Compare this distribution to the possible range of data</h3>
+<p>The carbon loss (%) during litter decomposition should be above 0% (intact leaves) and below 100% (completely decomposed).</p>
+<p>Check for data out of the range (possible typos, mistakes during measurements …).</p>
+<p>Visually:</p>
+<pre class="r"><code>ggplot(data = df, aes(y = C.loss_Mi1, x = &quot; &quot;)) + # structure of the graph
+  geom_boxplot() +                                # add the boxplot
+  geom_jitter() +                                 # show the points distribution 
+  labs(x = &#39;&#39;, y = &quot;C loss [%]&quot;) +                # add labels to the axis
+  theme_classic() +                               # make it pretty
+  geom_hline(yintercept = 0) +                    # add line at 0%
+  geom_hline(yintercept = 100)                    # add line at 100% </code></pre>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>Extract these outliers:</p>
+<pre class="r"><code>df[df$C.loss_Mi1 &lt; 0 | df$C.loss_Mi1 &gt; 100,] # | means &quot;OR&quot;</code></pre>
+<pre><code>##          TSP C.loss_Mi1 N.loss_Mi1 lit.rich neigh.sp.rich fall
+## 156 outliers        120        120        1            12    1
+## 157 outliers        120        120        1            12    1
+## 158 outliers        120        120        1            12    1
+## 159 outliers        120        120        1            12    1
+## 160 outliers        120        120        1            12    1
+## 161 outliers        120        120        1            12    1
+## 162 outliers        120        120        1            12    1
+## 163 outliers        120        120        1            12    1
+## 164 outliers        120        120        1            12    1
+## 173 outliers        -10        -10       50            50 1000
+## 174 outliers        -10        -10       50            50 1000
+## 175 outliers        -10        -10       -1             3 1000
+## 176 outliers        -10        -10       -1             3 1000
+## 177 outliers        -10        -10       -1             3 1000
+## 178 outliers        -10        -10       -1             3 1000
+## 179 outliers        -10        -10       -1             3 1000
+## 180 outliers        -10        -10       -1             3 1000</code></pre>
+<p>With dplyr:</p>
+<pre class="r"><code>library(dplyr)
+
+df %&gt;%
+  filter(C.loss_Mi1 &lt; 0 | C.loss_Mi1 &gt; 100) # filter your rows under conditions</code></pre>
+<pre><code>##         TSP C.loss_Mi1 N.loss_Mi1 lit.rich neigh.sp.rich fall
+## 1  outliers        120        120        1            12    1
+## 2  outliers        120        120        1            12    1
+## 3  outliers        120        120        1            12    1
+## 4  outliers        120        120        1            12    1
+## 5  outliers        120        120        1            12    1
+## 6  outliers        120        120        1            12    1
+## 7  outliers        120        120        1            12    1
+## 8  outliers        120        120        1            12    1
+## 9  outliers        120        120        1            12    1
+## 10 outliers        -10        -10       50            50 1000
+## 11 outliers        -10        -10       50            50 1000
+## 12 outliers        -10        -10       -1             3 1000
+## 13 outliers        -10        -10       -1             3 1000
+## 14 outliers        -10        -10       -1             3 1000
+## 15 outliers        -10        -10       -1             3 1000
+## 16 outliers        -10        -10       -1             3 1000
+## 17 outliers        -10        -10       -1             3 1000</code></pre>
+</div>
+<div id="clean-your-dataset" class="section level3">
+<h3>1.3.4. Clean your dataset</h3>
+<p>You can inverse the condition and save the selected rows in df. Be careful, this will overwrite your data frame (in R), it is always wise to have a save copy.</p>
+<pre class="r"><code>df.save = df # save the data before cleaning in df.save
+
+df = 
+  df %&gt;%
+  filter(!(C.loss_Mi1 &lt; 0 | C.loss_Mi1 &gt; 100)) # &quot;!&quot; inverse the conditions</code></pre>
+<p>Alternatives:</p>
+<pre class="r"><code>df = 
+  df %&gt;%
+  filter(C.loss_Mi1 &gt;= 0 &amp; C.loss_Mi1 &lt;= 100)        # &quot;&amp;&quot; both conditions needed
+
+df = df[df$C.loss_Mi1 &gt;= 0 &amp; df$C.loss_Mi1 &lt;= 100, ] # in base R</code></pre>
+<p>Data after cleaning:</p>
+<pre class="r"><code>ggplot(data = df, aes(y = C.loss_Mi1, x = &quot; &quot;)) + # structure of the graph
+  geom_boxplot() +                                # add the boxplot
+  geom_jitter() +                                 # show the points distribution 
+  labs(x = &#39;&#39;, y = &quot;C loss [%]&quot;) +                # add labels to the axis
+  theme_classic() +                               # make it pretty
+  geom_hline(yintercept = 0) +                    # add line at 0%
+  geom_hline(yintercept = 100)                    # add line at 100% </code></pre>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p>Looks better, no?!</p>
+</div>
+</div>
+</div>
+<div id="build-your-hypotheses" class="section level1">
+<h1>2. Build your hypotheses <a name="p2"></a></h1>
+<div id="hypotheses" class="section level2">
+<h2>2.1. Hypotheses</h2>
+<p>This as nothing to do with R. In our case:</p>
+<p>We expect carbon loss (C.loss_Mi1) to increase with litter species richness (lit.rich).</p>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+</div>
+<div id="distribution" class="section level2">
+<h2>2.2. distribution</h2>
+<p>What is the expected distribution of the response variable C.loss?</p>
+<p>In short:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Distribution</th>
+<th align="left">Sampling</th>
+<th align="left">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Normal</td>
+<td align="left">Continuous measurements</td>
+<td align="left">size, flux, biomass …</td>
+</tr>
+<tr class="even">
+<td align="left">Poisson</td>
+<td align="left">Discrete counting</td>
+<td align="left">number of species, number of individuals</td>
+</tr>
+<tr class="odd">
+<td align="left">Binomial</td>
+<td align="left">Yes/No</td>
+<td align="left">presence-absence of species</td>
+</tr>
+<tr class="even">
+<td align="left">Beta</td>
+<td align="left">Percentages</td>
+<td align="left">decomposition rate</td>
+</tr>
+<tr class="odd">
+<td align="left">…</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<p>N.B. the beta distribution takes into account the bounding between 0 and 1 (or 0 and 100). In our case where our variable values are far from these limits, the normal distribution can also be used and will give similar results.</p>
+</div>
+</div>
+<div id="build-your-model" class="section level1">
+<h1>3. Build your model <a name="p3"></a></h1>
+<div id="identify-the-parameters-of-your-model" class="section level2">
+<h2>3.1. Identify the parameters of your model</h2>
+<p>Response variable: C.loss_Mi1</p>
+<p>Explanatory variable: lit.rich</p>
+<p>Formula: C.loss_Mi1 ~ lit.rich</p>
+<p>Relation type: linear</p>
+<p>Data frame: df</p>
+<p>Distribution of the residuals: Normal</p>
+</div>
+<div id="fit-your-model-on-your-data" class="section level2">
+<h2>3.2. Fit your model on your data</h2>
+<pre class="r"><code>mod = lm(data = df, formula = &#39;C.loss_Mi1 ~ lit.rich&#39;) # the lm function fit linear model with Normal distribution assumption on the residuals</code></pre>
+<p>Other residual distribution type:</p>
+<p>Poisson distribution</p>
+<pre class="r"><code>mod = glm(data = df, formula = &#39;y ~ x&#39;, family = poisson())</code></pre>
+<p>Binomial distribution</p>
+<pre class="r"><code>mod = glm(data = df, formula = &#39;y ~ x&#39;, family = binomial())</code></pre>
+</div>
+</div>
+<div id="check-your-model-fit.-are-the-statistical-assumption-met" class="section level1">
+<h1>4. Check your model fit. Are the statistical assumption met? <a name="p4"></a></h1>
+<p>New in town: the “performance” package</p>
+<div id="model-fit" class="section level2">
+<h2>4.1. Model fit</h2>
+<pre class="r"><code>library(performance)
+
+check_model(mod)</code></pre>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+</div>
+<div id="check-outliers" class="section level2">
+<h2>4.2. Check outliers</h2>
+<pre class="r"><code>check_outliers(mod)</code></pre>
+<pre><code>## OK: No outliers detected.</code></pre>
+</div>
+<div id="check-possible-distribution-of-residuals" class="section level2">
+<h2>4.3. Check possible distribution of residuals</h2>
+<pre class="r"><code>check_distribution(mod)</code></pre>
+<pre><code>## # Distribution of Model Family
+## 
+## Predicted Distribution of Residuals
+## 
+##  Distribution Probability
+##        normal         66%
+##       tweedie         22%
+##       weibull          6%
+## 
+## Predicted Distribution of Response
+## 
+##                Distribution Probability
+##                     tweedie         59%
+##  neg. binomial (zero-infl.)          9%
+##                      normal          9%</code></pre>
+</div>
+<div id="check-normality-of-the-residuals" class="section level2">
+<h2>4.4. Check normality of the residuals</h2>
+<pre class="r"><code>check_normality(mod)</code></pre>
+<pre><code>## Warning: Non-normality of residuals detected (p = 0.002).</code></pre>
+</div>
+<div id="check-heteroscedasticity-of-variance" class="section level2">
+<h2>4.5. Check heteroscedasticity of variance</h2>
+<pre class="r"><code>check_heteroscedasticity(mod)</code></pre>
+<pre><code>## Warning: Heteroscedasticity (non-constant error variance) detected (p = 0.021).</code></pre>
+<p>Remember that these tests are often really conservative. They are useful to make your choices but need to be considered having in mind the sample size and data structure.</p>
+<p>Here, our model doesn’t seem to meet the assumption of heteroscedasticity and normality of the residuals.</p>
+</div>
+</div>
+<div id="no-data-transformation-and-corrections" class="section level1">
+<h1>5. No, data transformation and corrections <a name="p5"></a></h1>
+<div id="check-your-data-again" class="section level2">
+<h2>5.1. Check your data (again)</h2>
+<p>Look for surprising values, they could be typos.</p>
+<pre class="r"><code>ggplot(data = df, aes(y = C.loss_Mi1, x = &quot; &quot;)) + # structure of the graph
+  geom_rect(data = NULL,                          # add rectangle to show outliers
+            aes(ymin = -5, ymax = 5, 
+                xmin = -Inf, xmax = Inf), 
+            alpha = .005, fill = &#39;red&#39;, color = NA) +
+  geom_boxplot() +                                # add the boxplot
+  geom_jitter() +                                 # show the points distribution 
+  labs(x = &#39;&#39;, y = &quot;C loss [%]&quot;) +                # add labels to the axis
+  theme_classic() +                               # make it pretty
+  geom_hline(yintercept = 0) +                    # add line at 0%
+  geom_hline(yintercept = 100)                  # add line at 100% </code></pre>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p>Is it meaningful to have 0% of carbon loss after one year of decomposition? In this case, it was only typos. So we can correct them in the original data.</p>
+<p>Look at the relationship you are fitting</p>
+<pre class="r"><code>ggplot(data = df, aes(x = lit.rich, y = C.loss_Mi1)) + 
+  geom_jitter() +  
+  # all the regression line using a linear relationship (i.e. here the same that your model)
+  geom_smooth(method = &#39;lm&#39;, color = &#39;black&#39;) +  
+  labs(x = &quot;Litter species richness&quot;, y = &quot;C loss [%]&quot;) + 
+  theme_classic()</code></pre>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+</div>
+<div id="new-model-after-corrections" class="section level2">
+<h2>5.2. New model after corrections</h2>
+<pre class="r"><code>mod = lm(data = df, formula = &#39;C.loss_Mi1 ~ lit.rich&#39;)
+check_model(mod)</code></pre>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+</div>
+<div id="data-transformation" class="section level2">
+<h2>5.3. Data transformation</h2>
+<p>Log transformation of your explanatory variable.</p>
+<pre class="r"><code>ggplot(data = df, aes(x = lit.rich, y = C.loss_Mi1)) + 
+  geom_jitter() +  
+  # all the regression line using a linear relationship (i.e. here the same that your model)
+  geom_smooth(method = &#39;lm&#39;, color = &#39;black&#39;) +  
+  scale_x_continuous(trans = &#39;log&#39;, breaks = c(1,2,4,8)) + 
+  labs(x = &quot;Litter species richness&quot;, y = &quot;C loss [%]&quot;) + 
+  theme_classic()</code></pre>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<p>New model</p>
+<pre class="r"><code>mod.1 = lm(data = df, formula = &#39;C.loss_Mi1 ~ log(lit.rich)&#39;)
+
+check_model(mod.1)</code></pre>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+</div>
+<div id="compare-the-model-quality" class="section level2">
+<h2>5.4. Compare the model quality</h2>
+<pre class="r"><code>compare_performance(mod, mod.1)</code></pre>
+<pre><code>## # Comparison of Model Performance Indices
+## 
+## Name  | Model |      AIC |      BIC |    R2 | R2 (adj.) |   RMSE |  Sigma
+## -------------------------------------------------------------------------
+## mod   |    lm | 1176.469 | 1185.599 | 0.051 |     0.045 | 10.557 | 10.626
+## mod.1 |    lm | 1176.338 | 1185.469 | 0.052 |     0.046 | 10.552 | 10.621</code></pre>
+<p>Data transformation doesn’t improve our model</p>
+</div>
+</div>
+<div id="yes-extract-your-results" class="section level1">
+<h1>6. Yes, extract your results <a name="p6"></a></h1>
+<div id="check-model-summary" class="section level2">
+<h2>6.1. Check model summary</h2>
+<pre class="r"><code>summary(mod)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = &quot;C.loss_Mi1 ~ lit.rich&quot;, data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -20.2747  -8.7829   0.8984   7.5652  25.9039 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  69.1002     1.4516  47.602  &lt; 2e-16 ***
+## lit.rich      1.0972     0.3824   2.869  0.00469 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 10.63 on 153 degrees of freedom
+## Multiple R-squared:  0.05107,    Adjusted R-squared:  0.04487 
+## F-statistic: 8.234 on 1 and 153 DF,  p-value: 0.004693</code></pre>
+</div>
+<div id="extract-model-coefficients" class="section level2">
+<h2>6.2. Extract model coefficients</h2>
+<pre class="r"><code>summary(mod)$coefficients</code></pre>
+<pre><code>##              Estimate Std. Error   t value     Pr(&gt;|t|)
+## (Intercept) 69.100160  1.4516329 47.601675 1.272742e-93
+## lit.rich     1.097198  0.3823676  2.869485 4.693330e-03</code></pre>
+</div>
+<div id="extract-model-r-squared" class="section level2">
+<h2>6.3. Extract model R squared</h2>
+<pre class="r"><code>summary(mod)$r.squared</code></pre>
+<pre><code>## [1] 0.05106831</code></pre>
+</div>
+<div id="extract-your-fitted-model" class="section level2">
+<h2>6.4. Extract your fitted model</h2>
+<pre class="r"><code>library(ggeffects)</code></pre>
+<pre><code>## Warning: package &#39;ggeffects&#39; was built under R version 4.0.5</code></pre>
+<pre class="r"><code>predictions = ggpredict(model = mod, terms = &#39;lit.rich&#39;)
+
+predictions</code></pre>
+<pre><code>## # Predicted values of C.loss_Mi1
+## # x = lit.rich
+## 
+## x | Predicted |         95% CI
+## ------------------------------
+## 1 |     70.20 | [67.92, 72.48]
+## 2 |     71.29 | [69.44, 73.15]
+## 3 |     72.39 | [70.72, 74.07]
+## 4 |     73.49 | [71.68, 75.30]
+## 5 |     74.59 | [72.38, 76.80]
+## 6 |     75.68 | [72.92, 78.44]
+## 7 |     76.78 | [73.39, 80.17]
+## 9 |     78.97 | [74.23, 83.72]</code></pre>
+</div>
+<div id="plot-your-results" class="section level2">
+<h2>6.5 Plot your results</h2>
+<pre class="r"><code>ggplot(data = df, aes(x = lit.rich, y = C.loss_Mi1)) +         # frame
+  geom_jitter(data = df, aes(x = lit.rich, y = C.loss_Mi1)) +  # jitter add some noise in the x-axis to better show the points
+  geom_line(data = predictions, aes(x = x, y = predicted)) +   # add the regression line, when you use different dataframes in the plot you need to define them for each geom
+  labs(x = &quot;Litter species richness&quot;, y = &quot;C loss [%]&quot;) + 
+  theme_classic()</code></pre>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<p>See ggplot packages for more details.</p>
+</div>
+</div>
+<div id="useful-links" class="section level1">
+<h1>Useful links <a name="p7"></a></h1>
+<p><a href="https://www.google.com/">Google</a></p>
+<p>The R bible: <a href="https://www.cs.upc.edu/~robert/teaching/estadistica/TheRBook.pdf">The R Book</a></p>
+<div id="data-handling" class="section level2">
+<h2>Data handling</h2>
+<p>Packages:</p>
+<p>The <a href="https://www.tidyverse.org/">tidyverse packages</a>:</p>
+<p>loading Excel data with <a href="https://readxl.tidyverse.org/">readxl</a></p>
+<p>loading data with <a href="https://readr.tidyverse.org/">readr package</a></p>
+<p>data handling with <a href="https://dplyr.tidyverse.org/">dplyr package</a></p>
+<p>… and more in the the tidyverse package</p>
+</div>
+<div id="building-statistical-model" class="section level2">
+<h2>Building statistical model</h2>
+<ul>
+<li><p>Linear model with normally distributed residuals:</p>
+<ul>
+<li><p><a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/lm">‘lm’ r documentation</a></p></li>
+<li><p><a href="https://www.datacamp.com/community/tutorials/linear-regression-R">Tutorial</a></p></li>
+</ul></li>
+<li><p>Linear model with other distributed residuals:</p>
+<ul>
+<li><p><a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/glm">glm’ r documentation</a></p></li>
+<li><p><a href="https://www.datacamp.com/community/tutorials/generalized-linear-models">Tutorial</a></p></li>
+<li><p><a href="https://www.statmethods.net/advstats/glm.html">Tutorial</a></p></li>
+</ul></li>
+<li><p>Non-linear models:</p>
+<ul>
+<li><p>by transforming your data: log, polynomial … <a href="http://www.sthda.com/english/articles/40-regression-analysis/162-nonlinear-regression-essentials-in-r-polynomial-and-spline-regression-models/">tutorial</a></p></li>
+<li><p>by using the nls() function: <a href="https://www.r-bloggers.com/2016/02/first-steps-with-non-linear-regression-in-r/">Tutorial</a></p></li>
+</ul>
+<p>(- by building your own fitting and optimization functions and using a solver: <a href="https://www.magesblog.com/post/2013-03-12-how-to-use-optim-in-r/">Tutorial</a>)</p></li>
+<li><p>General additive model: a great <a href="https://noamross.github.io/gams-in-r-course/">tutorial</a></p></li>
+<li><p>Mixed effect models (using lm4):</p>
+<ul>
+<li><p><a href="https://www.rensvandeschoot.com/tutorials/lme4/">tutorial 1</a></p></li>
+<li><p><a href="https://ourcodingclub.github.io/tutorials/mixed-models/">tutorial 2</a></p></li>
+<li><p><a href="https://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf">package vignette</a></p></li>
+</ul></li>
+<li><p>Structural Equation Modeling:</p>
+<ul>
+<li><p>the Bible for SEM: <a href="https://jslefche.github.io/sem_book/">Jon Lefcheck book</a></p></li>
+<li><p><a href="https://lavaan.ugent.be/tutorial/sem.html">Tutorial</a></p></li>
+</ul></li>
+</ul>
+</div>
+<div id="model-quality" class="section level2">
+<h2>Model quality</h2>
+<p>The performance package</p>
+<ul>
+<li><p><a href="https://cran.r-project.org/web/packages/performance/performance.pdf">the package</a></p></li>
+<li><p><a href="https://easystats.github.io/performance/">tutorial</a></p></li>
+</ul>
+</div>
+<div id="plotting-stuff" class="section level2">
+<h2>Plotting stuff</h2>
+<ul>
+<li><p>ggplot make your life easy and pretty</p>
+<ul>
+<li><p><a href="https://ggplot2.tidyverse.org/">package</a></p></li>
+<li><p><a href="http://r-statistics.co/ggplot2-Tutorial-With-R.html">Tutorial 1</a></p></li>
+<li><p><a href="http://zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/">Tutorial 2</a></p></li>
+</ul></li>
+<li><p>ggpubr an Add-On to ggplot2:</p>
+<ul>
+<li><p><a href="https://rpkgs.datanovia.com/ggpubr/">package</a></p></li>
+<li><p><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggarrange.html">ggarrage</a> to combine plots from ggplot</p></li>
+</ul></li>
+</ul>
+</div>
+</div>

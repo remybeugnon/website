@@ -1,0 +1,509 @@
+---
+title: Introduction to stat in R
+author: 'admin'
+slug: intro-to-stat-in-R
+subtitle: ''
+summary: ''
+date: '`r format(Sys.Date(), "%Y-%m-%d")`'
+categories: ["tutorial", "stat"]
+tags: ["R", "tutorial", "stat"]
+authors: ['admin']
+lastmod: '2021-05-07T10:56:08+01:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+---
+
+# Content
+
+[Introduction](#intro)
+
+1. [Check your data](#p1)
+
+2. [Build your hypothesis ](#p2)
+
+3. [Build your model](#p3)
+
+4. [Check your model fit. Are the statistical assumptions met?](#p4)
+
+5. [No, data transformation and corrections](#p5)
+
+5. [Yes, extract your results](#p6)
+
+[Useful links](#p7)
+
+# Introduction <a name="intro"></a>
+
+In each step, the I will provide several coding ways to achieve your goals in R. Just pick the one you like.  
+
+## Stepwise analyses
+
+1. Check your data
+
+2. Build your hypothesis 
+
+3. Build your model
+
+4. Check your model fit. Are the statistical assumptions met? 
+
+5. No, data transformation and corrections
+
+6. Yes, extract your results
+
+# 1. Check your data <a name="p1"></a>
+
+## 1.1. Load your data
+
+How to load your data in "df": 
+
+.csv file
+
+```{r, echo=F}
+df = read.csv(file = 'df.csv')
+```
+
+```{r, echo=T, eval=FALSE}
+df = read.csv(file = 'name-of-your-file.csv')
+```
+
+.txt file
+
+```{r, echo=T, eval=FALSE}
+df = read.delim(file = 'name-of-your-file.txt')
+```
+
+.xlsx file (Excel files also with xls)
+
+```{r, echo=T, eval=FALSE}
+library(readxl)
+
+df = read_xlsx(path = 'name-of-your-file.xlsx', sheet = 'name of the sheet')
+```
+
+## 1.2. Your dataset structure
+
+Look at your dataframe: 
+
+```{r, echo=T}
+View(df)
+```
+
+Explore the structure: 
+
+```{r, echo=T}
+str(df)
+```
+
+## 1.3. Your data structure
+
+### 1.3.1. Plot all the variables
+
+```{r, echo=T}
+plot(df)
+```
+
+### 1.3.2. Plot the variables' distribution
+
+Example with C loss during decomposition ("C.loss_Mi1")
+
+```{r, echo=T}
+boxplot(df$C.loss_Mi1)
+```
+ggplot2 version
+
+```{r, echo=T}
+library(ggplot2)
+
+ggplot(data = df, aes(y = C.loss_Mi1, x = " ")) + # structure of the graph
+  geom_boxplot() +                                # add the boxplot
+  geom_jitter() +                                 # show the points distribution 
+  labs(x = '', y = "C loss [%]") +                # add labels to the axis
+  theme_classic()                                 # make it pretty
+```
+
+### 1.3.3. Compare this distribution to the possible range of data
+
+The carbon loss (%) during litter decomposition should be above 0% (intact leaves) and below 100% (completely decomposed).
+
+Check for data out of the range (possible typos, mistakes during measurements ...). 
+
+Visually: 
+
+```{r, echo=T}
+ggplot(data = df, aes(y = C.loss_Mi1, x = " ")) + # structure of the graph
+  geom_boxplot() +                                # add the boxplot
+  geom_jitter() +                                 # show the points distribution 
+  labs(x = '', y = "C loss [%]") +                # add labels to the axis
+  theme_classic() +                               # make it pretty
+  geom_hline(yintercept = 0) +                    # add line at 0%
+  geom_hline(yintercept = 100)                    # add line at 100% 
+```
+
+Extract these outliers: 
+
+```{r, echo=T}
+df[df$C.loss_Mi1 < 0 | df$C.loss_Mi1 > 100,] # | means "OR"
+```
+
+With dplyr: 
+
+```{r, echo=T, message=F}
+library(dplyr)
+
+df %>%
+  filter(C.loss_Mi1 < 0 | C.loss_Mi1 > 100) # filter your rows under conditions
+```
+
+### 1.3.4. Clean your dataset
+
+You can inverse the condition and save the selected rows in df. Be careful, this will overwrite your data frame (in R), it is always wise to have a save copy.
+
+```{r, echo=T}
+df.save = df # save the data before cleaning in df.save
+
+df = 
+  df %>%
+  filter(!(C.loss_Mi1 < 0 | C.loss_Mi1 > 100)) # "!" inverse the conditions
+
+```
+
+Alternatives: 
+
+```{r, echo=T, eval=F}
+df = 
+  df %>%
+  filter(C.loss_Mi1 >= 0 & C.loss_Mi1 <= 100)        # "&" both conditions needed
+
+df = df[df$C.loss_Mi1 >= 0 & df$C.loss_Mi1 <= 100, ] # in base R
+```
+
+Data after cleaning: 
+
+```{r, echo=T}
+ggplot(data = df, aes(y = C.loss_Mi1, x = " ")) + # structure of the graph
+  geom_boxplot() +                                # add the boxplot
+  geom_jitter() +                                 # show the points distribution 
+  labs(x = '', y = "C loss [%]") +                # add labels to the axis
+  theme_classic() +                               # make it pretty
+  geom_hline(yintercept = 0) +                    # add line at 0%
+  geom_hline(yintercept = 100)                    # add line at 100% 
+```
+
+Looks better, no?!
+
+# 2. Build your hypotheses <a name="p2"></a>
+
+## 2.1. Hypotheses 
+
+This as nothing to do with R. In our case: 
+
+We expect carbon loss (C.loss_Mi1) to increase with litter species richness (lit.rich). 
+
+```{r, echo=F}
+
+x = 1:12
+y = 60 + 2 * x
+
+ggplot(data = data.frame(x,y), aes(x, y)) + 
+  geom_line() + 
+  theme_bw() + 
+  labs(x = "Litter species richness", y = "C loss [%]")
+```
+
+## 2.2. distribution
+
+What is the expected distribution of the response variable C.loss? 
+
+In short: 
+
+```{r, echo=F, message=F}
+library(kableExtra)
+data.frame(
+Distribution = c("Normal", "Poisson", "Binomial", "Beta", '...'),
+Sampling = c("Continuous measurements", "Discrete counting", "Yes/No", "Percentages", ''),
+Example = c("size, flux, biomass ...", "number of species, number of individuals", 'presence-absence of species', 'decomposition rate', ' ')
+)%>%
+  kable(., 'simple', align = "lll")
+```
+
+N.B. the beta distribution takes into account the bounding between 0 and 1 (or 0 and 100). In our case where our variable values are far from these limits, the normal distribution can also be used and will give similar results.
+
+# 3. Build your model <a name="p3"></a>
+
+## 3.1. Identify the parameters of your model
+
+Response variable: C.loss_Mi1
+
+Explanatory variable: lit.rich
+
+Formula: C.loss_Mi1 ~ lit.rich
+
+Relation type: linear
+
+Data frame: df
+
+Distribution of the residuals: Normal
+
+## 3.2. Fit your model on your data
+
+```{r}
+mod = lm(data = df, formula = 'C.loss_Mi1 ~ lit.rich') # the lm function fit linear model with Normal distribution assumption on the residuals
+```
+
+Other residual distribution type: 
+
+Poisson distribution 
+
+```{r, eval=F}
+mod = glm(data = df, formula = 'y ~ x', family = poisson())
+```
+
+Binomial distribution 
+
+```{r, eval=F}
+mod = glm(data = df, formula = 'y ~ x', family = binomial())
+```
+
+# 4. Check your model fit. Are the statistical assumption met? <a name="p4"></a>
+
+New in town: the "performance" package
+
+## 4.1. Model fit
+
+```{r, eval=T, warning=F, message=F}
+library(performance)
+
+check_model(mod)
+```
+
+## 4.2. Check outliers
+
+```{r, eval=T, warning=F, message=F}
+check_outliers(mod)
+```
+
+## 4.3. Check possible distribution of residuals
+
+```{r, eval=T, warning=F, message=F}
+check_distribution(mod)
+```
+
+## 4.4. Check normality of the residuals
+
+```{r, eval=T, warning=F, message=F}
+check_normality(mod)
+```
+
+## 4.5. Check heteroscedasticity of variance
+
+```{r, eval=T, warning=F, message=F}
+check_heteroscedasticity(mod)
+```
+
+Remember that these tests are often really conservative. They are useful to make your choices but need to be considered having in mind the sample size and data structure.
+
+Here, our model doesn't seem to meet the assumption of heteroscedasticity and normality of the residuals. 
+
+# 5. No, data transformation and corrections <a name="p5"></a>
+
+## 5.1. Check your data (again)
+
+Look for surprising values, they could be typos. 
+
+```{r, echo=T}
+ggplot(data = df, aes(y = C.loss_Mi1, x = " ")) + # structure of the graph
+  geom_rect(data = NULL,                          # add rectangle to show outliers
+            aes(ymin = -5, ymax = 5, 
+                xmin = -Inf, xmax = Inf), 
+            alpha = .005, fill = 'red', color = NA) +
+  geom_boxplot() +                                # add the boxplot
+  geom_jitter() +                                 # show the points distribution 
+  labs(x = '', y = "C loss [%]") +                # add labels to the axis
+  theme_classic() +                               # make it pretty
+  geom_hline(yintercept = 0) +                    # add line at 0%
+  geom_hline(yintercept = 100)                  # add line at 100% 
+
+```
+
+Is it meaningful to have 0% of carbon loss after one year of decomposition? In this case, it was only typos. So we can correct them in the original data.
+
+```{r, echo=F}
+df = df %>% filter(C.loss_Mi1>0)
+```
+
+Look at the relationship you are fitting 
+
+```{r, message=F}
+ggplot(data = df, aes(x = lit.rich, y = C.loss_Mi1)) + 
+  geom_jitter() +  
+  # all the regression line using a linear relationship (i.e. here the same that your model)
+  geom_smooth(method = 'lm', color = 'black') +  
+  labs(x = "Litter species richness", y = "C loss [%]") + 
+  theme_classic()
+```
+
+## 5.2. New model after corrections 
+
+```{r, message=F, warning=F}
+mod = lm(data = df, formula = 'C.loss_Mi1 ~ lit.rich')
+check_model(mod)
+```
+
+## 5.3. Data transformation
+
+Log transformation of your explanatory variable. 
+
+```{r, message=F}
+ggplot(data = df, aes(x = lit.rich, y = C.loss_Mi1)) + 
+  geom_jitter() +  
+  # all the regression line using a linear relationship (i.e. here the same that your model)
+  geom_smooth(method = 'lm', color = 'black') +  
+  scale_x_continuous(trans = 'log', breaks = c(1,2,4,8)) + 
+  labs(x = "Litter species richness", y = "C loss [%]") + 
+  theme_classic()
+```
+
+New model
+
+```{r, message=F, warning=F}
+mod.1 = lm(data = df, formula = 'C.loss_Mi1 ~ log(lit.rich)')
+
+check_model(mod.1)
+```
+
+## 5.4. Compare the model quality
+
+```{r}
+compare_performance(mod, mod.1)
+```
+Data transformation doesn't improve our model
+
+# 6. Yes, extract your results <a name="p6"></a>
+
+## 6.1. Check model summary
+
+```{r}
+summary(mod)
+```
+
+## 6.2. Extract model coefficients
+
+```{r}
+summary(mod)$coefficients
+```
+
+## 6.3. Extract model R squared
+
+```{r}
+summary(mod)$r.squared
+```
+
+## 6.4. Extract your fitted model
+
+```{r, message=F}
+library(ggeffects)
+
+predictions = ggpredict(model = mod, terms = 'lit.rich')
+
+predictions
+```
+
+## 6.5 Plot your results 
+
+```{r}
+ggplot(data = df, aes(x = lit.rich, y = C.loss_Mi1)) +         # frame
+  geom_jitter(data = df, aes(x = lit.rich, y = C.loss_Mi1)) +  # jitter add some noise in the x-axis to better show the points
+  geom_line(data = predictions, aes(x = x, y = predicted)) +   # add the regression line, when you use different dataframes in the plot you need to define them for each geom
+  labs(x = "Litter species richness", y = "C loss [%]") + 
+  theme_classic()
+
+```
+
+See ggplot packages for more details.
+
+
+# Useful links <a name="p7"></a>
+
+[Google](https://www.google.com/)
+
+The R bible: [The R Book](https://www.cs.upc.edu/~robert/teaching/estadistica/TheRBook.pdf)
+
+## Data handling 
+
+Packages: 
+
+The [tidyverse packages](https://www.tidyverse.org/): 
+
+loading Excel data with [readxl](https://readxl.tidyverse.org/)
+
+loading data with [readr package](https://readr.tidyverse.org/)
+
+data handling with [dplyr package](https://dplyr.tidyverse.org/)
+
+... and more in the the tidyverse package
+
+## Building statistical model
+
+* Linear model with normally distributed residuals:
+
+  - ['lm' r documentation](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/lm)
+
+  - [Tutorial](https://www.datacamp.com/community/tutorials/linear-regression-R)
+
+* Linear model with other distributed residuals:
+
+  - [glm' r documentation](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/glm)
+
+  - [Tutorial](https://www.datacamp.com/community/tutorials/generalized-linear-models)
+
+  - [Tutorial](https://www.statmethods.net/advstats/glm.html)
+
+* Non-linear models: 
+
+  - by transforming your data: log, polynomial ... [tutorial](http://www.sthda.com/english/articles/40-regression-analysis/162-nonlinear-regression-essentials-in-r-polynomial-and-spline-regression-models/)
+
+  - by using the nls() function: [Tutorial](https://www.r-bloggers.com/2016/02/first-steps-with-non-linear-regression-in-r/)
+
+  (- by building your own fitting and optimization functions and using a solver: [Tutorial](https://www.magesblog.com/post/2013-03-12-how-to-use-optim-in-r/))
+
+* General additive model: a great [tutorial](https://noamross.github.io/gams-in-r-course/)
+
+* Mixed effect models (using lm4): 
+
+  - [tutorial 1](https://www.rensvandeschoot.com/tutorials/lme4/)
+
+  - [tutorial 2](https://ourcodingclub.github.io/tutorials/mixed-models/)
+
+  - [package vignette](https://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf)
+  
+* Structural Equation Modeling:
+
+  - the Bible for SEM: [Jon Lefcheck book](https://jslefche.github.io/sem_book/)
+
+  - [Tutorial](https://lavaan.ugent.be/tutorial/sem.html)
+  
+## Model quality
+
+The performance package 
+
+  - [the package](https://cran.r-project.org/web/packages/performance/performance.pdf)
+  
+  - [tutorial](https://easystats.github.io/performance/)
+  
+## Plotting stuff 
+
+* ggplot make your life easy and pretty 
+
+  - [package](https://ggplot2.tidyverse.org/)
+  
+  - [Tutorial 1](http://r-statistics.co/ggplot2-Tutorial-With-R.html)
+
+  - [Tutorial 2](http://zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/)
+  
+* ggpubr an Add-On to ggplot2: 
+
+  - [package](https://rpkgs.datanovia.com/ggpubr/)
+  
+  - [ggarrage](https://rpkgs.datanovia.com/ggpubr/reference/ggarrange.html) to combine plots from ggplot
