@@ -2,7 +2,7 @@
 title: "Introduction to stat in R: Cheatsheet"
 author: 'admin'
 slug: intro-to-stat-in-R
-subtitle: 'Cheatsheet'
+subtitle: 'A cheatsheet to find your way around your stats'
 date: '`r format(Sys.Date(), "%Y-%m-%d")`'
 categories: ["tutorial", "stat"]
 tags: ["R", "tutorial", "stat"]
@@ -16,7 +16,7 @@ image:
 summary: 'Introduction to statistical analyses with R: the process to get through it'
 ---
 
-# Content
+# Content 
 
 [Introduction](#intro)
 
@@ -32,7 +32,7 @@ summary: 'Introduction to statistical analyses with R: the process to get throug
 
 5. [Yes, extract your results](#p6)
 
-[Useful links](#p7)
+[Useful links and tutorials](#p7)
 
 # Introduction <a name="intro"></a>
 
@@ -424,7 +424,7 @@ ggplot(data = df, aes(x = lit.rich, y = C.loss_Mi1)) +         # frame
 See ggplot packages for more details.
 
 
-# Useful links <a name="p7"></a>
+# Useful links and tutorials<a name="p7"></a>
 
 [Google](https://www.google.com/)
 
@@ -460,7 +460,7 @@ data handling with [dplyr package](https://dplyr.tidyverse.org/)
 
   - [Tutorial 2](https://www.statmethods.net/advstats/glm.html)
 
-* Non-linear models: 
+* Non-linear models:  
 
   - by transforming your data: log, polynomial ... [tutorial](http://www.sthda.com/english/articles/40-regression-analysis/162-nonlinear-regression-essentials-in-r-polynomial-and-spline-regression-models/)
 
@@ -479,6 +479,8 @@ data handling with [dplyr package](https://dplyr.tidyverse.org/)
   - [tutorial 3](https://ourcodingclub.github.io/tutorials/mixed-models/)
 
   - [package vignette](https://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf)
+  
+  - [nice visualization](https://www.tjmahr.com/plotting-partial-pooling-in-mixed-effects-models/) to understand the process behind Mixed-effect models
   
 * Structural Equation Modeling:
 
