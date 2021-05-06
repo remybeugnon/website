@@ -466,15 +466,17 @@ data handling with [dplyr package](https://dplyr.tidyverse.org/)
 
   - by using the nls() function: [Tutorial](https://www.r-bloggers.com/2016/02/first-steps-with-non-linear-regression-in-r/)
 
-  (- by building your own fitting and optimization functions and using a solver: [Tutorial](https://www.magesblog.com/post/2013-03-12-how-to-use-optim-in-r/))
+  - (by building your own fitting and optimization functions and using a solver: [Tutorial](https://www.magesblog.com/post/2013-03-12-how-to-use-optim-in-r/))
 
 * General additive model: a great [tutorial](https://noamross.github.io/gams-in-r-course/)
 
 * Mixed effect models (using lm4): 
 
-  - [tutorial 1](https://www.rensvandeschoot.com/tutorials/lme4/)
+  - [tutorial 1](https://github.com/RoseannaGG/LinearMixedEffectsModels/blob/main/Linear%20Mixed%20Effects%20Models%20-%20R%20Gamlen-Greene.pdf)
+  
+  - [tutorial 2](https://www.rensvandeschoot.com/tutorials/lme4/)
 
-  - [tutorial 2](https://ourcodingclub.github.io/tutorials/mixed-models/)
+  - [tutorial 3](https://ourcodingclub.github.io/tutorials/mixed-models/)
 
   - [package vignette](https://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf)
   
