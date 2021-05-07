@@ -452,21 +452,21 @@ data handling with [dplyr package](https://dplyr.tidyverse.org/)
 
   - [Tutorial](https://www.datacamp.com/community/tutorials/linear-regression-R)
 
-* Linear model with other distributed residuals:
+* Linear model with other residuals distribution:
 
   - [glm' r documentation](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/glm)
 
-  - [Tutorial 1](https://www.datacamp.com/community/tutorials/generalized-linear-models)
+  - [tutorial 1](https://www.datacamp.com/community/tutorials/generalized-linear-models)
 
-  - [Tutorial 2](https://www.statmethods.net/advstats/glm.html)
+  - [tutorial 2](https://www.statmethods.net/advstats/glm.html)
 
 * Non-linear models:  
 
   - by transforming your data: log, polynomial ... [tutorial](http://www.sthda.com/english/articles/40-regression-analysis/162-nonlinear-regression-essentials-in-r-polynomial-and-spline-regression-models/)
 
-  - by using the nls() function: [Tutorial](https://www.r-bloggers.com/2016/02/first-steps-with-non-linear-regression-in-r/)
+  - by using the nls() function: [tutorial](https://www.r-bloggers.com/2016/02/first-steps-with-non-linear-regression-in-r/)
 
-  - (by building your own fitting and optimization functions and using a solver: [Tutorial](https://www.magesblog.com/post/2013-03-12-how-to-use-optim-in-r/))
+  - (by building your own fitting and optimization functions and using a solver: [tutorial](https://www.magesblog.com/post/2013-03-12-how-to-use-optim-in-r/))
 
 * General additive model: a great [tutorial](https://noamross.github.io/gams-in-r-course/)
 
@@ -486,20 +486,21 @@ data handling with [dplyr package](https://dplyr.tidyverse.org/)
 
   - the Bible for SEM: [Jon Lefcheck book](https://jslefche.github.io/sem_book/)
 
-  - [Tutorial](https://lavaan.ugent.be/tutorial/sem.html)
+  - [tutorial](https://lavaan.ugent.be/tutorial/sem.html)
   
 * Spatio-temporal analyses with R: 
 
   - The Bible for Spatio-temporal modeling: [book](https://spacetimewithr.org/index) ([pdf](https://spacetimewithr.org/Spatio-Temporal%20Statistics%20with%20R.pdf))
 
-  - Dealing with temporal auto-correlation in R: [Tutorial](https://rpubs.com/markpayne/164550)
+  - Dealing with temporal auto-correlation in R: [tutorial](https://rpubs.com/markpayne/164550)
 
+* A complete other world: Bayesian statistics: [an introduction](https://bookdown.org/content/4857/small-worlds-and-large-worlds.html#building-a-model)
   
 ## Model quality
 
 The performance package 
 
-  - [the package](https://cran.r-project.org/web/packages/performance/performance.pdf)
+  - [package](https://cran.r-project.org/web/packages/performance/performance.pdf)
   
   - [tutorial](https://easystats.github.io/performance/)
   
