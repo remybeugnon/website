@@ -494,7 +494,13 @@ data handling with [dplyr package](https://dplyr.tidyverse.org/)
 
   - Dealing with temporal auto-correlation in R: [tutorial](https://rpubs.com/markpayne/164550)
 
-* A complete other world: Bayesian statistics: [an introduction](https://bookdown.org/content/4857/small-worlds-and-large-worlds.html#building-a-model)
+* A complete other world: Bayesian statistics: 
+
+  - [an introduction](https://bookdown.org/content/4857/small-worlds-and-large-worlds.html#building-a-model)
+  
+  - [lecture](https://github.com/benjamin-rosenbaum/bayesian-intro) using Stan
+  
+  - [paper](https://www.nature.com/articles/s43586-020-00001-2)
   
 ## Model quality
 
