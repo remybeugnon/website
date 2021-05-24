@@ -27,7 +27,7 @@ tags:
 title: Global data on earthworm abundance, biomass, diversity and corresponding environmental properties
 url_code: ""
 url_dataset: ""
-url_pdf: "/publication/Phillips et al 2021/Phillips et al.pdf"
+url_pdf: "/publication/phillips-et-al-2021/Phillips et al.pdf"
 url_poster: ""
 url_project: ""
 url_slides: ""
