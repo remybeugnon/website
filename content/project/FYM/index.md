@@ -22,7 +22,7 @@ url_video: ""
 
 Find out about our collection, the articles and their authors [here](https://kids.frontiersin.org/collection/11796/soil-biodiversity)
 
-# About this collection
+# About this collection 
 
 This collection is the work of more than 50 scientists and young reviewers from all around the globe. Our role as editors, together with the authors, was to share our love of soil biodiversity with you. In this collection, you will discover that soils are full of life. We will introduce some of the methods and techniques used by scientists to observe the life below our feet. We will show you that belowground life is essential to have healthy soils and, therefore, for us. However, you will soon realize that belowground life is changing and under multiple threats. The authors will give ideas on how we can protect soil biodiversity and invite you to actively help us in studying and protecting this valuable ecosystem. We have divided this article collection into four sections, each of which is introduced below.
 
