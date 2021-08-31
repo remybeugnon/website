@@ -59,3 +59,93 @@ In the final section of this collection, our authors will show you how to protec
 This collection is about illuminating the "black box" of soil and showing you some of the fantastic creatures living under our feet. You will learn how scientists are studying soil biodiversity and how this soil biodiversity is essential for us. However, you will also see that soil biodiversity is under threat and needs to be protected. Many people across the globe will be needed to effectively protect these vital systems below our feet. That’s why it is important to spread the word about the beauty and fragility of belowground life. We hope that this collection will make you a champion of soil biodiversity and that you will pass on this message so that everyone will become more aware of, and be better able to protect soil biodiversity.
 
 Now it is your turn to explore and engage with the content of this collection. We hope there will be something for all of you!
+
+## Contributions
+
+### [How Soil Invertebrates Deal With Microplastic Contamination]("https://kids.frontiersin.org/articles/10.3389/frym.2021.625228")
+
+by Carlos Barreto **et al.**
+
+### [Can Methane-Eating Bacteria in Drylands Help Us Reduce Greenhouse Gases?]("https://kids.frontiersin.org/articles/10.3389/frym.2021.556361")
+
+by Angela Lafuente and Concha Cano-Diaz
+
+### [From the Soil to the Club in the Roots: Clubroot]("https://kids.frontiersin.org/articles/10.3389/frym.2021.562915")
+
+by Edel Perew-Lopez
+
+### [Earthworms of the World]("https://kids.frontiersin.org/articles/10.3389/frym.2021.547660")
+
+by Helen R. P. Phillips *et al.*
+
+### [Earthworms and Their Role in Greenhouse Gas Emissions]("https://kids.frontiersin.org/articles/10.3389/frym.2021.562583")
+
+by Ganault *et al.*
+
+### [Dung Beetles Help Keep Ecosystems Healthy]("https://kids.frontiersin.org/articles/10.3389/frym.2021.583675")
+
+by Paul Manning *et al.*
+
+### [Does Plant Biodiversity Influence Nutrient Cycles?]("https://kids.frontiersin.org/articles/10.3389/frym.2021.557532")
+
+by Eva Koller-France *et al.*
+
+### [The Way Soil Organisms Look Can Help Us Understand Their Importance]("https://kids.frontiersin.org/articles/10.3389/frym.2021.562430")
+
+by Pierre Ganault *et al.*
+
+### [Soil Ecosystems Change With Time]("https://kids.frontiersin.org/articles/10.3389/frym.2021.543498")
+
+by Enrique Doblas-Miranda
+
+### [Learning More About Earthworms With Citizen Science]("https://kids.frontiersin.org/articles/10.3389/frym.2020.548525")
+
+by Victoria J. Burton & Erin K. Cameron
+
+### [How Introduced Earthworms Alter Ecosystems]("https://kids.frontiersin.org/articles/10.3389/frym.2020.534345")
+
+by Malte Jochum & Nico Eisenhauer
+
+### [Tiny Fungi in the Soil Are Like Medicine for Nature]("https://kids.frontiersin.org/articles/10.3389/frym.2020.557383")
+
+by Lena Neuenkamp & Nadia I. Maaroufi
+
+### [Springtails—Worldwide Jumpers]("https://kids.frontiersin.org/articles/10.3389/frym.2020.545370")
+
+by Anton Potapov
+
+### [Soil Ecologists as Detectives Discovering Who Eats Whom or What in the Soil]("https://kids.frontiersin.org/articles/10.3389/frym.2020.544803")
+
+by Amandine Erktan *et al.*
+
+### [Looking for Earthworms in Deadwood]("https://kids.frontiersin.org/articles/10.3389/frym.2020.547465")
+
+by Frank Ashwood *et al.*
+
+### [Bacteria in Soil Keep Your Hamburger “Healthy”]("https://kids.frontiersin.org/articles/10.3389/frym.2020.545905")
+
+by Stephanie D. Jurburg
+
+### [Dirt Is Not Dead: How Land Use Affects the Living Soil]("https://kids.frontiersin.org/articles/10.3389/frym.2020.549486")
+
+by Jes Hines & Franciska T. De Vries
+
+### [Armored Mites, Beetle Mites, or Moss Mites: The Fantastic World of Oribatida]("https://kids.frontiersin.org/articles/10.3389/frym.2020.545263")
+
+by Carlos Barreto & Zoë Lindo
+
+### [The Fascinating World of Belowground Communication]("https://kids.frontiersin.org/articles/10.3389/frym.2020.547590")
+
+by Cristiana Ariotti *et al.*
+
+### [Double Whammy for Life in Soil? The Effects of Drought and Fertilizer Use]("https://kids.frontiersin.org/articles/10.3389/frym.2020.547630")
+
+by Marie Sünnemann *et al.*
+
+### [Can We Save the Beast by Conserving the Beauty?]("https://kids.frontiersin.org/articles/10.3389/frym.2020.547740")
+
+by Felix Gottschall *et al.*
+
+### [Decomposition in Peatlands: Who Are the Players and What Affects Them?]("https://kids.frontiersin.org/articles/10.3389/frym.2020.00107")
+
+by Carlos Barreto & Zoë Lindo
