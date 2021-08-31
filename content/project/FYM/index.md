@@ -64,7 +64,7 @@ Now it is your turn to explore and engage with the content of this collection. W
 
 ### [How Soil Invertebrates Deal With Microplastic Contamination]("https://kids.frontiersin.org/articles/10.3389/frym.2021.625228")
 
-by Carlos Barreto **et al.**
+by Carlos Barreto *et al.*
 
 ### [Can Methane-Eating Bacteria in Drylands Help Us Reduce Greenhouse Gases?]("https://kids.frontiersin.org/articles/10.3389/frym.2021.556361")
 
