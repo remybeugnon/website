@@ -6,7 +6,7 @@ Our results show that tree species richness increased the amount of litterfall a
 all_day: true
 authors: ["admin"]
 date: "2021-08-31T00:00:00Z"
-date_end: "2021-08-31T20:00:00Z"
+date_end: "2021-08-31T00:00:00Z"
 event: GfO 2021
 event_url: https://www.gfoe-conference.de/
 featured: true
