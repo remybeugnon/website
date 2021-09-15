@@ -15,7 +15,7 @@ projects:
 publishDate: "2021-08-31T00:00:00Z"
 summary: Talk to the GfO conference 2021
 tags: ["talk", "Soil", "BEF", "TreeDi"]
-title: GfO 2020
+title: GfO 2021
 url_code: ""
 url_pdf: "slides/2021-gfo.pdf"
 url_slides: ""
