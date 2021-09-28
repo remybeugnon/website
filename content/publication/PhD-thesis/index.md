@@ -52,129 +52,127 @@ My investigation highlighted that tree diversity effects on ecosystem functionin
 
 </div>
 
-
-
 Full manuscript available soon
-<!--- [thesis.pdf]() --->
+<!--- [thesis.pdf](Beugnon-Remy-thesis.pdf) --->
 
 ## Introduction 
 
-<!--- [introduction.pdf]() --->
+<!--- [introduction.pdf](2-Introduction.pdf) --->
 
 ## Chapter I: Tree diversity effects on litter decomposition are mediated by litterfall and microbial processes
 
-<!--- [chapter I.pdf]() --->
+<!--- [chapter I.pdf](3-Chapter-I.pdf) --->
 
 ## Transition I-II 
 
-<!--- [transition I-II.pdf]() --->
+<!--- [transition I-II.pdf](4-Transition_ChI-ChII.pdf) --->
 
 ## Chapter II: Tree diversity and soil chemical properties drive the linkages between soil microbial community and ecosystem functioning
 
-<!--- [chapter II.pdf]() --->
+<!--- [chapter II.pdf](5-Chapter-II.pdf) --->
 
 ## Transition II-III 
 
-<!--- [transition II-III.pdf]() --->
+<!--- [transition II-III.pdf](6-Transition_ChII-ChIII.pdf) --->
 
 ## Chapter III: Abiotic and biotic drivers of scale-dependent tree trait effects on soil microbial biomass and soil carbon concentration
 
-<!--- [chapter III.pdf]() --->
+<!--- [chapter III.pdf](7-Chapter-III.pdf) --->
 
 ## Transition III-IV
 
-<!--- [Transition III-IV.pdf]() --->
+<!--- [Transition III-IV.pdf](8-Transition_ChIII-ChIV.pdf) --->
 
 ## Chapter IV: Diverse forests are cool: promoting diverse forests to mitigate carbon emissions and climate change
 
-<!--- [chapter IV.pdf]() --->
+<!--- [chapter IV.pdf](9-Chapter-IV.pdf) --->
 
 ## General discussion 
 
-<!--- [discussion.pdf]() --->
+<!--- [discussion.pdf](10-Discussion.pdf) --->
 
 ## Glossary 
 
-<!--- [glossary.pdf]() --->
+<!--- [glossary.pdf](11-Glossary.pdf) --->
 
 ## Summary 
 
-<!--- [summary.pdf]() (in English, German and French) --->
+<!--- [summary.pdf](11-Summary.pdf) (in English, German and French) --->
 
 ## Acknowledgments
 
-<!--- [acknowledgments.pdf]() --->
+<!--- [acknowledgments.pdf](11-Acknowledgments.pdf) --->
 
 ## Administrative supplementary materials 
 
-#### Declaration of independent work ([PDF](Declaration-of-independent-work.pdf))
+Declaration of independent work ([PDF](Declaration-of-independent-work.pdf))
 
-#### Curriculum Vitae ([PDF](Remy-Beugnon_CV.pdf))
+Curriculum Vitae ([PDF](Remy-Beugnon_CV.pdf))
 
-#### Article justifications ([PDF](Article-justifications.pdf))
+Article justifications ([PDF](Article-justifications.pdf))
 
 ## Scientific supplementary materials
 
-### Chapter I
+### Supplementary material Chapter I
 
-#### Code for statistical analyses: [GitHub](https://github.com/remybeugnon/Beugnon-et-al-2021_Tree-diversity-effects-on-litter-decomposition)
+Code for statistical analyses: [GitHub](https://github.com/remybeugnon/Beugnon-et-al-2021_Tree-diversity-effects-on-litter-decomposition)
 
-#### Supplementary material I-S1 ([PDF](I-S1.pdf))
+Supplementary material I-S1 ([PDF](I-S1.pdf))
 
-#### Supplementary material I-S2 ([PDF](I-S2.pdf))
+Supplementary material I-S2 ([PDF](I-S2.pdf))
 
-#### Supplementary material I-S3 ([PDF](I-S3.pdf))
+Supplementary material I-S3 ([PDF](I-S3.pdf))
 
-#### Supplementary material I-S4 ([PDF](I-S4.pdf))
+Supplementary material I-S4 ([PDF](I-S4.pdf))
 
-### Chapter II
+### Supplementary material Chapter II
 
-#### Code for statistical analyses: [GitHub](https://github.com/remybeugnon/Beugnon-Du_et_al_2021_Microbial_community_and_functions)
+Code for statistical analyses: [GitHub](https://github.com/remybeugnon/Beugnon-Du_et_al_2021_Microbial_community_and_functions)
 
-#### Supplementary material II-S1 ([PDF](II-S1.pdf))
+Supplementary material II-S1 ([PDF](II-S1.pdf))
 
-#### Supplementary material II-S2 ([PDF](II-S2.pdf))
+Supplementary material II-S2 ([PDF](II-S2.pdf))
 
-#### Supplementary material II-S3 ([PDF](II-S3.pdf))
+Supplementary material II-S3 ([PDF](II-S3.pdf))
 
-#### Supplementary material II-S4 ([PDF](II-S4.pdf))
+Supplementary material II-S4 ([PDF](II-S4.pdf))
 
-#### Supplementary material II-S5 ([PDF](II-S5.pdf))
+Supplementary material II-S5 ([PDF](II-S5.pdf))
 
-#### Supplementary material II-S6 ([PDF](II-S6.pdf))
+Supplementary material II-S6 ([PDF](II-S6.pdf))
 
-#### Supplementary material II-S7 ([PDF](II-S7.pdf))
+Supplementary material II-S7 ([PDF](II-S7.pdf))
 
-#### Supplementary material II-S8 ([PDF](II-S8.pdf))
+Supplementary material II-S8 ([PDF](II-S8.pdf))
 
-#### Supplementary material II-S9 ([PDF](II-S9.pdf))
+Supplementary material II-S9 ([PDF](II-S9.pdf))
 
-#### Supplementary material II-S10 ([PDF](II-S10.pdf))
+Supplementary material II-S10 ([PDF](II-S10.pdf))
 
-#### Supplementary material II-S11 ([PDF](II-S11.pdf))
+Supplementary material II-S11 ([PDF](II-S11.pdf))
 
-### Chapter III
+### Supplementary material Chapter III
 
-#### Code for statistical analyses: [GitHub](https://github.com/remybeugnon/Beugnon-et-al-2021_Soil-carbon-and-microbial-biomass-drivers)
+Code for statistical analyses: [GitHub](https://github.com/remybeugnon/Beugnon-et-al-2021_Soil-carbon-and-microbial-biomass-drivers)
 
-#### Supplementary material III-S1 ([PDF](III-S1.pdf))
+Supplementary material III-S1 ([PDF](III-S1.pdf))
 
-#### Supplementary material III-S2 ([PDF](III-S2.pdf))
+Supplementary material III-S2 ([PDF](III-S2.pdf))
 
-#### Supplementary material III-S3 ([PDF](III-S3.pdf))
+Supplementary material III-S3 ([PDF](III-S3.pdf))
 
-#### Supplementary material III-S4 ([PDF](III-S4.pdf))
+Supplementary material III-S4 ([PDF](III-S4.pdf))
 
-#### Supplementary material III-S5 ([PDF](III-S5.pdf))
+Supplementary material III-S5 ([PDF](III-S5.pdf))
 
-#### Supplementary material III-S6 ([PDF](III-S6.pdf))
+Supplementary material III-S6 ([PDF](III-S6.pdf))
 
-#### Supplementary material III-S7 ([PDF](III-S7.pdf))
+Supplementary material III-S7 ([PDF](III-S7.pdf))
 
-#### Supplementary material III-S8 ([PDF](III-S8.pdf))
+Supplementary material III-S8 ([PDF](III-S8.pdf))
 
-#### Supplementary material III-S9 ([PDF](III-S9.pdf))
+Supplementary material III-S9 ([PDF](III-S9.pdf))
 
-#### Supplementary material III-S10 ([PDF](III-S10.pdf))
+Supplementary material III-S10 ([PDF](III-S10.pdf))
 
-#### Supplementary material III-S11 ([PDF](III-S11.pdf))
+Supplementary material III-S11 ([PDF](III-S11.pdf))
