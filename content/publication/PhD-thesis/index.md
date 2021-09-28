@@ -8,7 +8,7 @@ title: 'From trees to soil:
 microbial and spatial mediation of tree diversity effects on carbon cycling in subtropical Chinese forests'
 authors:
 - admin
-date: "2021-08-30T00:00:00Z"
+date: "2021-09-30T00:00:00Z"
 featured: false
 image:
   caption: ''
@@ -18,7 +18,7 @@ projects: [TreeDi]
 publication: ''
 publication_short: ""
 publication_types: ""
-publishDate: "2021-08-30T00:00:00Z"
+publishDate: "2021-09-30T00:00:00Z"
 slides: 
 summary: 
 tags:
@@ -56,7 +56,38 @@ Coming soon!
 
 ### [Article justifications](Article-justifications.pdf)
 
-## Scientific Supplementary materials
+## Scientific supplementary materials
 
-[Suppl](Beugnon-Remy-thesis-appendix.pdf)
+### Chapter I
 
+#### [Suppl. I-S1](Article-justifications.pdf)
+
+#### [Suppl. I-S2](Article-justifications.pdf)
+
+#### [Suppl. I-S3](Article-justifications.pdf)
+
+#### [Suppl. I-S4](Article-justifications.pdf)
+
+### Chapter II
+
+#### [Suppl. II-S1](Article-justifications.pdf)
+
+#### [Suppl. II-S2](Article-justifications.pdf)
+
+#### [Suppl. II-S3](Article-justifications.pdf)
+
+#### [Suppl. II-S4](Article-justifications.pdf)
+
+#### [Suppl. II-S5](Article-justifications.pdf)
+
+### Chapter III
+
+#### [Suppl. III-S1](Article-justifications.pdf)
+
+#### [Suppl. III-S2](Article-justifications.pdf)
+
+#### [Suppl. III-S3](Article-justifications.pdf)
+
+#### [Suppl. III-S4](Article-justifications.pdf)
+
+#### [Suppl. III-S5](Article-justifications.pdf)
