@@ -1,10 +1,14 @@
 ---
-abstract: "Microbial respiration is critical for soil carbon balance and ecosystem functioning. Previous studies suggest that plant diversity influences soil microbial communities and their respiration. Yet, the linkages between tree diversity, microbial biomass, microbial diversity, and microbial functioning have rarely been explored. In this study, we measured two microbial functions (microbial physiological potential, and microbial respiration), together with microbial biomass, microbial taxonomic and functional profiles, and soil chemical properties in a tree diversity experiment in South China, to disentangle how tree diversity affects microbial respiration through the modifications of the microbial community. Our analyses show a significant positive effect of tree diversity on microbial biomass (+25% from monocultures to 24-species plots), bacterial diversity (+12%), and physiological potential (+12%). In addition, microbial biomass and physiological potential, but not microbial diversity, were identified as the key drivers of microbial respiration. Although soil chemical properties strongly modulated soil microbial community, tree diversity increased soil microbial respiration by increasing microbial biomass rather than changing microbial taxonomic or functional diversity. Overall, our findings suggest a prevalence of microbial biomass over diversity in controlling soil carbon dynamics."
+abstract: "The loss of biodiversity is affecting all ecosystems on Earth, one of the greatest threats to biodiversity being climate change. Forests have been highlighted for the potential to mitigate climate change by storing carbon above- and belowground in soils. In this thesis, I studied the effects of tree diversity on carbon cycling in subtropical Chinese forests. I aimed to explore the mechanisms behind tree diversity effects on carbon cycling by focusing on microbial-based processes and the consequences of tree diversity-induced spatial heterogeneity.
+First, my colleagues and I tested the effects of tree diversity on litterfall spatial patterns and the consequences for litter decomposition and quantified the importance of microbial community in decomposition processes. Second, we explored the effects of tree diversity on relationships between soil microbial facets and soil microbial functions. Third, we tested the effects of tree diversity on soil microbial biomass and carbon concentrations, and their mediation by biotic and abiotic conditions. Finally, we explored the consequences of diversifying forests for re-/afforestation initiatives and plantations to reduce atmospheric carbon levels, and the benefits of diversity for mitigating the effects of climate change on ecosystems and human well-being.
+We highlighted the positive effects of tree diversity on tree productivity. By increasing the amount and diversity of litterfall, tree diversity increased litter decomposition and subsequently the assimilation of tree products into the forest soils. Our investigation has shown the key role of microbial communities for forests carbon dynamics by carrying out litter decomposition, soil heterotrophic respiration, and soil carbon stabilization. Most notably, tree diversity effects on soil microbial respiration were mainly mediated by soil microbial biomass rather than soil microbial community taxonomic or functional diversity. The effects of tree diversity on microbial biomass were mediated by biotic and abiotic conditions. Taken together, we revealed the importance of considering space to understand biodiversity-ecosystem functioning relationships. Finally, we argued that tree diversity is a promising avenue to maximize the potential of re-/afforestation projects to mitigate increasing atmospheric carbon. Moreover, we highlighted that diversifying forests in re-/afforestation initiatives can help to reduce climate change effects on ecosystems: first, by increasing resistance and resilience to extreme climatic events, and second, by buffering microclimatic conditions in natural and urban areas.
+My investigation highlighted that tree diversity effects on ecosystem functioning could be explained by both mass and diversity effects on higher trophic levels and their functions. In addition, I highlighted the key role of tree diversity-induced spatial heterogeneity and the need to consider space and time in further research. Moreover, these results need to be combined with practitioner constraints to enable feasible restoration projects."
 
-title: Tree diversity and soil chemical properties drive the linkages between soil microbial community and ecosystem functioning
+title: 'From trees to soil: 
+microbial and spatial mediation of tree diversity effects on carbon cycling in subtropical Chinese forests'
 authors:
 - admin
-date: "2021-09-30T00:00:00Z"
+date: "2021-08-30T00:00:00Z"
 featured: false
 image:
   caption: ''
@@ -14,7 +18,7 @@ projects: [TreeDi]
 publication: ''
 publication_short: ""
 publication_types: ""
-publishDate: "2021-09-30T00:00:00Z"
+publishDate: "2021-08-30T00:00:00Z"
 slides: 
 summary: 
 tags:
@@ -38,7 +42,19 @@ url_source: ""
 url_video: ""
 ---
 
+# Thesis
+
+Coming soon!
+
 # Supplementary materials
+
+## Administrative supplementary materials 
+
+### [Declaration of independent work](Declaration-of-independent-work.pdf)
+
+### [Curriculum Vitae](Remy-Beugnon_CV.pdf)
+
+### [Article justifications](Article-justifications.pdf)
 
 ## Scientific Supplementary materials
 
