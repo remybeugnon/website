@@ -1,25 +1,28 @@
 ---
 abstract: 
-title: 'From trees to soil: 
+title: 'Ph.D. thesis: 
+From trees to soil: 
 microbial and spatial mediation of tree diversity effects on carbon cycling in subtropical Chinese forests'
 authors:
 - admin
-date: "2021-09-30T00:00:00Z"
-featured: false
+date: "2021-09-30T00:09:00Z"
+featured: true
 image:
-  caption: ''
-  focal_point: ""
+  caption: 'Common Garden experiment (see Chapter I)'
+  focal_point: "center"
   preview_only: false
 projects: [TreeDi]
 publication: ''
 publication_short: ""
 publication_types: ""
-publishDate: "2021-09-30T00:00:00Z"
+publishDate: "2021-09-30T00:09:00Z"
 slides: 
 summary: 
 tags:
 - BEF
 - BEF China
+- Decomposition
+- Litterfall 
 - Forest diversity
 - Forest productivity
 - Microbial community
@@ -28,7 +31,8 @@ tags:
 - Carbon cycle
 - Carbon storage
 - Soil carbon
-url_code: ""
+- Climate mitigation
+url_code: "https://github.com/remybeugnon/"
 url_dataset: ""
 url_pdf: ""
 url_poster: ""
