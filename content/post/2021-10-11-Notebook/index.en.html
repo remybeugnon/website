@@ -1,0 +1,89 @@
+---
+title: Daily lab notebook with R
+author: 'admin'
+slug: lab-book-with-r
+subtitle: ''
+summary: ''
+date: '2021-10-11'
+categories: ["tutorial"]
+tags: ["R", "tutorial"]
+authors: ['admin']
+lastmod: '2021-10-11T10:56:08+01:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+---
+
+<script src="{{< blogdown/postref >}}index.en_files/header-attrs/header-attrs.js"></script>
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>(This tutorial and the associated R project are only the first drafts that will be implemented in the future)</p>
+<p>Using the R package bookdown I built a small project compiling daily logs of my work together with description and schedule of my projects. The lab book was built using the bookdown R package (Xie, 2021) to easily integrate daily notes, figures and code chunks. Using blogdown allows for a high flexibility in the format, and working with several collaborators once the notebook is uploaded on GitHub (or GitLab).</p>
+<p>Here how it looks like: <a href="output.pdf">example of output</a></p>
+</div>
+<div id="tutorial" class="section level1">
+<h1>Tutorial</h1>
+<div id="i.-initiate-your-notebook" class="section level2">
+<h2>I. Initiate your notebook</h2>
+<div id="i.-clone-the-full-repository-on-your-local-machine" class="section level3">
+<h3>i. Clone the full repository on your local machine</h3>
+<p>Code available on <a href="https://github.com/remybeugnon/Lab-notebook">GitHub</a></p>
+</div>
+<div id="ii.-open-notebook.rproj-in-rstudio" class="section level3">
+<h3>ii. Open notebook.RProj in RStudio</h3>
+<p>The Notebook has been set to produce .pdf output, the output formal can be changed in <code>index.Rmd</code></p>
+</div>
+<div id="iii.-start-your-notebook" class="section level3">
+<h3>iii. Start your Notebook</h3>
+<ol style="list-style-type: decimal">
+<li>Write the introduction for your Notebook in 00_intro.Rmd</li>
+<li>Describe your projects in <code>01_Project.Rmd</code></li>
+<li>Plan your year in <code>Planning.csv</code></li>
+<li>Prepare your ToDo list in <code>02_ToDo.Rmd</code></li>
+</ol>
+<p>Now your Notebook is ready to be used</p>
+</div>
+</div>
+<div id="ii.-add-daily-records" class="section level2">
+<h2>II. Add daily records</h2>
+<div id="i.-open-notebook.rproj-in-rstudio" class="section level3">
+<h3>i. Open <code>notebook.RProj</code> in RStudio</h3>
+</div>
+<div id="ii.-start-a-new-log-using-the-terminal" class="section level3">
+<h3>ii. Start a new log using the Terminal</h3>
+<p>In the Terminal write <code>./start.sh</code> and return. A new log will be created and will open in your RStudio script panel.</p>
+</div>
+<div id="iii.-fill-the-log" class="section level3">
+<h3>iii. Fill the log</h3>
+<p>The logs are writing in Markdown language, remove the comments and start filling your log</p>
+<ul>
+<li><p><code>##</code> are header levels for the months</p></li>
+<li><p><code>###</code> are headers for the days</p></li>
+<li><p><code>####</code> can be used for any desired subsection</p></li>
+</ul>
+<p>All possible options can be found in the <a href="https://bookdown.org/yihui/rmarkdown-cookbook/">R Markdown Cookbook</a> (Xie and Dervieux 2020)</p>
+</div>
+<div id="iv.-compiling-your-record" class="section level3">
+<h3>iv. Compiling your record</h3>
+<p>In the Terminal write <code>./stop.sh</code> , your notebook will be compiler and saved in the <code>_book</code> folder</p>
+</div>
+</div>
+<div id="tips" class="section level2">
+<h2>Tips</h2>
+<ul>
+<li><p>RStudio implemented a visual editor for Rmarkdown which allows you to write your logs like a Word document (<a href="https://rstudio.github.io/visual-markdown-editing/">Tutorial</a>)</p></li>
+<li><p>I would recommend to start the Notebook every year as the number of logs and figures in the folder can increase quite quickly.</p></li>
+<li><p>Label your figures like “yyyy-mm-dd-title.png” if you want to have a chance to find them again later.</p></li>
+<li><p>Details and additional bookdown options on <a href="https://bookdown.org/">bookdown.org</a>.</p></li>
+</ul>
+</div>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<p>Yihui Xie (2020). bookdown: Authoring Books and Technical Documents with R Markdown. R package version 0.21.</p>
+<p>Yihui Xie and Christophe Dervieux and Emily Riederer (2020). R Markdown Cookbook. Chapman and Hall/CRC. ISBN 9780367563837. URL: <a href="https://bookdown.org/yihui/rmarkdown-cookbook" class="uri">https://bookdown.org/yihui/rmarkdown-cookbook</a></p>
+</div>

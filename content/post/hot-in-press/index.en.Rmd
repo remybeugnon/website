@@ -41,12 +41,15 @@ form %>% filter(Horodateur > (format(Sys.Date()-7, "%Y-%m-%d")) ) %>%
 ```{r,echo=FALSE, warning=FALSE, message=FALSE}
 
 if((format(Sys.Date()-7, "%Y-%m-%d"))>format(floor_date(as.Date(Sys.Date()), "month"), "%Y-%m-%d")){
-  form %>% filter(Horodateur < (format(Sys.Date()-7, "%Y-%m-%d")) &
-                  Horodateur > format(floor_date(as.Date(Sys.Date()), "month"), "%Y-%m-%d")) %>%
+  f = form %>% filter(Horodateur < (format(Sys.Date()-7, "%Y-%m-%d")) &
+                  Horodateur > format(floor_date(as.Date(Sys.Date()), "month"), "%Y-%m-%d")) 
+  if(nrow(f)>0){
+    f %>%
   mutate(text=paste("<b>", Title, "</b>", " <a href=\"",`DOI (full URL)`,"\">(DOI) </a> ", if(!is.na(Keywords)){Keywords}, if(!is.na(`Comments:`)){`Comments:`},sep="")) %>%
   select(text) %>%
   kable(., format = "html", escape = FALSE, col.names = NULL) %>%
   kable_styling(bootstrap_options = c("hover", "condensed"))
+  }
 }
 
 ```
