@@ -67,7 +67,11 @@ The logs are coded in Markdown language, remove the comments and start filling y
 
 All possible options can be found in the [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/) (Xie and Dervieux 2020)
 
-### iv. Compiling your record
+### iv. Correct previous log
+
+Use `./open.sh` in the Terminal to open and correct previous logs
+
+### v. Compiling your Lab Book
 
 In the Terminal write `./stop.sh` , your notebook will be compiler and saved in the `_book` folder
 
