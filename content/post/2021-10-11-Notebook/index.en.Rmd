@@ -34,7 +34,7 @@ Code available on [GitHub](https://github.com/remybeugnon/Lab-notebook)
 
 ### ii. Open notebook.RProj in RStudio
 
-The Notebook has been set to produce .pdf output, the output formal can be changed in `index.Rmd`
+The general information of the notebook can be defined in `index.Rmd`, for instance, the cover page, the output format ...
 
 ### iii. Start your Notebook
 
@@ -71,7 +71,7 @@ In the Terminal write `./stop.sh` , your notebook will be compiler and saved in 
 
 ## Tips
 
--   RStudio implemented a visual editor for Rmarkdown which allows you to write your logs like a Word document ([Tutorial](https://rstudio.github.io/visual-markdown-editing/))
+-   RStudio implemented a visual editor for Rmarkdown which allows you to write your logs like a Word document ([tutorial](https://rstudio.github.io/visual-markdown-editing/))
 
 -   I would recommend to start the Notebook every year as the number of logs and figures in the folder can increase quite quickly.
 
