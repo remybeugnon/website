@@ -55,13 +55,15 @@ In the Terminal write `./start.sh` and return. A new log will be created and wil
 
 ### iii. Fill the log
 
-The logs are writing in Markdown language, remove the comments and start filling your log
+The logs are coded in Markdown language, remove the comments and start filling your log
 
 -   `##` are header levels for the months
 
 -   `###` are headers for the days
 
 -   `####` can be used for any desired subsection
+
+-   Use "\@" to insert bibliographical references ([tutorial](https://blog.rstudio.com/2020/11/09/rstudio-1-4-preview-citations/))
 
 All possible options can be found in the [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/) (Xie and Dervieux 2020)
 
