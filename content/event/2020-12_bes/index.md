@@ -15,7 +15,7 @@ summary: Talk to the BES 2020
 tags: ["talk", "Soil", "BEF", "TreeDi"]
 title: BES 2020
 url_code: ""
-url_pdf: "slides/bes_2020.pdf"
+url_pdf: "slides/2020_bes.pdf"
 url_slides: ""
 url_video: ""
 ---
