@@ -29,7 +29,7 @@ More and more references managers become available in the past few years, here, 
 
 -   JabRef ([webpage](https://www.jabref.org/)): BibTex-based database built under Java but no MSWord plugging
 
--   Mendeley ([webpage](https://www.mendeley.com/))
+-   Mendeley ([webpage](https://www.mendeley.com/)): maybe the most-used reference manager
 
 -   Paperpile ([webpage](https://paperpile.com/)): made to work with GoogleDocs
 
