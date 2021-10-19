@@ -23,19 +23,19 @@ You can find numerous ways to manage you literature research and database. With 
 
 More and more references managers become available in the past few years, here, are some of the most used in ecology and evolution:
 
--   Citavi ([webpage](https://www.citavi.com/en))
+-   Citavi ([webpage](https://www.citavi.com/en)): possibility to built ordered knowledge contents and quote from PDF
 
 -   EndNote ([webpage](https://endnote.com/))
 
--   JabRef ([webpage](https://www.jabref.org/)): BibTex-based database built under Java but no MSWord Plugging
+-   JabRef ([webpage](https://www.jabref.org/)): BibTex-based database built under Java but no MSWord plugging
 
 -   Mendeley ([webpage](https://www.mendeley.com/))
 
--   Paperpile ([webpage](https://paperpile.com/))
+-   Paperpile ([webpage](https://paperpile.com/)): made to work with GoogleDocs
 
 -   Sciwheel ([webpage](https://sciwheel.com/?lg))
 
--   Zotero ([webpage](https://www.zotero.org/))
+-   Zotero ([webpage](https://www.zotero.org/)): Implemented in MSWord, R Markdown, and GoogleDocs (with some issues with GoogleDocs)
 
 # What are people using these days?
 
