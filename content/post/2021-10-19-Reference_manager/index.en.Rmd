@@ -16,14 +16,14 @@ image:
   preview_only: no
 ---
 
-You can find numerous ways to manage you literature research and database. With the increasing number of paper published in every field, the manual archiving become impossible. Reference managers become a critical tool, to manage your reference database, dive in the database, extract the relevant references for publication and formatting your citations. Thus, numerous reference managers have pup out in the past decades. I was struggling in the past few weeks with my previous choice and how to choose a good one. Here are some keys to find the reference manager which fit to you.\
+You can find numerous ways to manage your literature research and database. With the increasing number of papers published in every field, manual archiving has become impossible. Reference managers become a critical tool to manage your reference database, dive into the database, extract the relevant references for publication, and format your citations. Thus, numerous reference managers have exponentially increased in the past decades. I was struggling in the past few weeks with my previous choice and how to choose a good one. Here are some keys to find the reference manager which fits you.\
 **Spoiler alert**: there is no good solution, only options that will fit more or less to your way of working.
 
 # What are the current options?
 
-More and more references managers become available in the past few years, here, are some of the most used in ecology and evolution:
+More and more references managers have become available in the past few years, here, are some of the most used in ecology and evolution:
 
--   Citavi ([webpage](https://www.citavi.com/en)): possibility to built ordered knowledge contents and quote from PDF
+-   Citavi ([webpage](https://www.citavi.com/en)): possibility to build ordered knowledge contents and quote from PDF
 
 -   EndNote ([webpage](https://endnote.com/))
 
