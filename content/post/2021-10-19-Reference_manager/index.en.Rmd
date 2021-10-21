@@ -60,7 +60,8 @@ charset="utf-8"></script>
 ```{r, echo = F, warning=F, message=F}
 df = data.frame(
   `Reference manager` = c('Citavi', 'EndNote',"JabRef",'Mendeley',"Paperpile",'Sciwheel','Zotero'),
-  Rate = c(0.052, 0.130, 0.013, 0.416, 0.013,0.013,0.377)
+  Rate = c(0.061, 0.135, 0.012, 0.427, 0.012,0.012,0.354), 
+  Label = c(0.061, 0.135, 0.012, 0.427, 0.012,0.012,0.354)*100
 )
 library(ggplot2)
 ggplot(df[order(df$Rate),], aes(x="", y=Rate, fill=`Reference.manager`)) +
