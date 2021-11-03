@@ -3,7 +3,7 @@ title: "Introduction to stat in R: Cheatsheet"
 author: 'admin'
 slug: intro-to-stat-in-R
 subtitle: 'A cheatsheet to find your way around your stats'
-date: '2021-05-07'
+date: '2021-11-02'
 categories: ["tutorial", "stat"]
 tags: ["R", "tutorial", "stat"]
 authors: ['admin']
@@ -16,6 +16,7 @@ image:
 summary: 'Introduction to statistical analyses with R: the process to get through it'
 ---
 
+<script src="{{< blogdown/postref >}}index.en_files/header-attrs/header-attrs.js"></script>
 
 
 <div id="content" class="section level1">
@@ -85,8 +86,8 @@ df = read_xlsx(path = &#39;name-of-your-file.xlsx&#39;, sheet = &#39;name of the
 <h3>1.3.2. Plot the variables’ distribution</h3>
 <p>Example with C loss during decomposition (“C.loss_Mi1”)</p>
 <pre class="r"><code>boxplot(df$C.loss_Mi1)</code></pre>
-<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-8-1.png" width="672" />
-ggplot2 version</p>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>ggplot2 version</p>
 <pre class="r"><code>library(ggplot2)
 
 ggplot(data = df, aes(y = C.loss_Mi1, x = &quot; &quot;)) + # structure of the graph
@@ -354,10 +355,10 @@ check_model(mod.1)</code></pre>
 <pre class="r"><code>compare_performance(mod, mod.1)</code></pre>
 <pre><code>## # Comparison of Model Performance Indices
 ## 
-## Name  | Model |      AIC |      BIC |    R2 | R2 (adj.) |   RMSE |  Sigma
-## -------------------------------------------------------------------------
-## mod   |    lm | 1176.469 | 1185.599 | 0.051 |     0.045 | 10.557 | 10.626
-## mod.1 |    lm | 1176.338 | 1185.469 | 0.052 |     0.046 | 10.552 | 10.621</code></pre>
+## Name  | Model |      AIC | AIC weights |      BIC | BIC weights |    R2 | R2 (adj.) |   RMSE |  Sigma
+## -----------------------------------------------------------------------------------------------------
+## mod   |    lm | 1176.469 |       0.484 | 1185.599 |       0.484 | 0.051 |     0.045 | 10.557 | 10.626
+## mod.1 |    lm | 1176.338 |       0.516 | 1185.469 |       0.516 | 0.052 |     0.046 | 10.552 | 10.621</code></pre>
 <p>Data transformation doesn’t improve our model</p>
 </div>
 </div>
@@ -399,24 +400,23 @@ check_model(mod.1)</code></pre>
 </div>
 <div id="extract-your-fitted-model" class="section level2">
 <h2>6.4. Extract your fitted model</h2>
-<pre class="r"><code>library(ggeffects)</code></pre>
-<pre><code>## Warning: package &#39;ggeffects&#39; was built under R version 4.0.5</code></pre>
-<pre class="r"><code>predictions = ggpredict(model = mod, terms = &#39;lit.rich&#39;)
+<pre class="r"><code>library(ggeffects)
+
+predictions = ggpredict(model = mod, terms = &#39;lit.rich&#39;)
 
 predictions</code></pre>
 <pre><code>## # Predicted values of C.loss_Mi1
-## # x = lit.rich
 ## 
-## x | Predicted |         95% CI
-## ------------------------------
-## 1 |     70.20 | [67.92, 72.48]
-## 2 |     71.29 | [69.44, 73.15]
-## 3 |     72.39 | [70.72, 74.07]
-## 4 |     73.49 | [71.68, 75.30]
-## 5 |     74.59 | [72.38, 76.80]
-## 6 |     75.68 | [72.92, 78.44]
-## 7 |     76.78 | [73.39, 80.17]
-## 9 |     78.97 | [74.23, 83.72]</code></pre>
+## lit.rich | Predicted |         95% CI
+## -------------------------------------
+##        1 |     70.20 | [67.92, 72.48]
+##        2 |     71.29 | [69.44, 73.15]
+##        3 |     72.39 | [70.72, 74.07]
+##        4 |     73.49 | [71.68, 75.30]
+##        5 |     74.59 | [72.38, 76.80]
+##        6 |     75.68 | [72.92, 78.44]
+##        7 |     76.78 | [73.39, 80.17]
+##        9 |     78.97 | [74.23, 83.72]</code></pre>
 </div>
 <div id="plot-your-results" class="section level2">
 <h2>6.5 Plot your results</h2>
@@ -445,6 +445,7 @@ predictions</code></pre>
 <div id="building-statistical-model" class="section level2">
 <h2>Building statistical model</h2>
 <ul>
+<li><p>Variable distributions (<a href="https://ben18785.shinyapps.io/distribution-zoo/">visual example</a>)</p></li>
 <li><p>Linear model with normally distributed residuals:</p>
 <ul>
 <li><p><a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/lm">‘lm’ r documentation</a></p></li>

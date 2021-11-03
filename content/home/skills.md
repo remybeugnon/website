@@ -37,7 +37,7 @@ feature:
   icon: "soil"
   icon_pack: "custom"
   name: Soil ecology
-- description: 20%
+- description: 40%
   icon: climate
   icon_pack: "custom"
   name: Microclimate

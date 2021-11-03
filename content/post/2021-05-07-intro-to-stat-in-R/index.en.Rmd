@@ -16,47 +16,47 @@ image:
 summary: 'Introduction to statistical analyses with R: the process to get through it'
 ---
 
-# Content 
+# Content
 
 [Introduction](#intro)
 
-1. [Check your data](#p1)
+1.  [Check your data](#p1)
 
-2. [Build your hypothesis ](#p2)
+2.  [Build your hypothesis](#p2)
 
-3. [Build your model](#p3)
+3.  [Build your model](#p3)
 
-4. [Check your model fit. Are the statistical assumptions met?](#p4)
+4.  [Check your model fit. Are the statistical assumptions met?](#p4)
 
-5. [No, data transformation and corrections](#p5)
+5.  [No, data transformation and corrections](#p5)
 
-5. [Yes, extract your results](#p6)
+6.  [Yes, extract your results](#p6)
 
 [Useful links and tutorials](#p7)
 
 # Introduction <a name="intro"></a>
 
-The slides of this lecture can be find [here](Lecture-intro-to-stat-in-R.pdf)  
+The slides of this lecture can be find [here](Lecture-intro-to-stat-in-R.pdf)
 
 ## Stepwise analyses
 
-1. Check your data
+1.  Check your data
 
-2. Build your hypothesis 
+2.  Build your hypothesis
 
-3. Build your model
+3.  Build your model
 
-4. Check your model fit. Are the statistical assumptions met? 
+4.  Check your model fit. Are the statistical assumptions met?
 
-5. No, data transformation and corrections
+5.  No, data transformation and corrections
 
-6. Yes, extract your results
+6.  Yes, extract your results
 
 # 1. Check your data <a name="p1"></a>
 
 ## 1.1. Load your data
 
-How to load your data in "df": 
+How to load your data in "df":
 
 .csv file
 
@@ -84,13 +84,13 @@ df = read_xlsx(path = 'name-of-your-file.xlsx', sheet = 'name of the sheet')
 
 ## 1.2. Your dataset structure
 
-Look at your dataframe: 
+Look at your dataframe:
 
 ```{r, echo=T}
 View(df)
 ```
 
-Explore the structure: 
+Explore the structure:
 
 ```{r, echo=T}
 str(df)
@@ -111,6 +111,7 @@ Example with C loss during decomposition ("C.loss_Mi1")
 ```{r, echo=T}
 boxplot(df$C.loss_Mi1)
 ```
+
 ggplot2 version
 
 ```{r, echo=T}
@@ -127,9 +128,9 @@ ggplot(data = df, aes(y = C.loss_Mi1, x = " ")) + # structure of the graph
 
 The carbon loss (%) during litter decomposition should be above 0% (intact leaves) and below 100% (completely decomposed).
 
-Check for data out of the range (possible typos, mistakes during measurements ...). 
+Check for data out of the range (possible typos, mistakes during measurements ...).
 
-Visually: 
+Visually:
 
 ```{r, echo=T}
 ggplot(data = df, aes(y = C.loss_Mi1, x = " ")) + # structure of the graph
@@ -141,13 +142,13 @@ ggplot(data = df, aes(y = C.loss_Mi1, x = " ")) + # structure of the graph
   geom_hline(yintercept = 100)                    # add line at 100% 
 ```
 
-Extract these outliers: 
+Extract these outliers:
 
 ```{r, echo=T}
 df[df$C.loss_Mi1 < 0 | df$C.loss_Mi1 > 100,] # | means "OR"
 ```
 
-With dplyr: 
+With dplyr:
 
 ```{r, echo=T, message=F}
 library(dplyr)
@@ -169,7 +170,7 @@ df =
 
 ```
 
-Alternatives: 
+Alternatives:
 
 ```{r, echo=T, eval=F}
 df = 
@@ -179,7 +180,7 @@ df =
 df = df[df$C.loss_Mi1 >= 0 & df$C.loss_Mi1 <= 100, ] # in base R
 ```
 
-Data after cleaning: 
+Data after cleaning:
 
 ```{r, echo=T}
 ggplot(data = df, aes(y = C.loss_Mi1, x = " ")) + # structure of the graph
@@ -195,11 +196,11 @@ Looks better, no?!
 
 # 2. Build your hypotheses <a name="p2"></a>
 
-## 2.1. Hypotheses 
+## 2.1. Hypotheses
 
-This as nothing to do with R. In our case: 
+This as nothing to do with R. In our case:
 
-We expect carbon loss (C.loss_Mi1) to increase with litter species richness (lit.rich). 
+We expect carbon loss (C.loss_Mi1) to increase with litter species richness (lit.rich).
 
 ```{r, echo=F}
 
@@ -214,9 +215,9 @@ ggplot(data = data.frame(x,y), aes(x, y)) +
 
 ## 2.2. distribution
 
-What is the expected distribution of the response variable C.loss? 
+What is the expected distribution of the response variable C.loss?
 
-In short: 
+In short:
 
 ```{r, echo=F, message=F}
 library(kableExtra)
@@ -238,7 +239,7 @@ Response variable: C.loss_Mi1
 
 Explanatory variable: lit.rich
 
-Formula: C.loss_Mi1 ~ lit.rich
+Formula: C.loss_Mi1 \~ lit.rich
 
 Relation type: linear
 
@@ -252,15 +253,15 @@ Distribution of the residuals: Normal
 mod = lm(data = df, formula = 'C.loss_Mi1 ~ lit.rich') # the lm function fit linear model with Normal distribution assumption on the residuals
 ```
 
-Other residual distribution type: 
+Other residual distribution type:
 
-Poisson distribution 
+Poisson distribution
 
 ```{r, eval=F}
 mod = glm(data = df, formula = 'y ~ x', family = poisson())
 ```
 
-Binomial distribution 
+Binomial distribution
 
 ```{r, eval=F}
 mod = glm(data = df, formula = 'y ~ x', family = binomial())
@@ -304,13 +305,13 @@ check_heteroscedasticity(mod)
 
 Remember that these tests are often really conservative. They are useful to make your choices but need to be considered having in mind the sample size and data structure.
 
-Here, our model doesn't seem to meet the assumption of heteroscedasticity and normality of the residuals. 
+Here, our model doesn't seem to meet the assumption of heteroscedasticity and normality of the residuals.
 
 # 5. No, data transformation and corrections <a name="p5"></a>
 
 ## 5.1. Check your data (again)
 
-Look for surprising values, they could be typos. 
+Look for surprising values, they could be typos.
 
 ```{r, echo=T}
 ggplot(data = df, aes(y = C.loss_Mi1, x = " ")) + # structure of the graph
@@ -333,7 +334,7 @@ Is it meaningful to have 0% of carbon loss after one year of decomposition? In t
 df = df %>% filter(C.loss_Mi1>0)
 ```
 
-Look at the relationship you are fitting 
+Look at the relationship you are fitting
 
 ```{r, message=F}
 ggplot(data = df, aes(x = lit.rich, y = C.loss_Mi1)) + 
@@ -344,7 +345,7 @@ ggplot(data = df, aes(x = lit.rich, y = C.loss_Mi1)) +
   theme_classic()
 ```
 
-## 5.2. New model after corrections 
+## 5.2. New model after corrections
 
 ```{r, message=F, warning=F}
 mod = lm(data = df, formula = 'C.loss_Mi1 ~ lit.rich')
@@ -353,7 +354,7 @@ check_model(mod)
 
 ## 5.3. Data transformation
 
-Log transformation of your explanatory variable. 
+Log transformation of your explanatory variable.
 
 ```{r, message=F}
 ggplot(data = df, aes(x = lit.rich, y = C.loss_Mi1)) + 
@@ -378,6 +379,7 @@ check_model(mod.1)
 ```{r}
 compare_performance(mod, mod.1)
 ```
+
 Data transformation doesn't improve our model
 
 # 6. Yes, extract your results <a name="p6"></a>
@@ -410,7 +412,7 @@ predictions = ggpredict(model = mod, terms = 'lit.rich')
 predictions
 ```
 
-## 6.5 Plot your results 
+## 6.5 Plot your results
 
 ```{r}
 ggplot(data = df, aes(x = lit.rich, y = C.loss_Mi1)) +         # frame
@@ -423,18 +425,17 @@ ggplot(data = df, aes(x = lit.rich, y = C.loss_Mi1)) +         # frame
 
 See ggplot packages for more details.
 
-
 # Useful links and tutorials<a name="p7"></a>
 
 [Google](https://www.google.com/)
 
 The R bible: [The R Book](https://www.cs.upc.edu/~robert/teaching/estadistica/TheRBook.pdf)
 
-## Data handling 
+## Data handling
 
-Packages: 
+Packages:
 
-The [tidyverse packages](https://www.tidyverse.org/): 
+The [tidyverse packages](https://www.tidyverse.org/):
 
 loading Excel data with [readxl](https://readxl.tidyverse.org/)
 
@@ -446,82 +447,84 @@ data handling with [dplyr package](https://dplyr.tidyverse.org/)
 
 ## Building statistical model
 
-* Linear model with normally distributed residuals:
+-   Variable distributions ([visual example](https://ben18785.shinyapps.io/distribution-zoo/))
 
-  - ['lm' r documentation](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/lm)
+-   Linear model with normally distributed residuals:
 
-  - [Tutorial](https://www.datacamp.com/community/tutorials/linear-regression-R)
+    -   ['lm' r documentation](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/lm)
 
-* Linear model with other residuals distribution:
+    -   [Tutorial](https://www.datacamp.com/community/tutorials/linear-regression-R)
 
-  - [glm' r documentation](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/glm)
+-   Linear model with other residuals distribution:
 
-  - [tutorial 1](https://www.datacamp.com/community/tutorials/generalized-linear-models)
+    -   [glm' r documentation](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/glm)
 
-  - [tutorial 2](https://www.statmethods.net/advstats/glm.html)
+    -   [tutorial 1](https://www.datacamp.com/community/tutorials/generalized-linear-models)
 
-* Non-linear models:  
+    -   [tutorial 2](https://www.statmethods.net/advstats/glm.html)
 
-  - by transforming your data: log, polynomial ... [tutorial](http://www.sthda.com/english/articles/40-regression-analysis/162-nonlinear-regression-essentials-in-r-polynomial-and-spline-regression-models/)
+-   Non-linear models:
 
-  - by using the nls() function: [tutorial](https://www.r-bloggers.com/2016/02/first-steps-with-non-linear-regression-in-r/)
+    -   by transforming your data: log, polynomial ... [tutorial](http://www.sthda.com/english/articles/40-regression-analysis/162-nonlinear-regression-essentials-in-r-polynomial-and-spline-regression-models/)
 
-  - (by building your own fitting and optimization functions and using a solver: [tutorial](https://www.magesblog.com/post/2013-03-12-how-to-use-optim-in-r/))
+    -   by using the nls() function: [tutorial](https://www.r-bloggers.com/2016/02/first-steps-with-non-linear-regression-in-r/)
 
-* General additive model: a great [tutorial](https://noamross.github.io/gams-in-r-course/)
+    -   (by building your own fitting and optimization functions and using a solver: [tutorial](https://www.magesblog.com/post/2013-03-12-how-to-use-optim-in-r/))
 
-* Mixed effect models (using lm4): 
+-   General additive model: a great [tutorial](https://noamross.github.io/gams-in-r-course/)
 
-  - [tutorial 1](https://github.com/RoseannaGG/LinearMixedEffectsModels/blob/main/Linear%20Mixed%20Effects%20Models%20-%20R%20Gamlen-Greene.pdf)
-  
-  - [tutorial 2](https://www.rensvandeschoot.com/tutorials/lme4/)
+-   Mixed effect models (using lm4):
 
-  - [tutorial 3](https://ourcodingclub.github.io/tutorials/mixed-models/)
+    -   [tutorial 1](https://github.com/RoseannaGG/LinearMixedEffectsModels/blob/main/Linear%20Mixed%20Effects%20Models%20-%20R%20Gamlen-Greene.pdf)
 
-  - [package vignette](https://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf)
-  
-  - [nice visualization](https://www.tjmahr.com/plotting-partial-pooling-in-mixed-effects-models/) to understand the process behind Mixed-effect models
-  
-* Structural Equation Modeling:
+    -   [tutorial 2](https://www.rensvandeschoot.com/tutorials/lme4/)
 
-  - the Bible for SEM: [Jon Lefcheck book](https://jslefche.github.io/sem_book/)
+    -   [tutorial 3](https://ourcodingclub.github.io/tutorials/mixed-models/)
 
-  - [tutorial](https://lavaan.ugent.be/tutorial/sem.html)
-  
-* Spatio-temporal analyses with R: 
+    -   [package vignette](https://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf)
 
-  - The Bible for Spatio-temporal modeling: [book](https://spacetimewithr.org/index) ([pdf](https://spacetimewithr.org/Spatio-Temporal%20Statistics%20with%20R.pdf))
+    -   [nice visualization](https://www.tjmahr.com/plotting-partial-pooling-in-mixed-effects-models/) to understand the process behind Mixed-effect models
 
-  - Dealing with temporal auto-correlation in R: [tutorial](https://rpubs.com/markpayne/164550)
+-   Structural Equation Modeling:
 
-* A complete other world: Bayesian statistics: 
+    -   the Bible for SEM: [Jon Lefcheck book](https://jslefche.github.io/sem_book/)
 
-  - [an introduction](https://bookdown.org/content/4857/small-worlds-and-large-worlds.html#building-a-model)
-  
-  - [lecture](https://github.com/benjamin-rosenbaum/bayesian-intro) using Stan
-  
-  - [paper](https://www.nature.com/articles/s43586-020-00001-2)
-  
+    -   [tutorial](https://lavaan.ugent.be/tutorial/sem.html)
+
+-   Spatio-temporal analyses with R:
+
+    -   The Bible for Spatio-temporal modeling: [book](https://spacetimewithr.org/index) ([pdf](https://spacetimewithr.org/Spatio-Temporal%20Statistics%20with%20R.pdf))
+
+    -   Dealing with temporal auto-correlation in R: [tutorial](https://rpubs.com/markpayne/164550)
+
+-   A complete other world: Bayesian statistics:
+
+    -   [an introduction](https://bookdown.org/content/4857/small-worlds-and-large-worlds.html#building-a-model)
+
+    -   [lecture](https://github.com/benjamin-rosenbaum/bayesian-intro) using Stan
+
+    -   [paper](https://www.nature.com/articles/s43586-020-00001-2)
+
 ## Model quality
 
-The performance package 
+The performance package
 
-  - [package](https://cran.r-project.org/web/packages/performance/performance.pdf)
-  
-  - [tutorial](https://easystats.github.io/performance/)
-  
-## Plotting stuff 
+-   [package](https://cran.r-project.org/web/packages/performance/performance.pdf)
 
-* ggplot make your life easy and pretty 
+-   [tutorial](https://easystats.github.io/performance/)
 
-  - [package](https://ggplot2.tidyverse.org/)
-  
-  - [Tutorial 1](http://r-statistics.co/ggplot2-Tutorial-With-R.html)
+## Plotting stuff
 
-  - [Tutorial 2](http://zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/)
-  
-* ggpubr an Add-On to ggplot2: 
+-   ggplot make your life easy and pretty
 
-  - [package](https://rpkgs.datanovia.com/ggpubr/)
-  
-  - [ggarrage](https://rpkgs.datanovia.com/ggpubr/reference/ggarrange.html) to combine plots from ggplot
+    -   [package](https://ggplot2.tidyverse.org/)
+
+    -   [Tutorial 1](http://r-statistics.co/ggplot2-Tutorial-With-R.html)
+
+    -   [Tutorial 2](http://zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/)
+
+-   ggpubr an Add-On to ggplot2:
+
+    -   [package](https://rpkgs.datanovia.com/ggpubr/)
+
+    -   [ggarrage](https://rpkgs.datanovia.com/ggpubr/reference/ggarrange.html) to combine plots from ggplot

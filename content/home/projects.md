@@ -29,12 +29,12 @@ content:
     tag: '*'
   - name: BEF
     tag: BEF
-  - name: PhD
-    tag: PhD
   - name: Soil
     tag: Soil
   - name: Scicomm
     tag: Scicomm
+  - name: Microclimate
+    tag: Microclimate
 
 design:
   # Choose how many columns the section has. Valid values: '1' or '2'.
