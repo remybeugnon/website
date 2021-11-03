@@ -10,6 +10,7 @@ private: true
 projects:
 - TreeDi
 publishDate: "2021-12-03T15:00:00Z"
+date: "2021-11-01T00:00:00Z"
 location: "Online / In person"
 summary: ""
 tags: ["talk", "Soil", "BEF", "TreeDi", "PhD"]
