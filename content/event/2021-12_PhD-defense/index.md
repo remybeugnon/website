@@ -9,10 +9,10 @@ featured: false
 private: true
 projects:
 - TreeDi
-publishDate: "2021-11-03T15:00:00Z"
-date: "2021-11-01T00:00:00Z"
+publishDate: "2021-11-01T00:00:00Z"
+date: "2021-12-03T15:00:00Z"
 location: "Online / In person"
-summary: ""
+summary: "All you need to know if you like to join"
 tags: ["talk", "Soil", "BEF", "TreeDi", "PhD"]
 title: "PhD defense"
 url_code: ""
