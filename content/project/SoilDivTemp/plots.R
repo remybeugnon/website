@@ -1,6 +1,6 @@
 
 
-x = seq(-5, 5, 0.01)
+x = seq(-5, 5, 0.001)
 
 y = rnorm(x, 10, .7) * x + rnorm(x, mean = 0, sd = 1)
 
@@ -53,8 +53,8 @@ ggplot(data = NULL) +
 
 df.2 = data.frame(
   x, 
-  y = cos(1.2*x) + 1.5*sin(1.2*x) + rnorm(x, mean = 0, sd = .1),
-  y2 = .6*cos(1.2*x) + 1.0*sin(1.2*x) + rnorm(x, mean = 0, sd = .1)
+  y = cos(1.2*x) + 1.5*sin(1.2*x) + rnorm(x, mean = 0, sd = .05),
+  y2 = .6*cos(1.2*x) + 1.0*sin(1.2*x) + rnorm(x, mean = 0, sd = .2)
 )
 
 ggplot(data = NULL) + 
@@ -102,3 +102,4 @@ ggplot(data = NULL) +
            size = 4, color = 'darkgreen') +
   theme_classic() + 
   theme(axis.text = element_blank())
+
