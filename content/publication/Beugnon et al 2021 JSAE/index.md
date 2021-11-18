@@ -30,7 +30,7 @@ tags:
 title: "Diverse forests are cool: Promoting diverse forests to mitigate carbon emissions and climate change"
 url_code: ""
 url_dataset: ""
-url_pdf: ""
+url_pdf: "/publication/Beugnon et al 2021 JSAE/Beugnon et al 2021.pdf"
 url_poster: ""
 url_project: ""
 url_slides: ""
