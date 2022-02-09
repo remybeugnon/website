@@ -55,20 +55,14 @@ Our main hypothesis is that plant diversity can buffer temperature fluctuations 
 
 Cesarz, S., Craven, D., Auge, H., Bruelheide, H., Castagneyrol, B., Hector, A., Jactel, H., Koricheva, J., Messier, C., Muys, B., O'Brien, M. J., Paquette, A., Ponette, Q., Potvin, C., Reich, P. B., Scherer-Lorenzen, M., Smith, A. R., Verheyen, K., & Eisenhauer, N. (2020). Biotic and abiotic drivers of soil microbial functions across tree diversity experiments. BioRXiv. <https://doi.org/10.1101/2020.01.30.927277>
 
-  
 de Frenne, P., Lenoir, J., Luoto, M., Scheffers, B. R., Zellweger, F., Aalto, J., Ashcroft, M. B., Christiansen, D. M., Decocq, G., de Pauw, K., Govaert, S., Greiser, C., Gril, E., Hampe, A., Jucker, T., Klinges, D. H., Koelemeijer, I. A., Lembrechts, J. J., Marrec, R., ... Hylander, K. (2021). Forest microclimates and climate change: Importance, drivers and future research agenda. Global Change Biology, 27(11), 2279--2297. <https://doi.org/10.1111/gcb.15569>
 
-  
 de Frenne, P., Zellweger, F., Rodríguez-Sánchez, F., Scheffers, B. R., Hylander, K., Luoto, M., Vellend, M., Verheyen, K., & Lenoir, J. (2019). Global buffering of temperatures under forest canopies. Ecology and Evolution, 3, 744--749.
 
-  
 Gottschall, F., Davids, S., Newiger-Dous, T. E., Auge, H., Cesarz, S., & Eisenhauer, N. (2019). Tree species identity determines wood decomposition via microclimatic effects. Ecology and Evolution, 9(21), 12113--12127. <https://doi.org/10.1002/ece3.5665>
 
-  
 Huang, Y., Chen, Y., Castro-Izaguirre, N., Baruffol, M., Brezzi, M., Lang, A., Li, Y., Härdtle, W., von Oheimb, G., Yang, X., Liu, X., Pei, K., Both, S., Yang, B., Eichenberg, D., Assmann, T., Bauhus, J., Behrens, T., Buscot, F., ... Schmid, B. (2018). Impacts of species richness on productivity in a large-scale subtropical forest experiment. Science (New York, N.Y.), 362(6410), 80--83. <https://doi.org/10.1126/science.aat6405>
 
-  
 Huang, Y., Ma, Y., Zhao, K., Niklaus, P. A., Schmid, B., & He, J.-S. (2017). Positive effects of tree species diversity on litterfall quantity and quality along a secondary successional chronosequence in a subtropical forest. Journal of Plant Ecology, 10(1), 28--35. <https://doi.org/10.1093/jpe/rtw115>
 
-  
 Sapijanskas, J., Paquette, A., Potvin, C., Kunert, N., & Loreau, M. (2014). Tropical tree diversity enhances light capture through crown plasticity and spatial and temporal niche differences. Ecology, 95(9), 2479--2492. <https://doi.org/10.1890/13-1366.1>

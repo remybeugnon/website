@@ -1,0 +1,135 @@
+---
+title: "Introduction to SEM in R: Cheatsheet"
+author: 'admin'
+slug: intro-to-SEM-in-R
+subtitle: 'Short introduction to SEMs'
+date: '`r format(Sys.Date(), "%Y-%m-%d")`'
+categories: ["tutorial", "stat"]
+tags: ["R", "tutorial", "stat"]
+authors: ['admin']
+lastmod: '2021-05-07T10:56:08+01:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+summary: 'Introduction to SEM analyses with R: the process to get through it'
+---
+
+# [Lecture (PDF)](Lecture-intro-to-SEM-in-R.pdf)
+
+# Useful links
+
+-   Structural Equation Modeling:
+
+    -   the Bible for SEM: [Jon Lefcheck book](https://jslefche.github.io/sem_book/)
+
+    -   [tutorial](https://lavaan.ugent.be/tutorial/sem.html)
+
+-   Check you model assumptions: performance package
+
+    -   [package](https://cran.r-project.org/web/packages/performance/performance.pdf)
+
+    -   [tutorial](https://easystats.github.io/performance/)
+
+# Example
+
+```{r, eval = F}
+rm(list = ls()) # Clean the workspace
+
+#### > 1. Packages ####
+# data handeling
+library(dplyr)
+
+# statistical analyses
+library(performance)
+library(lavaan)
+library(piecewiseSEM)
+
+#### > 2. Data simulations ####
+# that is just creating a dataset to play with
+n = 505 # number of observations
+temperature = rep(seq(18, (0.05 * 100 + 18), 0.05),5)  # temperature data
+water = 1.5 - 0.05 * temperature + rnorm(n, sd = 0.01) # water data 
+plant = 10 + 0.5 * temperature + 20 * water + rnorm(n, sd = .1) # plant size
+
+# merge in a data frame
+df = data.frame(
+  temperature,
+  water,
+  plant
+)
+
+#### > 3. data analyses ####
+
+#### >> 3.1 data handling ####
+#### >>> 3.1.1 check your data distribution ####
+plot(df)
+
+#### >>> 3.1.2 resale your data ####
+df.1 = df %>%
+  apply(., 2, scale) %>%
+  data.frame()
+
+plot(df.1)
+
+#### >> 3.2 individual models ####
+#### >>> 3.2.1 build your individual models ####
+mod.plant = lm(formula = 'plant ~ temperature + water', 
+               data = df.1)
+
+mod.water = lm(formula = 'water ~ temperature',
+               data = df.1)
+
+#### >>> 3.2.2 check your individual models ####
+check_model(mod.plant)
+
+check_model(mod.water)
+
+#### >>> 3.2.3 individual models fit ####
+summary(mod.plant)
+
+summary(mod.water)
+
+#### >> 3.3 SEM fit ####
+#### >>> 3.3.1 lavaan ####
+model.lavaan = '
+  plant ~ temperature + water
+  water ~ temperature
+'
+
+fit.lavaan = sem(model = model.lavaan,
+                 data = df.1)
+
+#### >>> 3.3.2 piecewiseSEM ####
+fit.piecewiseSEM = 
+  psem(
+    lm(formula = 'plant ~ temperature + water', 
+       data = df.1),
+    
+    lm(formula = 'water ~ temperature',
+       data = df.1)
+    )
+
+#### >> 3.4. SEM outputs ####
+#### >> 3.4.1 lavaan outputs ####
+summary(fit.lavaan)
+
+#### >> 3.4.1 lavaan outputs ####
+summary(fit.piecewiseSEM)
+plot(fit.piecewiseSEM)
+
+#### >> 3.5. fit quality ####
+#### >> 3.5.1 lavaan ####
+fitmeasures(fit.lavaan)
+
+#### >> 3.5.2 piecewiseSEM ####
+piecewiseSEM::fisherC(fit.piecewiseSEM)
+
+#### >> 3.6. lavaan vs. piecewiseSEM output ####
+summary(fit.lavaan, standardized = T)
+
+coefs(fit.piecewiseSEM)
+
+```
+
