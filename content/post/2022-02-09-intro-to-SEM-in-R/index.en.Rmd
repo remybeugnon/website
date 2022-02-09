@@ -1,5 +1,5 @@
 ---
-title: "Introduction to SEM in R: Cheatsheet"
+title: "Introduction to SEM in R"
 author: 'admin'
 slug: intro-to-SEM-in-R
 subtitle: 'Short introduction to SEMs'
@@ -16,9 +16,11 @@ image:
 summary: 'Introduction to SEM analyses with R: the process to get through it'
 ---
 
-# [Lecture (PDF)](Lecture-intro-to-SEM-in-R.pdf)
+# Lecture
 
-# Useful links
+You can find the lecture ([here](Lecture-intro-to-SEM-in-R.pdf))
+
+Some useful links:
 
 -   Structural Equation Modeling:
 
@@ -132,4 +134,3 @@ summary(fit.lavaan, standardized = T)
 coefs(fit.piecewiseSEM)
 
 ```
-
