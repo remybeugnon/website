@@ -41,7 +41,7 @@ The frequency and intensity of extreme climatic events, such as heatwaves and dr
 
 ## Hypothesis
 
-Our main hypothesis is that plant diversity can buffer temperature fluctuations (Fig. 1) and extreme climatic event (Fig. 2), and therefore, reduce the effects of climate change on ecosystems. We are testing this hypothesis using both experiments where diversity is manipulated; such as [BEF China](https://bef-china.com/) and [The Jena Experiment](http://the-jena-experiment.de/); and natural field measurements with the SoilTemp consorsium datasets.
+Our main hypothesis is that plant diversity can buffer temperature fluctuations (Fig. 1) and extreme climatic event (Fig. 2), and therefore, reduce the effects of climate change on ecosystems. We are testing this hypothesis using both experiments where diversity is manipulated; such as [BEF China](https://bef-china.com/) and [The Jena Experiment](http://the-jena-experiment.de/); and natural field measurements with the SoilTemp consortium datasets.
 
 *Figure 1: climate buffering by plant diversity*
 
