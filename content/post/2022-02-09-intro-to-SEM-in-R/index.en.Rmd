@@ -18,7 +18,7 @@ summary: 'Introduction to SEM analyses with R: the process to get through it'
 
 # Lecture
 
-You can find the lecture ([here](Lecture-intro-to-SEM-in-R.pdf))
+You can find the lecture [here](Lecture-intro-to-SEM-in-R.pdf)
 
 Some useful links:
 

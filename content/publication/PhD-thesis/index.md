@@ -34,12 +34,12 @@ tags:
 - Climate mitigation
 url_code: "https://github.com/remybeugnon/"
 url_dataset: ""
-url_pdf: ""
+url_pdf: "https://nbn-resolving.org/urn:nbn:de:bsz:15-qucosa2-779047"
 url_poster: ""
 url_project: ""
 url_slides: ""
 url_source: ""
-url_video: ""
+url_video: "Beugnon-Remy-PhD-defense.mp4"
 ---
 
 ## Abstract
@@ -56,58 +56,57 @@ My investigation highlighted that tree diversity effects on ecosystem functionin
 
 </div>
 
-Full manuscript available soon
-<!--- [thesis.pdf](Beugnon-Remy-thesis.pdf) --->
+[thesis.pdf](Beugnon-Remy-PhD-thesis.pdf)
 
-## Introduction 
+## Introduction
 
-<!--- [introduction.pdf](2-Introduction.pdf) --->
+[introduction.pdf](2-Introduction.pdf)
 
 ## Chapter I: Tree diversity effects on litter decomposition are mediated by litterfall and microbial processes
 
-<!--- [chapter I.pdf](3-Chapter-I.pdf) --->
+[chapter I.pdf](3-Chapter-I.pdf)
 
-## Transition I-II 
+## Transition I-II
 
-<!--- [transition I-II.pdf](4-Transition_ChI-ChII.pdf) --->
+[transition I-II.pdf](4-Transition_ChI-ChII.pdf)
 
 ## Chapter II: Tree diversity and soil chemical properties drive the linkages between soil microbial community and ecosystem functioning
 
-<!--- [chapter II.pdf](5-Chapter-II.pdf) --->
+[chapter II.pdf](5-Chapter-II.pdf)
 
-## Transition II-III 
+## Transition II-III
 
-<!--- [transition II-III.pdf](6-Transition_ChII-ChIII.pdf) --->
+[transition II-III.pdf](6-Transition_ChII-ChIII.pdf)
 
 ## Chapter III: Abiotic and biotic drivers of scale-dependent tree trait effects on soil microbial biomass and soil carbon concentration
 
-<!--- [chapter III.pdf](7-Chapter-III.pdf) --->
+[chapter III.pdf](7-Chapter-III.pdf)
 
 ## Transition III-IV
 
-<!--- [Transition III-IV.pdf](8-Transition_ChIII-ChIV.pdf) --->
+[Transition III-IV.pdf](8-Transition_ChIII-ChIV.pdf)
 
 ## Chapter IV: Diverse forests are cool: promoting diverse forests to mitigate carbon emissions and climate change
 
-<!--- [chapter IV.pdf](9-Chapter-IV.pdf) --->
+[chapter IV.pdf](9-Chapter-IV.pdf)
 
-## General discussion 
+## General discussion
 
-<!--- [discussion.pdf](10-Discussion.pdf) --->
+[discussion.pdf](10-Discussion.pdf)
 
-## Glossary 
+## Glossary
 
-<!--- [glossary.pdf](11-Glossary.pdf) --->
+[glossary.pdf](11-Glossary.pdf)
 
-## Summary 
+## Summary
 
-<!--- [summary.pdf](11-Summary.pdf) (in English, German and French) --->
+[summary.pdf](11-Summary.pdf) (in English, German and French)
 
 ## Acknowledgments
 
-<!--- [acknowledgments.pdf](11-Acknowledgments.pdf) --->
+[acknowledgments.pdf](11-Acknowledgments.pdf)
 
-## Administrative supplementary materials 
+## Administrative supplementary materials
 
 Declaration of independent work ([PDF](Declaration-of-independent-work.pdf))
 

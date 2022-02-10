@@ -21,7 +21,8 @@ abstracts = data.frame(
   stringr::str_replace_all(., 'leaves', 'leaf') %>%
   stringr::str_replace_all(., 'traits', 'trait') %>%
   stringr::str_replace_all(., 'climatic', 'climate') %>%
-  stringr::str_replace_all(., 'cycling', 'cycle')
+  stringr::str_replace_all(., 'cycling', 'cycle') %>%
+  stringr::str_replace_all(., 'functioning', 'functional')
   
 
 
@@ -29,7 +30,7 @@ abstracts = data.frame(
 list.stop = c('affect', 'effects', 'using', 'presence', 'height', 
               'significant', "two", 'affected', 'levels', 'can', 'groups',
               'one', 'two', 'three', 'four', 'five', 'six', 'highlighted',
-              'explained')
+              'explained', 'increasing')
 
 library(tm)
 
