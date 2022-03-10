@@ -33,7 +33,7 @@ title: Rémy Beugnon
 user_groups: ["Researchers"]
 ---
 
-My interest is to understand ecosystem functioning, we are losing species from all phyla in all ecosystems all around the world. The consequences of such loss for ecosystem functioning remain unpredictable. Understanding how species interact and how they are link to their environment is a prerequisite to understand ecosystem functioning and the consequences of species loss.
+My interest is to understand ecosystem functioning. We are losing species from all phyla in all ecosystems all around the world. However, the consequences of such loss for ecosystem functioning remain unpredictable. Understanding how species interact and how they are linked to their environment is a prerequisite to the understanding of ecosystem functioning and the consequences of species loss.
 
 My Ph.D. was based on a tree Biodiversity Ecosystem Functioning experiment ([BEF China](https://bef-china.com/)), where I was focusing on tree-tree interaction effects on carbon cycling from forest productivity to soil carbon storage through its effects on microbial community and litter decomposition. I am doing this work as part of the [TreeDì]({{< relref "/project/TreeDi" >}}) doctoral school which is aiming to understand tree -- tree interactions in Chinese subtropical forest within the BEF China platform.
 
