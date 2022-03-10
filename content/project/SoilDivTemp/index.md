@@ -33,7 +33,7 @@ body {background-color: white;}
 
 </style>
 
-The SoilDivTemp project aims to quantify and understand diversity buffering of soil temperature fluctuation. This project is base on the international [SoilTemp](https://twitter.com/SoilTemp_proj) consortium compiling soil temperature measurements from around the world, biomes and ecosystems.
+The SoilDivTemp project aims to quantify and understand diversity buffering of soil temperature fluctuations. This project is based on the international [SoilTemp](https://twitter.com/SoilTemp_proj) consortium compiling soil temperature measurements from around the world, biomes and ecosystems.
 
 ## Abstract
 
