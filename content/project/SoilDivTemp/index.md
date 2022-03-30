@@ -18,6 +18,10 @@ url_video: ""
 ---
 
 <style>
+div {
+  text-align: justify;
+  text-justify: inter-word;
+}
 
 .column {
  float: left;
@@ -33,7 +37,8 @@ body {background-color: white;}
 
 </style>
 
-The SoilDivTemp project aims to quantify and understand diversity buffering of soil temperature fluctuations. This project is based on the international [SoilTemp](https://twitter.com/SoilTemp_proj) consortium compiling soil temperature measurements from around the world, biomes and ecosystems.
+<div>
+The SoilDivTemp project is aiming to quantify and understand vegetation diversity buffering of soil temperature fluctuations. This project is based on our collaboration with the international <a href="https://twitter.com/SoilTemp_proj">SoilTemp</a> consortium, which is compiling near surface temperature measurements around the world, across biomes and ecosystems.
 
 ## Abstract
 
@@ -41,7 +46,9 @@ The frequency and intensity of extreme climatic events, such as heatwaves and dr
 
 ## Hypothesis
 
-Our main hypothesis is that plant diversity can buffer temperature fluctuations (Fig. 1) and extreme climatic event (Fig. 2), and therefore, reduce the effects of climate change on ecosystems. We are testing this hypothesis using both experiments where diversity is manipulated; such as [BEF China](https://bef-china.com/) and [The Jena Experiment](http://the-jena-experiment.de/); and natural field measurements with the SoilTemp consortium datasets.
+Our main hypothesis is that vegetation diversity can buffer temperature fluctuations (Fig. 1) and extreme climatic event (Fig. 2), and therefore, reduce the effects of climate change on ecosystems. We are testing this hypothesis using field measurements from the SoilTemp consortium and by linking our results to current research in BEF experiments; such as <a href="https://bef-china.com/">BEF China</a> and <a href="http://the-jena-experiment.de/">The Jena Experiment</a>.
+
+</div>
 
 *Figure 1: climate buffering by plant diversity*
 
