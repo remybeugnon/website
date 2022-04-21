@@ -24,12 +24,16 @@ form =
   distinct(`DOI (full URL)`, .keep_all = TRUE) %>%
   filter(!is.na(Title))
 
-form %>% filter(Horodateur > (format(Sys.Date()-7, "%Y-%m-%d")) ) %>%
+f = form %>% filter(Horodateur > (format(Sys.Date()-7, "%Y-%m-%d")) ) 
+if(nrow(f)>0){
+  f %>%
   mutate(text=paste("<b>", Title, "</b>", " <a href=\"",`DOI (full URL)`,"\">(DOI) </a> ", if(!is.na(Keywords)){Keywords}, if(!is.na(`Comments:`)){`Comments:`},sep="")) %>%
   select(text) %>%
   kable(., format = "html", escape = FALSE, col.names = NULL) %>%
   kable_styling(bootstrap_options = c("hover", "condensed")) 
-
+}else{
+  kable(x = c("Nothing was added this week"), col.names = NULL)
+}
 ```
 
 ## If you find something nice feel free to contribute
