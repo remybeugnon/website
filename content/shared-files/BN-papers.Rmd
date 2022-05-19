@@ -22,10 +22,11 @@ form = read_sheet("https://docs.google.com/spreadsheets/d/1IdyqL8RO6mar6dwBiB8UU
 ```
 
 ```{r, results = 'asis'}
-txt = c()
 for(i in 1:nrow(form)){
   cat(paste0("<h3>",form$Title[i], " </h3> <br> <p>", form$Abstract[i], " </p> <br> <p> [Link to the document](",form$Link[i], ") </p> <br> "))
 }
-# cat(txt)
 ```
 
+### Shared files
+
+[Link to the folder](https://drive.google.com/drive/folders/1QROEy_iNo0xjvbSrkItsXY6MCy5I4Y7O?usp=sharing)
