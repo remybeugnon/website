@@ -2,26 +2,12 @@
 title: "BN paper collaborations"
 author: "Breathing Nature consortium"
 date: "`r Sys.Date()`"
-output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = F)
-knitr::opts_chunk$set(message = F)
-knitr::opts_chunk$set(warning = F)
-
-```
-
-```{r}
+```{r,echo=FALSE, warning=FALSE, message=FALSE, results = 'asis'}
 library(googlesheets4)
 library(dplyr)
-library(kableExtra)
-library(lubridate)
-
 form = read_sheet("https://docs.google.com/spreadsheets/d/1IdyqL8RO6mar6dwBiB8UUdGwOBTkLGALX6InE2BCC6M/edit?usp=sharing")
-```
-
-```{r, results = 'asis'}
 for(i in 1:nrow(form)){
   cat(paste0("<h3>",form$Title[i], " </h3> <br> <b>Contact person: </b>", form$`Contact person`[i],"<br> <b>Related BN topic: </b>",form$`BN topics`, "<br> <p> [Link to the document](",form$Link[i], ") </p> <h4> Abstract/Idea </h4> <p>", form$Abstract[i], " </p> ")[1])
 }
