@@ -9,7 +9,7 @@ library(googlesheets4)
 library(dplyr)
 form = read_sheet("https://docs.google.com/spreadsheets/d/1IdyqL8RO6mar6dwBiB8UUdGwOBTkLGALX6InE2BCC6M/edit?usp=sharing")
 for(i in 1:nrow(form)){
-  cat(paste0("<h3>",form$Title[i], " </h3> <br> <b>Contact person: </b>", form$`Contact person`[i],"<br> <b>Related BN topic: </b>",form$`BN topics`, "<br> <p> [Link to the document](",form$Link[i], ") </p> <h4> Abstract/Idea </h4> <p>", form$Abstract[i], " </p> ")[1])
+  cat(paste0("<h3>",form$Title[i], " </h3> <br> <b>Contact person: </b>", form$`Contact person`[i],"<br> <b>Related BN topic: </b>",form$`BN topics`[i], "<br> <p> [Link to the document](",form$Link[i], ") </p> <h4> Abstract/Idea </h4> <p>", form$Abstract[i], " </p> ")[1])
 }
 ```
 
