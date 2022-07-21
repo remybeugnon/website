@@ -38,7 +38,15 @@ body {background-color: white;}
 </style>
 
 <div>
+  
+## Summary 
+
 The SoilDivTemp project is aiming to quantify and understand vegetation diversity buffering of soil temperature fluctuations. This project is based on our collaboration with the international <a href="https://twitter.com/SoilTemp_proj">SoilTemp</a> consortium, which is compiling near surface temperature measurements around the world, across biomes and ecosystems.
+</div>
+
+![Poster World Biodiversity Forum 2022](Poster-Davos.png)
+
+<div>
 
 ## Abstract
 
@@ -46,17 +54,9 @@ The frequency and intensity of extreme climatic events, such as heatwaves and dr
 
 ## Hypothesis
 
-Our main hypothesis is that vegetation diversity can buffer temperature fluctuations (Fig. 1) and extreme climatic event (Fig. 2), and therefore, reduce the effects of climate change on ecosystems. We are testing this hypothesis using field measurements from the SoilTemp consortium and by linking our results to current research in BEF experiments; such as <a href="https://bef-china.com/">BEF China</a> and <a href="http://the-jena-experiment.de/">The Jena Experiment</a>.
+Our main hypothesis is that vegetation diversity can buffer temperature fluctuations and extreme climatic event, and therefore, reduce the effects of climate change on ecosystems. We are testing this hypothesis using field measurements from the SoilTemp consortium and by linking our results to current research in BEF experiments; such as <a href="https://bef-china.com/">BEF China</a> and <a href="http://the-jena-experiment.de/">The Jena Experiment</a>.
 
 </div>
-
-*Figure 1: climate buffering by plant diversity*
-
-![Figure 1](Buffering.png)
-
-*Figure 2: climatic extreme buffering by plant diversity*
-
-![Figure 2](Buffering-extreme.png)
 
 ## References
 
