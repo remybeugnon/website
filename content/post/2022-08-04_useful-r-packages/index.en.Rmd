@@ -1,0 +1,116 @@
+---
+title: "Useful R packages"
+author: admin
+date: '`r format(Sys.Date(), "%Y-%m-%d")`'
+categories: ["R"]
+tags: ["R"]
+summary: Some useful packages
+---
+
+Just a short summary of some packages and tutorial I am using and like to use
+
+The R bible: [The R Book](https://www.cs.upc.edu/~robert/teaching/estadistica/TheRBook.pdf)
+
+## Data handling
+
+Packages:
+
+The [tidyverse packages](https://www.tidyverse.org/):
+
+loading Excel data with [readxl](https://readxl.tidyverse.org/)
+
+loading data with [readr package](https://readr.tidyverse.org/)
+
+data handling with [dplyr package](https://dplyr.tidyverse.org/)
+
+... and more in the the tidyverse package
+
+## Statistical analyses
+
+-   Variable distributions ([visual example](https://ben18785.shinyapps.io/distribution-zoo/))
+
+-   Linear model with normally distributed residuals:
+
+    -   ['lm' r documentation](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/lm)
+
+    -   [Tutorial](https://www.datacamp.com/community/tutorials/linear-regression-R)
+
+-   Linear model with other residuals distribution:
+
+    -   [glm' r documentation](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/glm)
+
+    -   [tutorial 1](https://www.datacamp.com/community/tutorials/generalized-linear-models)
+
+    -   [tutorial 2](https://www.statmethods.net/advstats/glm.html)
+
+-   Non-linear models:
+
+    -   by transforming your data: log, polynomial ... [tutorial](http://www.sthda.com/english/articles/40-regression-analysis/162-nonlinear-regression-essentials-in-r-polynomial-and-spline-regression-models/)
+
+    -   by using the nls() function: [tutorial](https://www.r-bloggers.com/2016/02/first-steps-with-non-linear-regression-in-r/)
+
+    -   (by building your own fitting and optimization functions and using a solver: [tutorial](https://www.magesblog.com/post/2013-03-12-how-to-use-optim-in-r/))
+
+-   General additive model: a great [tutorial](https://noamross.github.io/gams-in-r-course/)
+
+-   Mixed effect models (using lm4):
+
+    -   [tutorial 1](https://github.com/RoseannaGG/LinearMixedEffectsModels/blob/main/Linear%20Mixed%20Effects%20Models%20-%20R%20Gamlen-Greene.pdf)
+
+    -   [tutorial 2](https://www.rensvandeschoot.com/tutorials/lme4/)
+
+    -   [tutorial 3](https://ourcodingclub.github.io/tutorials/mixed-models/)
+
+    -   [package vignette](https://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf)
+
+    -   [nice visualization](https://www.tjmahr.com/plotting-partial-pooling-in-mixed-effects-models/) to understand the process behind Mixed-effect models
+
+-   Structural Equation Modeling:
+
+    -   the Bible for SEM: [Jon Lefcheck book](https://jslefche.github.io/sem_book/)
+
+    -   [tutorial](https://lavaan.ugent.be/tutorial/sem.html)
+
+-   Spatio-temporal analyses with R:
+
+    -   The Bible for Spatio-temporal modeling: [book](https://spacetimewithr.org/index) ([pdf](https://spacetimewithr.org/Spatio-Temporal%20Statistics%20with%20R.pdf))
+
+    -   Dealing with temporal auto-correlation in R: [tutorial](https://rpubs.com/markpayne/164550)
+
+-   Bayesian statistics:
+
+    -   [an introduction](https://bookdown.org/content/4857/small-worlds-and-large-worlds.html#building-a-model)
+
+    -   [lecture](https://github.com/benjamin-rosenbaum/bayesian-intro) using Stan
+
+    -   [paper](https://www.nature.com/articles/s43586-020-00001-2)
+
+## Model quality
+
+"performance" package
+
+-   [package](https://cran.r-project.org/web/packages/performance/performance.pdf)
+
+-   [tutorial](https://easystats.github.io/performance/)
+
+"Metrica" package ([package](https://adriancorrendo.github.io/metrica/))
+
+## Extracting results
+
+"ggeffect" package to extract model estimates ([package](https://strengejacke.github.io/ggeffects/))
+
+## Plotting results
+
+-   ggplot make your life easy and pretty
+
+    -   [package](https://ggplot2.tidyverse.org/)
+
+    -   [Tutorial 1](http://r-statistics.co/ggplot2-Tutorial-With-R.html)
+
+    -   [Tutorial 2](http://zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/)
+
+-   ggpubr an Add-On to ggplot2:
+
+    -   [package](https://rpkgs.datanovia.com/ggpubr/)
+
+    -   [ggarrage](https://rpkgs.datanovia.com/ggpubr/reference/ggarrange.html) to combine plots from ggplot

@@ -433,7 +433,7 @@ The R bible: [The R Book](https://www.cs.upc.edu/~robert/teaching/estadistica/Th
 
 ## Data handling
 
-Packages:
+Tidyverse world:
 
 The [tidyverse packages](https://www.tidyverse.org/):
 
@@ -442,8 +442,6 @@ loading Excel data with [readxl](https://readxl.tidyverse.org/)
 loading data with [readr package](https://readr.tidyverse.org/)
 
 data handling with [dplyr package](https://dplyr.tidyverse.org/)
-
-... and more in the the tidyverse package
 
 ## Building statistical model
 
@@ -507,7 +505,7 @@ data handling with [dplyr package](https://dplyr.tidyverse.org/)
 
 ## Model quality
 
-The performance package
+The "performance" package
 
 -   [package](https://cran.r-project.org/web/packages/performance/performance.pdf)
 
