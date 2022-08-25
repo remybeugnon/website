@@ -114,3 +114,5 @@ data handling with [dplyr package](https://dplyr.tidyverse.org/)
     -   [package](https://rpkgs.datanovia.com/ggpubr/)
 
     -   [ggarrage](https://rpkgs.datanovia.com/ggpubr/reference/ggarrange.html) to combine plots from ggplot
+    
+- Gantt charts with [granttrify](https://github.com/giocomai/ganttrify) package ([demo](https://ganttrify.europeandatajournalism.eu/))
