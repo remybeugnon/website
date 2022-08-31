@@ -44,7 +44,7 @@ body {background-color: white;}
 The SoilDivTemp project is aiming to quantify and understand vegetation diversity buffering of soil temperature fluctuations. This project is based on our collaboration with the international <a href="https://twitter.com/SoilTemp_proj">SoilTemp</a> consortium, which is compiling near surface temperature measurements around the world, across biomes and ecosystems.
 </div>
 
-![Poster World Biodiversity Forum 2022](Poster-Davos.png)
+![Poster World Biodiversity Forum 2022](Poster-SoilDivTemp.png)
 
 <div>
 
