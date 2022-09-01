@@ -17,15 +17,9 @@ tags: ["talk", "Soil", "BEF", "TreeDi", "PhD"]
 title: "PhD defense"
 url_code: ""
 url_pdf: ""
-url_slides: ""
+url_slides: "slides/2021_PhD-Defense_Remy-Beugnon.pdf"
 url_video: ""
 ---
-
-Dear all,
-
-time is flying and I am getting closer to my Ph.D. defense. The talk will most likely be hybrid or fully online according to COVID regulations. You will find below all the information you may need if you like to attend the defense.
-
-### In short
 
 **Title:** From trees to soil: microbial and spatial mediation of tree diversity effects on carbon cycling in subtropical Chinese forests
 
@@ -34,14 +28,6 @@ time is flying and I am getting closer to my Ph.D. defense. The talk will most l
 **Time:** 3 PM
 
 **Place:** Online and/or Leipzig University
-
-### How to join?
-
-If you like to livestream or join in person the defense, just drop me your email below and I will send you all information when available:
-
-<iframe src="https://docs.google.com/forms/d/e/1FAIpQLScbA2cN7_2F2Vve8bwswd2JYdh_hawYd-sboRjpEDtv7-UueQ/viewform?embedded=true" width="640" height="1016" frameborder="0" marginheight="0" marginwidth="0">
-
-Loading...</iframe>
 
 ### Abstract
 
