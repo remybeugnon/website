@@ -29,7 +29,9 @@ summary: Bunch of websites and tutorials found
 
 - (by building your own fitting and optimization functions and using a solver: [tutorial](https://www.magesblog.com/post/2013-03-12-how-to-use-optim-in-r/))
 
-## General additive model: a great [tutorial](https://noamross.github.io/gams-in-r-course/)
+## General additive model: 
+
+- a great [tutorial](https://noamross.github.io/gams-in-r-course/)
 
 ## Mixed effect models (using lm4):
 
