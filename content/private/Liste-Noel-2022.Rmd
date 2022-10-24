@@ -16,7 +16,7 @@ output:
 
 -   Parfum: "Eau de Basilic Pourpre" Hermès ([parfum](https://www.hermes.com/fr/fr/product/eau-de-basilic-pourpre-eau-de-cologne-V105081V0/))
 
-    ![](images/000003840011_8.jpg){width="500"}
+    ![](000003840029_26.jpg){width="500"}
 
 -   Pellicules photo argentique ISO 400 (ou ISO 100) plutôt en N&B ([exemple](https://www.pellicule-photo.com/produit/pellicules/films-135-24x36/negatif-noir-et-blanc/ilford-delta-400-135-36/))
 
@@ -29,8 +29,6 @@ output:
 <!-- -   Sac de tous les jours -->
 
 ## Sport
-
-![](images/images.png){width="500"}
 
 #### Triathlon
 
@@ -62,7 +60,7 @@ output:
 
 ## Opération jardin
 
-![](images/66609549_p.png)
+![](66609549_p.png)
 
 -   Programmateur arrosage automatique (sur pile pour arrosage automatique notre jardin [exemple](https://www.gammvert.fr/2-5030-produits-du-jardin/2-3921-nos-marques-entretenir-et-cultiver-le-jardin/3-3926-gardena/p-51044-programmateur-automatique-darrosage-a-pile-gardena-easy-plus-60-combinaisons), [exemple 2](https://www.gammvert.fr/2-5030-produits-du-jardin/2-3921-nos-marques-entretenir-et-cultiver-le-jardin/3-3926-gardena/p-51043-programmateur-automatique-darrosage-gardena-flex), [example 3](https://www.gammvert.fr/2-5030-produits-du-jardin/2-3921-nos-marques-entretenir-et-cultiver-le-jardin/3-3926-gardena/p-51044-programmateur-automatique-darrosage-a-pile-gardena-easy-plus-60-combinaisons))
 
@@ -78,7 +76,7 @@ output:
 
 ## Plus beau chien du quartier
 
-![](images/IMG_5718.jpg){width="500"}
+![](IMG_5718.jpg){width="500"}
 
 -   Remorque de transport pour vélo (occasion ou [Decathlon](https://www.decathlon.fr/p/remorque-velo-bike-original-capacite-40-kg/_/R-p-X8597302?mc=8597302), [Trixie](https://www.trixie.de/fr/monde-des-produits/chien/en-voyage/accessoires-pour-velo/roulotte-de-velo-pour-chiens-1001093328-1001093357))
 
