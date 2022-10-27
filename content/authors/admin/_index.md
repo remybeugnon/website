@@ -1,5 +1,5 @@
 ---
-bio: I am a postdoctoral researcher between iDiv, the CEFE and LIM working vegetation diversity effects on soil microclimate.
+bio: I am a PosDoc between iDiv, the CEFE and LIM working vegetation diversity effects on soil microclimate.
 email: "remy.beugnon@idiv.de"
 organizations:
 - name: German Center for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig 

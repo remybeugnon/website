@@ -22,6 +22,8 @@ url_video: ""
 
 ![](FYM_Poster_Jochum_20220823_whitelines.png)
 
+**The complete eBook available [there](https://kids.frontiersin.org/collections/11796/soil-biodiversity)!**
+
 Find out about our collection, the articles, their authors ([here](https://kids.frontiersin.org/collection/11796/soil-biodiversity)) and their translations ([here](https://www.idiv.de/en/young-minds/en.html))
 
 # About this collection
