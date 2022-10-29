@@ -28,7 +28,7 @@ output:
 
 ## Sport
 
-#### Triathlon
+### Triathlon
 
 -   Sac transition Triathlon ([Decathlon](https://www.decathlon.fr/p/sac-a-dos-de-transition-triathlon-aptonia/_/R-p-196551?mc=8585189))
 
