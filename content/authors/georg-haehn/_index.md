@@ -1,6 +1,6 @@
 ---
 title: Georg Haehn
-role: Student
+role: BSc. Student
 bio: 'I am a master student at Martin-Luther-Universität Halle-Wittenberg, focusing on Ecology and Ecosystem functioning.'
 social:
 - icon: envelope
@@ -11,8 +11,7 @@ organizations:
   url: "https://www.uni-halle.de"
 - name: German Center for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig
   url: "https://www.idiv.de/en"
-user_groups: ["Grad Students"]
-role: Student
+user_groups: ["Alumni"]
 tags: 
 - TreeDi
 ---

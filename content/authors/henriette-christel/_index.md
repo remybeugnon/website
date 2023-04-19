@@ -11,7 +11,7 @@ organizations:
 - name: German Center for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig
   url: "https://www.idiv.de/en"
 role: MSc. student
-user_groups: ["Grad Students"]
+user_groups: ["Alumni"]
 ---
 
 I am interested in understanding biodiversity-ecosystem functioning, especially how species interact with each another and their place in the ecosystem.
