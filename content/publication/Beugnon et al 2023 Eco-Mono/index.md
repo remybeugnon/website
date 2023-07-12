@@ -43,9 +43,9 @@ tags:
 - Microclimate
 
 title: "Abiotic and biotic drivers of tree trait effects on soil microbial biomass and soil carbon concentration"
-url_code: ""
-url_dataset: ""
-url_pdf: ""
+url_code: "https://zenodo.org/record/7225739"
+url_dataset: "https://datadryad.org/stash/dataset/doi:10.5061/dryad.pvmcvdnqc"
+url_pdf: "https://onlinelibrary.wiley.com/doi/abs/10.1002/ecm.1563"
 url_poster: ""
 url_project: ""
 url_slides: ""
