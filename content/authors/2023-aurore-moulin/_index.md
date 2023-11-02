@@ -11,7 +11,7 @@ organizations:
   url: "https://www.umontpellier.fr/"
 - name: Centre d’Ecologie Fonctionnelle et Evolutive (CEFE), CNRS 
   url: "https://www.cefe.cnrs.fr/"
-user_groups: ["Grad Students"]
+user_groups: ["Alumni"]
 role: Student
 tags: 
 - TreeDi
