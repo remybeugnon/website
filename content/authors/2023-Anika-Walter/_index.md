@@ -5,7 +5,7 @@ bio: 'am a student in the bachelor program “Natural Resources Management” at
 social:
 - icon: envelope
   icon_pack: fas
-  link: 'mailto:anika.walter@online.de'
+  link: 'mailto:anika.walter@student.uni-halle.de'
 organizations:
 - name: Martin-Luther-University Halle-Wittenberg
   url: "https://www.uni-halle.de/?lang=en"
