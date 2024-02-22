@@ -21,23 +21,23 @@ feature:
   icon: "forest"
   icon_pack: "custom"
   name: Diversity
-- description: 70%
+- description: 60%
   icon: "tree"
   icon_pack: "custom"
   name: Forest ecology
-- description: 60%
+- description: 40%
   icon: "microbes"
   icon_pack: "custom"
   name: Microbial ecology
-- description: 30%
+- description: 50%
   icon: "leaf"
   icon_pack: "custom"
   name: Litter decomposition
-- description: 80%
+- description: 70%
   icon: "soil"
   icon_pack: "custom"
   name: Soil ecology
-- description: 40%
+- description: 100%
   icon: climate
   icon_pack: "custom"
   name: Microclimate

@@ -1,5 +1,5 @@
 ---
-bio: I am a PosDoc between iDiv, the CEFE and LIM working vegetation diversity effects on soil microclimate.
+bio: I am a PosDoc between iDiv, the CEFE and LIM working biodiversity-microclimate-ecosystem functioning nexus.
 email: "remy.beugnon@idiv.de"
 organizations:
 - name: German Center for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig 
@@ -31,7 +31,7 @@ social:
   link: https://publons.com/researcher/3282453/remy-beugnon/
 - icon: cv
   icon_pack: ai
-  link: 'author/remy-beugnon/Remy-Beugnon_CV.pdf'
+  link: 'author/remy-beugnon/Beugnon-CV-3.h'
   
 superuser: false
 title: Rémy Beugnon
@@ -46,7 +46,9 @@ div {
 </style>
 
 <div>
-My interest is to understand ecosystem functioning. We are losing species from all phyla in all ecosystems all around the world. However, the consequences of such loss for ecosystem functioning remain unpredictable. Understanding how species interact and how they are linked to their environment is a prerequisite to the understanding of ecosystem functioning and the consequences of species loss for our societies.
+  My research interest lies in understanding ecosystem functioning, particularly in light of the ongoing loss of species across various ecosystems worldwide. Despite this widespread species loss, the exact implications for ecosystem functioning remain uncertain. To address this, it is crucial to comprehend how species interact with each other and their environment.
 
-I did my Ph.D. in a tree Biodiversity Ecosystem Functioning experiment ([BEF China](https://bef-china.com/)), where I was focusing on tree-tree interaction effects on carbon cycling from forest productivity to soil carbon storage through its effects on microbial community and litter decomposition. I was doing this work as part of the [TreeDì](https://remybeugnon.netlify.app/project/treedi/) doctoral school which is aiming to understand tree -- tree interactions in Chinese subtropical forest within the BEF China platform. I am now focussing on the biodiversity-microclimate-functioning nexus. In my current project [SoilDivTemp](https://remybeugnon.netlify.app/project/soildivtemp/), I am aiming to understand how vegetation diversity is modulating temperature and the consequences for undercanopy communities and functions at global scale.
+During my Ph.D., I conducted research within the context of the Biodiversity Ecosystem Functioning ([BEF China](https://bef-china.com/)) experiment, focusing on the effects of tree-tree interactions on carbon cycling. Specifically, I investigated how these interactions influenced forest productivity, soil carbon storage, microbial communities, and litter decomposition. This work was conducted as part of the TreeDì doctoral school, which aims to explore tree interactions in Chinese subtropical forests within the BEF China platform.
+
+Currently, my research is centered on the biodiversity-microclimate-ecosystem functioning nexus. In my ongoing project, [SoilDivTemp](https://remybeugnon.netlify.app/project/soildivtemp/), I am investigating how vegetation diversity affects temperature modulation and its repercussions on undercanopy communities and functions on a global scale.
 </div>

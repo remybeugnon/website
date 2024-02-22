@@ -93,11 +93,11 @@ phone = ""
 
 # Address
 # For country_code, use the 2-letter ISO code (see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 )
-address = {street = "Puschstrasse 4", city = "Leipzig", region = "", postcode = "04103", country = "Germany", country_code = "DE"}
+address = {street = "1919 route de Mende", city = "Montpellier", region = "", postcode = "34293", country = "France", country_code = "FR"}
 
 # Geographic coordinates
 # To get your coordinates, right-click on Google Maps and choose "What's here?". The coords will show up at the bottom.
-coordinates = {latitude = "51.31828", longitude = "12.39564"}
+coordinates = {latitude = "43.6389", longitude = "3.864125"}
 
 # Directions for visitors to locate you.
 directions = ""
