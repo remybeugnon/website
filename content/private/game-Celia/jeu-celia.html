@@ -72,19 +72,17 @@
     
     let score = 0;
     let bestScore = 0;
-    let spawnInterval = 1000; // Augmenté pour ralentir la vitesse d'apparition
+    let spawnInterval = 1500; // Intervalle initial plus lent
     let santaLifetime = 2000;
-    const spawnIntervalDecrease = 5; // Diminution plus lente de la vitesse d'apparition
+    const spawnIntervalDecrease = 20; // Diminution plus lente de la vitesse d'apparition
     const lifetimeDecrease = 10;
-    const minSpawnInterval = 700; // Intervalle minimum plus long
+    const minSpawnInterval = 1000; // Intervalle minimum ajusté
     const minLifetime = 1000;
     let gameOver = false;
-    let intervalId;
-    const maxSantaCount = 10; // Nombre maximal de Pères Noël à l'écran en même temps
     let activeSantaCount = 0;
+    const maxSantaCount = 10; // Nombre maximal de Pères Noël à l'écran en même temps
 
-    // Liste des positions occupées pour éviter la superposition
-    const occupiedPositions = [];
+    const occupiedPositions = []; // Liste des positions occupées pour éviter la superposition
 
     // Fonction pour vérifier si une position est occupée
     function isPositionOccupied(x, y, width, height) {
@@ -120,7 +118,7 @@
       // Assigne l'image et l'attribut en fonction de la présence de la hotte
       santa.src = hasSack 
                   ? 'pere-noel.png' // Remplacer par une vraie image d'un Père Noël avec hotte
-                  : 'santa-claus.png'; // Remplacer par une vraie image d'un Père Noël sans hottev
+                  : 'santa-claus.png'; // Remplacer par une vraie image d'un Père Noël sans hotte
       santa.classList.add('santa');
       santa.setAttribute('data-has-sack', hasSack);
       
@@ -194,13 +192,18 @@
 
     // Fonction pour démarrer le jeu
     function startGame() {
-      intervalId = setInterval(spawnSanta, spawnInterval); // Sauvegarde de l'intervalle
+      function loop() {
+        spawnSanta(); // Appelle la génération des Pères Noël
+        if (!gameOver) {
+          requestAnimationFrame(loop); // Appel récursif avec requestAnimationFrame pour plus d'efficacité
+        }
+      }
+      loop(); // Démarre la boucle
     }
 
     // Fonction pour terminer le jeu
     function endGame(message) {
       gameOver = true;
-      clearInterval(intervalId); // Arrête la génération de Pères Noël
       if (score > bestScore) {
         bestScore = score; // Mise à jour du meilleur score
       }
@@ -212,16 +215,14 @@
     function restartGame() {
       score = 0;  // Réinitialise le score
       scoreDisplay.textContent = 'Score: ' + score;
-      gameContainer.innerHTML = ''; // Vide le conteneur de jeu
-      occupiedPositions.length = 0; // Vide la liste des positions
-      activeSantaCount = 0; // Réinitialise le compteur de Pères Noël à l'écran
+      gameContainer.innerHTML = ''; // Vide le conteneur du jeu
+      activeSantaCount = 0; // Réinitialise le nombre de Pères Noël actifs
       gameOver = false; // Réactive le jeu
-      startGame(); // Relance la génération des Pères Noël
+      occupiedPositions.length = 0; // Vide la liste des positions occupées
+      startGame(); // Démarre une nouvelle partie
     }
 
-    // Démarre le jeu
-    startGame();
+    startGame(); // Lance le jeu dès le chargement
   </script>
-
 </body>
 </html>
