@@ -56,17 +56,17 @@
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const renneImage = new Image(); 
-    renneImage.src = 'renne.png'; 
+    const renneImage = new Image();
+    renneImage.src = 'renne.png';
 
-    const sapinImage = new Image(); 
-    sapinImage.src = 'sapin.png'; 
+    const sapinImage = new Image();
+    sapinImage.src = 'sapin.png';
 
     const renne = {
         x: 50,
-        y: 150,
-        width: 40,
-        height: 40,
+        y: canvas.height - 120, // Placer le renne un peu plus bas pour mieux le voir
+        width: 60, // Ajuster la taille du renne
+        height: 60,
         velocityY: 0,
         jumpPower: -6,
         gravity: 0.1,
@@ -75,8 +75,8 @@
     };
 
     const obstacles = [];
-    const obstacleWidth = 40;
-    const obstacleHeight = 40;
+    const obstacleWidth = 60; // Ajuster la taille des sapins
+    const obstacleHeight = 60;
     let obstacleSpeed = 0.8;
     const maxObstacles = 3;
     const minObstacleSpacing = 150;
@@ -110,7 +110,7 @@
     function createObstacle() {
         if (obstacles.length === 0 || obstacles[obstacles.length - 1].x < canvas.width - minObstacleSpacing) {
             const obstacleX = canvas.width;
-            const obstacleY = canvas.height - obstacleHeight;
+            const obstacleY = canvas.height - obstacleHeight; // Aligner les sapins au sol
             obstacles.push({ x: obstacleX, y: obstacleY });
         }
     }
@@ -145,8 +145,8 @@
             renne.velocityY += renne.gravity;
             renne.y += renne.velocityY;
 
-            if (renne.y >= 150) {
-                renne.y = 150;
+            if (renne.y >= canvas.height - 120) {
+                renne.y = canvas.height - 120;
                 renne.jumping = false;
             }
         }
@@ -161,7 +161,7 @@
     function restartGame() {
         score = 0;
         obstacles.length = 0;
-        renne.y = 150;
+        renne.y = canvas.height - 120;
         renne.velocityY = 0;
         renne.jumping = false;
         renne.jumpHoldTime = 0;
