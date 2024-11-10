@@ -58,7 +58,7 @@
 </head>
 <body>
 
-  <h1>De vilains Père Noël sans hotte débarque : tuez les tous !</h1>
+  <h1>~  De vilains Pères Noël SANS HOTTE débarquent: TUEZ LES TOUS !  ~</h1>
   <div id="game-container"></div>
   <div id="score">Score: 0</div>
   <div id="best-score">Meilleur Score: 0</div>
@@ -72,14 +72,41 @@
     
     let score = 0;
     let bestScore = 0;
-    let spawnInterval = 800;
+    let spawnInterval = 1000; // Augmenté pour ralentir la vitesse d'apparition
     let santaLifetime = 2000;
-    const spawnIntervalDecrease = 10; // Plus lent
-    const lifetimeDecrease = 10;      // Plus lent
-    const minSpawnInterval = 400;     // Intervalle minimum raisonnable
-    const minLifetime = 1000;         // Durée de vie minimum raisonnable
+    const spawnIntervalDecrease = 5; // Diminution plus lente de la vitesse d'apparition
+    const lifetimeDecrease = 10;
+    const minSpawnInterval = 500; // Intervalle minimum plus long
+    const minLifetime = 1000;
     let gameOver = false;
     let intervalId;
+
+    // Liste des positions occupées pour éviter la superposition
+    const occupiedPositions = [];
+
+    // Fonction pour vérifier si une position est occupée
+    function isPositionOccupied(x, y, width, height) {
+      for (let i = 0; i < occupiedPositions.length; i++) {
+        const pos = occupiedPositions[i];
+        if (x < pos.x + pos.width &&
+            x + width > pos.x &&
+            y < pos.y + pos.height &&
+            y + height > pos.y) {
+          return true; // La position est occupée par un autre Père Noël
+        }
+      }
+      return false;
+    }
+
+    // Fonction pour obtenir une position aléatoire valide
+    function getValidPosition(width, height) {
+      let x, y;
+      do {
+        x = Math.random() * (gameContainer.clientWidth - width);
+        y = Math.random() * (gameContainer.clientHeight - height);
+      } while (isPositionOccupied(x, y, width, height)); // Vérifie la superposition
+      return { x, y };
+    }
 
     function spawnSanta() {
       if (gameOver) return; // Arrête de générer si le jeu est terminé
@@ -99,9 +126,11 @@
       santa.style.width = `${sizeVariation}vw`;
       santa.style.height = `${sizeVariation}vw`;
 
-      // Positionnement aléatoire
-      santa.style.top = Math.random() * (gameContainer.clientHeight - sizeVariation) + 'px';
-      santa.style.left = Math.random() * (gameContainer.clientWidth - sizeVariation) + 'px';
+      // Obtenir une position valide (sans superposition)
+      const { x, y } = getValidPosition(sizeVariation, sizeVariation);
+
+      santa.style.top = `${y}px`;
+      santa.style.left = `${x}px`;
 
       // Ajoute l'événement de clic ou de touche
       santa.addEventListener('click', function() {
@@ -127,6 +156,9 @@
 
       gameContainer.appendChild(santa);
 
+      // Ajouter la position à la liste des positions occupées
+      occupiedPositions.push({ x, y, width: sizeVariation, height: sizeVariation });
+
       // Gestion de la disparition du Père Noël
       setTimeout(() => {
         if (gameContainer.contains(santa)) {
@@ -135,6 +167,8 @@
             updateScore();
           }
           santa.remove();
+          // Enlève la position de la liste après la disparition
+          occupiedPositions.splice(occupiedPositions.indexOf({ x, y, width: sizeVariation, height: sizeVariation }), 1);
         }
       }, santaLifetime);
 
@@ -172,6 +206,7 @@
       score = 0;  // Réinitialise le score
       scoreDisplay.textContent = 'Score: ' + score;
       gameContainer.innerHTML = ''; // Vide le conteneur de jeu
+      occupiedPositions.length = 0; // Vide la liste des positions
       gameOver = false; // Réactive le jeu
       startGame(); // Relance la génération des Pères Noël
     }
