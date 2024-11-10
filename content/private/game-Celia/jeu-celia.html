@@ -76,10 +76,12 @@
     let santaLifetime = 2000;
     const spawnIntervalDecrease = 5; // Diminution plus lente de la vitesse d'apparition
     const lifetimeDecrease = 10;
-    const minSpawnInterval = 500; // Intervalle minimum plus long
+    const minSpawnInterval = 700; // Intervalle minimum plus long
     const minLifetime = 1000;
     let gameOver = false;
     let intervalId;
+    const maxSantaCount = 10; // Nombre maximal de Pères Noël à l'écran en même temps
+    let activeSantaCount = 0;
 
     // Liste des positions occupées pour éviter la superposition
     const occupiedPositions = [];
@@ -110,6 +112,7 @@
 
     function spawnSanta() {
       if (gameOver) return; // Arrête de générer si le jeu est terminé
+      if (activeSantaCount >= maxSantaCount) return; // Limite le nombre de Pères Noël à l'écran
 
       const santa = document.createElement('img');
       const hasSack = Math.random() > 0.5;
@@ -117,7 +120,7 @@
       // Assigne l'image et l'attribut en fonction de la présence de la hotte
       santa.src = hasSack 
                   ? 'pere-noel.png' // Remplacer par une vraie image d'un Père Noël avec hotte
-                  : 'santa-claus.png'; // Remplacer par une vraie image d'un Père Noël sans hotte
+                  : 'santa-claus.png'; // Remplacer par une vraie image d'un Père Noël sans hottev
       santa.classList.add('santa');
       santa.setAttribute('data-has-sack', hasSack);
       
@@ -140,6 +143,7 @@
           score++; // Augmente le score si on clique sur un Père Noël sans hotte
           updateScore();
           santa.remove();
+          activeSantaCount--;
         }
       });
 
@@ -151,10 +155,12 @@
           score++; // Augmente le score si on touche un Père Noël sans hotte
           updateScore();
           santa.remove();
+          activeSantaCount--;
         }
       });
 
       gameContainer.appendChild(santa);
+      activeSantaCount++;
 
       // Ajouter la position à la liste des positions occupées
       occupiedPositions.push({ x, y, width: sizeVariation, height: sizeVariation });
@@ -167,6 +173,7 @@
             updateScore();
           }
           santa.remove();
+          activeSantaCount--;
           // Enlève la position de la liste après la disparition
           occupiedPositions.splice(occupiedPositions.indexOf({ x, y, width: sizeVariation, height: sizeVariation }), 1);
         }
@@ -207,6 +214,7 @@
       scoreDisplay.textContent = 'Score: ' + score;
       gameContainer.innerHTML = ''; // Vide le conteneur de jeu
       occupiedPositions.length = 0; // Vide la liste des positions
+      activeSantaCount = 0; // Réinitialise le compteur de Pères Noël à l'écran
       gameOver = false; // Réactive le jeu
       startGame(); // Relance la génération des Pères Noël
     }
