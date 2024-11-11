@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Challenge de Noël - Variante</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background-color: #d0f0c0;
+      margin: 0;
+    }
+
+    h1 {
+      color: #ff0000;
+      font-size: 5vw;
+    }
+
+    #game-container {
+      position: relative;
+      width: 90vw;
+      height: 90vw;
+      border: 3px solid #ff0000;
+      background-color: #ffffff;
+      overflow: hidden;
+    }
+
+    .santa {
+      position: absolute;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    #score, #best-score {
+      font-size: 6vw;
+      margin-top: 10px;
+      color: #008000;
+    }
+
+    #replay-button {
+      font-size: 3vw;
+      padding: 10px 20px;
+      margin-top: 20px;
+      background-color: #ff6347;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    #replay-button:hover {
+      background-color: #ff4500;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>~ Variante: Tuez les Pères Noël sans hotte ! ~</h1>
+  <div id="game-container"></div>
+  <div id="score">Score: 0</div>
+  <div id="best-score">Meilleur Score: 0</div>
+  <button id="replay-button" onclick="restartGame()">Rejouer</button>
+
+  <script>
+    const gameContainer = document.getElementById('game-container');
+    const scoreDisplay = document.getElementById('score');
+    const bestScoreDisplay = document.getElementById('best-score');
+    
+    let score = 0;
+    let bestScore = 0;
+    let spawnInterval = 2000;
+    let santaLifetime = 3000;
+    const spawnIntervalDecrease = 30;
+    const lifetimeDecrease = 50;
+    const minSpawnInterval = 700;
+    const minLifetime = 1200;
+    let gameOver = false;
+    let intervalId;
+    const maxSantaCount = 10;
+    let activeSantaCount = 0;
+    const santaPool = [];
+    let spawnCount = 0;
+
+    // Liste des images pour les pères Noël avec et sans hotte
+    const santaImagesWithSack = [
+      'pere-noel1.png', 'pere-noel2.png', 'pere-noel3.png' // Remplacez par les chemins des images
+    ];
+    const santaImagesWithoutSack = [
+      'santa-claus1.png', 'santa-claus2.png', 'santa-claus3.png' // Remplacez par les chemins des images
+    ];
+
+    function createSantaPool(size) {
+      for (let i = 0; i < size; i++) {
+        const santa = document.createElement('img');
+        santa.classList.add('santa');
+        santa.style.display = 'none';
+        gameContainer.appendChild(santa);
+        santaPool.push(santa);
+      }
+    }
+
+    function getSantaFromPool() {
+      return santaPool.find(santa => santa.style.display === 'none') || null;
+    }
+
+    function isPositionOccupied(x, y, width, height) {
+      for (const santa of santaPool) {
+        if (santa.style.display !== 'none') {
+          const santaRect = santa.getBoundingClientRect();
+          if (x < santaRect.right && x + width > santaRect.left && y < santaRect.bottom && y + height > santaRect.top) {
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+
+    function getValidPosition(width, height) {
+      let x, y;
+      do {
+        x = Math.random() * (gameContainer.clientWidth - width);
+        y = Math.random() * (gameContainer.clientHeight - height);
+      } while (isPositionOccupied(x, y, width, height));
+      return { x, y };
+    }
+
+    function spawnSanta() {
+      if (gameOver || activeSantaCount >= maxSantaCount) return;
+
+      const santa = getSantaFromPool();
+      const hasSack = Math.random() > 0.5; // Détermine au hasard si le Père Noël a une hotte
+
+      // Choisit une image aléatoire en fonction de la présence de la hotte
+      santa.src = hasSack ? santaImagesWithSack[Math.floor(Math.random() * santaImagesWithSack.length)]
+                          : santaImagesWithoutSack[Math.floor(Math.random() * santaImagesWithoutSack.length)];
+      santa.setAttribute('data-has-sack', hasSack);
+
+      const sizeVariation = Math.random() * 20 + 15;
+      santa.style.width = `${sizeVariation}vw`;
+      santa.style.height = `${sizeVariation}vw`;
+
+      const { x, y } = getValidPosition(sizeVariation, sizeVariation);
+      santa.style.top = `${y}px`;
+      santa.style.left = `${x}px`;
+      santa.style.display = 'block';
+
+      const handleSantaClick = () => {
+        if (santa.getAttribute('data-has-sack') === 'true') {
+          endGame("Vous avez cliqué sur un Père Noël avec une hotte. Partie terminée !");
+        } else {
+          score++;
+          updateScore();
+          santa.style.display = 'none';
+          activeSantaCount--;
+        }
+      };
+
+      santa.onclick = handleSantaClick;
+
+      activeSantaCount++;
+      
+      setTimeout(() => {
+        if (santa.style.display === 'block') {
+          if (santa.getAttribute('data-has-sack') === 'false') {
+            score--;
+            updateScore();
+          }
+          santa.style.display = 'none';
+          activeSantaCount--;
+        }
+      }, santaLifetime);
+
+      if (++spawnCount % 10 === 0) {
+        spawnInterval = Math.max(spawnInterval - spawnIntervalDecrease, minSpawnInterval);
+        santaLifetime = Math.max(santaLifetime - lifetimeDecrease, minLifetime);
+      }
+    }
+
+    function updateScore() {
+      scoreDisplay.textContent = 'Score: ' + score;
+      if (score < 0) endGame("Votre score est inférieur à 0. Partie terminée !");
+    }
+
+    function startGame() {
+      gameOver = false;
+      intervalId = setInterval(spawnSanta, spawnInterval);
+    }
+
+    function endGame(message) {
+      gameOver = true;
+      clearInterval(intervalId);
+      if (score > bestScore) bestScore = score;
+      bestScoreDisplay.textContent = 'Meilleur Score: ' + bestScore;
+      alert(message);
+    }
+
+    function restartGame() {
+      score = 0;
+      scoreDisplay.textContent = 'Score: ' + score;
+      gameContainer.innerHTML = '';
+      activeSantaCount = 0;
+      spawnInterval = 2000;
+      santaLifetime = 3000;
+      santaPool.length = 0;
+      createSantaPool(15); // Augmentez le pool de départ pour gérer plus d’images
+      startGame();
+    }
+
+    createSantaPool(15);
+    startGame();
+  </script>
+
+</body>
+</html>
