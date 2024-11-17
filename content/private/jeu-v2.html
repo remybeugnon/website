@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu du Renne</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #87CEEB;
+        }
+
+        canvas {
+            display: block;
+            background-color: #87CEEB;
+            border: 2px solid black;
+        }
+
+        #message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 36px;
+            font-weight: bold;
+            color: green;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    <div id="message">Gagné !</div>
+
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const message = document.getElementById("message");
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let score = 0;
+        let gameOver = false;
+
+        // Position et propriétés du renne
+        const reindeer = {
+            x: 50,
+            y: canvas.height - 150,
+            width: 50,
+            height: 50,
+            gravity: 1.5,
+            jumpHeight: -20,
+            velocity: 0
+        };
+
+        // Liste des obstacles (sapins)
+        const obstacles = [];
+        const obstacleWidth = 50;
+        const obstacleHeight = 80;
+        const obstacleSpacing = 200;
+
+        // Action de saut lorsque l'utilisateur clique
+        document.addEventListener("click", jump);
+
+        function jump() {
+            if (!gameOver) {
+                reindeer.velocity = reindeer.jumpHeight;
+            }
+        }
+
+        function generateObstacle() {
+            const height = canvas.height - 150;  // Les sapins apparaissent au niveau du sol
+            obstacles.push({ x: canvas.width, y: height, width: obstacleWidth, height: obstacleHeight });
+        }
+
+        // Dessiner le renne
+        function drawReindeer() {
+            ctx.fillStyle = "#A52A2A";  // Couleur marron pour le renne
+            ctx.fillRect(reindeer.x, reindeer.y, reindeer.width, reindeer.height);
+        }
+
+        // Dessiner les sapins (obstacles)
+        function drawObstacles() {
+            ctx.fillStyle = "#006400";  // Couleur verte pour les sapins
+            obstacles.forEach(obstacle => {
+                ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+            });
+        }
+
+        // Déplacer les obstacles
+        function moveObstacles() {
+            obstacles.forEach(obstacle => {
+                obstacle.x -= 5; // Les obstacles se déplacent vers la gauche
+            });
+
+            // Retirer les obstacles qui sont sortis de l'écran
+            obstacles.filter(obstacle => obstacle.x + obstacle.width > 0);
+        }
+
+        // Vérifier les collisions entre le renne et les sapins
+        function checkCollision() {
+            obstacles.forEach(obstacle => {
+                if (
+                    reindeer.x < obstacle.x + obstacle.width &&
+                    reindeer.x + reindeer.width > obstacle.x &&
+                    reindeer.y < obstacle.y + obstacle.height &&
+                    reindeer.y + reindeer.height > obstacle.y
+                ) {
+                    gameOver = true;
+                    setTimeout(() => {
+                        alert("Perdu !");
+                        location.reload();  // Redémarre le jeu
+                    }, 500);
+                }
+            });
+        }
+
+        // Mise à jour de la position du renne
+        function updateReindeerPosition() {
+            reindeer.velocity += reindeer.gravity;  // Applique la gravité
+            reindeer.y += reindeer.velocity;  // Met à jour la position verticale du renne
+
+            if (reindeer.y > canvas.height - 150) { // Empêche le renne de descendre sous le sol
+                reindeer.y = canvas.height - 150;
+                reindeer.velocity = 0; // Arrête la chute
+            }
+        }
+
+        // Affichage du score
+        function drawScore() {
+            ctx.font = "20px Arial";
+            ctx.fillStyle = "black";
+            ctx.fillText("Score: " + score, 20, 30);
+        }
+
+        // Gagner le jeu
+        function winGame() {
+            gameOver = true;
+            message.style.display = "block";  // Affiche le message "Gagné !"
+            setTimeout(() => {
+                window.location.href = "liste.html";  // Redirige vers liste.html
+            }, 1000); // Attends 1 seconde avant de rediriger
+        }
+
+        // La boucle de jeu
+        function gameLoop() {
+            if (gameOver) return;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Efface l'écran
+
+            drawReindeer();  // Dessine le renne
+            moveObstacles(); // Déplace les obstacles
+            drawObstacles(); // Dessine les obstacles
+            drawScore();     // Affiche le score
+            updateReindeerPosition(); // Met à jour la position du renne
+            checkCollision(); // Vérifie les collisions
+
+            // Si le score atteint 5, le jeu est gagné
+            if (score >= 5) {
+                winGame();
+                return;
+            }
+
+            requestAnimationFrame(gameLoop); // Relance la boucle de jeu
+        }
+
+        // Générer des obstacles à intervalle régulier
+        function spawnObstacles() {
+            setInterval(() => {
+                if (!gameOver) {
+                    generateObstacle();
+                }
+            }, obstacleSpacing);
+        }
+
+        // Mettre à jour le score
+        function updateScore() {
+            setInterval(() => {
+                if (!gameOver) {
+                    score++;
+                }
+            }, 1000);
+        }
+
+        // Démarrer le jeu
+        spawnObstacles();
+        updateScore();
+        gameLoop();
+    </script>
+</body>
+</html>
