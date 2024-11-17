@@ -49,14 +49,14 @@
             border-radius: 5px;
             cursor: pointer;
             display: none;
-            top: 60%;
+            top: 60%; /* Ajuste pour les afficher sous le message de fin */
             left: 50%;
             transform: translateX(-50%);
         }
 
         #loserModeButton {
             background-color: #FF5733;
-            top: 70%;
+            top: 70%; /* Espacement entre les boutons */
         }
 
         #restartButton:hover, #loserModeButton:hover {
@@ -186,6 +186,13 @@
         ctx.fillText('Score: ' + score, 20, 30);
     }
 
+    // Vérifier si le score atteint 5
+    function checkScore() {
+        if (score >= 5 && !gameOver) {
+            window.location.href = 'liste.html'; // Redirection vers liste.html
+        }
+    }
+
     // Redémarrer le jeu
     function restartGame() {
         score = 0;
@@ -212,15 +219,11 @@
         updateRenne();
         drawScore();
 
-        // Vérification du score
-        if (score >= 5) {
-            window.location.href = 'liste.html'; // Redirige si le score est atteint
-        }
-
-        // Création aléatoire d'obstacles
         if (Math.random() < 0.01) {
             createObstacle();
         }
+
+        checkScore(); // Vérifie le score à chaque itération
 
         requestAnimationFrame(gameLoop);
     }
