@@ -5,198 +5,240 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jeu du Renne</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #87CEEB;
+            margin: 0;
+            overflow: hidden;
+            background-color: #f0f0f0;
         }
 
-        canvas {
+        #gameCanvas {
+            background-color: #fff;
             display: block;
-            background-color: #87CEEB;
-            border: 2px solid black;
+            margin: auto;
+            border: 2px solid #000;
         }
 
-        #message {
+        .game-over {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 36px;
-            font-weight: bold;
-            color: green;
+            font-size: 30px;
+            font-family: Arial, sans-serif;
+            color: red;
             display: none;
+        }
+
+        .game-title {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 30px;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        #restartButton, #loserModeButton {
+            position: absolute;
+            font-size: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+            top: 60%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #loserModeButton {
+            background-color: #FF5733;
+            top: 70%;
+        }
+
+        #restartButton:hover, #loserModeButton:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-    <canvas id="gameCanvas"></canvas>
-    <div id="message">Gagné !</div>
 
-    <script>
-        const canvas = document.getElementById("gameCanvas");
-        const ctx = canvas.getContext("2d");
-        const message = document.getElementById("message");
+<div class="game-title">La liste cachée!</div>
+<canvas id="gameCanvas"></canvas>
+<div class="game-over" id="gameOver">Jeu terminé !</div>
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+<button id="restartButton">Recommencer</button>
+<button id="loserModeButton">Loser mode: liste de Noël</button>
 
-        let score = 0;
-        let gameOver = false;
+<script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
 
-        // Position et propriétés du renne
-        const reindeer = {
-            x: 50,
-            y: canvas.height - 150,
-            width: 50,
-            height: 50,
-            gravity: 1.5,
-            jumpHeight: -20,
-            velocity: 0
-        };
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-        // Liste des obstacles (sapins)
-        const obstacles = [];
-        const obstacleWidth = 50;
-        const obstacleHeight = 80;
-        const obstacleSpacing = 200;
+    const renneImage = new Image();
+    const sapinImage = new Image();
 
-        // Action de saut lorsque l'utilisateur clique
-        document.addEventListener("click", jump);
+    // Charger les images
+    renneImage.src = 'renne.png'; // Remplacer par le chemin correct
+    sapinImage.src = 'sapin.png'; // Remplacer par le chemin correct
 
-        function jump() {
-            if (!gameOver) {
-                reindeer.velocity = reindeer.jumpHeight;
-            }
+    // Variables du jeu
+    const renne = {
+        x: 50,
+        y: canvas.height - 100,
+        width: 60,
+        height: 60,
+        velocityY: 0,
+        jumpPower: -10,
+        gravity: 0.15,
+        jumping: false
+    };
+
+    const obstacles = [];
+    const obstacleWidth = 60;
+    const obstacleHeight = 60;
+    let obstacleSpeed = 2;
+    const obstacleSpacing = 250;
+    let score = 0;
+    let gameOver = false;
+
+    // Gestion du saut
+    document.addEventListener('keydown', (event) => {
+        if (event.key === ' ' && !renne.jumping && !gameOver) {
+            renne.jumping = true;
+            renne.velocityY = renne.jumpPower;
         }
+    });
 
-        function generateObstacle() {
-            const height = canvas.height - 150;  // Les sapins apparaissent au niveau du sol
-            obstacles.push({ x: canvas.width, y: height, width: obstacleWidth, height: obstacleHeight });
+    canvas.addEventListener('click', () => {
+        if (!renne.jumping && !gameOver) {
+            renne.jumping = true;
+            renne.velocityY = renne.jumpPower;
         }
+    });
 
-        // Dessiner le renne
-        function drawReindeer() {
-            ctx.fillStyle = "#A52A2A";  // Couleur marron pour le renne
-            ctx.fillRect(reindeer.x, reindeer.y, reindeer.width, reindeer.height);
+    // Fonction pour dessiner le renne
+    function drawRenne() {
+        ctx.drawImage(renneImage, renne.x, renne.y, renne.width, renne.height);
+    }
+
+    // Fonction pour créer un obstacle (sapin) si le nombre d'obstacles est inférieur à 3
+    function createObstacle() {
+        if (obstacles.length < 3) {
+            const obstacleX = canvas.width;
+            const obstacleY = canvas.height - obstacleHeight;
+            obstacles.push({ x: obstacleX, y: obstacleY });
         }
+    }
 
-        // Dessiner les sapins (obstacles)
-        function drawObstacles() {
-            ctx.fillStyle = "#006400";  // Couleur verte pour les sapins
-            obstacles.forEach(obstacle => {
-                ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
-            });
+    // Fonction pour dessiner les obstacles
+    function drawObstacles() {
+        for (let i = 0; i < obstacles.length; i++) {
+            ctx.drawImage(sapinImage, obstacles[i].x, obstacles[i].y, obstacleWidth, obstacleHeight);
         }
+    }
 
-        // Déplacer les obstacles
-        function moveObstacles() {
-            obstacles.forEach(obstacle => {
-                obstacle.x -= 5; // Les obstacles se déplacent vers la gauche
-            });
+    // Fonction pour déplacer les obstacles
+    function moveObstacles() {
+        for (let i = 0; i < obstacles.length; i++) {
+            obstacles[i].x -= obstacleSpeed;
 
-            // Retirer les obstacles qui sont sortis de l'écran
-            obstacles.filter(obstacle => obstacle.x + obstacle.width > 0);
-        }
-
-        // Vérifier les collisions entre le renne et les sapins
-        function checkCollision() {
-            obstacles.forEach(obstacle => {
-                if (
-                    reindeer.x < obstacle.x + obstacle.width &&
-                    reindeer.x + reindeer.width > obstacle.x &&
-                    reindeer.y < obstacle.y + obstacle.height &&
-                    reindeer.y + reindeer.height > obstacle.y
-                ) {
-                    gameOver = true;
-                    setTimeout(() => {
-                        alert("Perdu !");
-                        location.reload();  // Redémarre le jeu
-                    }, 500);
-                }
-            });
-        }
-
-        // Mise à jour de la position du renne
-        function updateReindeerPosition() {
-            reindeer.velocity += reindeer.gravity;  // Applique la gravité
-            reindeer.y += reindeer.velocity;  // Met à jour la position verticale du renne
-
-            if (reindeer.y > canvas.height - 150) { // Empêche le renne de descendre sous le sol
-                reindeer.y = canvas.height - 150;
-                reindeer.velocity = 0; // Arrête la chute
-            }
-        }
-
-        // Affichage du score
-        function drawScore() {
-            ctx.font = "20px Arial";
-            ctx.fillStyle = "black";
-            ctx.fillText("Score: " + score, 20, 30);
-        }
-
-        // Gagner le jeu
-        function winGame() {
-            gameOver = true;
-            message.style.display = "block";  // Affiche le message "Gagné !"
-            setTimeout(() => {
-                window.location.href = "liste.html";  // Redirige vers liste.html
-            }, 1000); // Attends 1 seconde avant de rediriger
-        }
-
-        // La boucle de jeu
-        function gameLoop() {
-            if (gameOver) return;
-
-            ctx.clearRect(0, 0, canvas.width, canvas.height); // Efface l'écran
-
-            drawReindeer();  // Dessine le renne
-            moveObstacles(); // Déplace les obstacles
-            drawObstacles(); // Dessine les obstacles
-            drawScore();     // Affiche le score
-            updateReindeerPosition(); // Met à jour la position du renne
-            checkCollision(); // Vérifie les collisions
-
-            // Si le score atteint 5, le jeu est gagné
-            if (score >= 5) {
-                winGame();
-                return;
+            // Vérification des collisions
+            if (obstacles[i].x < renne.x + renne.width &&
+                obstacles[i].x + obstacleWidth > renne.x &&
+                obstacles[i].y < renne.y + renne.height &&
+                obstacles[i].y + obstacleHeight > renne.y) {
+                gameOver = true;
+                document.getElementById('gameOver').style.display = 'block';
+                document.getElementById('restartButton').style.display = 'block';
+                document.getElementById('loserModeButton').style.display = 'block';
             }
 
-            requestAnimationFrame(gameLoop); // Relance la boucle de jeu
+            if (obstacles[i].x + obstacleWidth < 0) {
+                obstacles.splice(i, 1);
+                score++;
+            }
         }
+    }
 
-        // Générer des obstacles à intervalle régulier
-        function spawnObstacles() {
-            setInterval(() => {
-                if (!gameOver) {
-                    generateObstacle();
-                }
-            }, obstacleSpacing);
+    // Mise à jour de la position du renne
+    function updateRenne() {
+        if (renne.jumping) {
+            renne.velocityY += renne.gravity;
+            renne.y += renne.velocityY;
+
+            if (renne.y >= canvas.height - 100) {
+                renne.y = canvas.height - 100;
+                renne.jumping = false;
+            }
         }
+    }
 
-        // Mettre à jour le score
-        function updateScore() {
-            setInterval(() => {
-                if (!gameOver) {
-                    score++;
-                }
-            }, 1000);
-        }
+    // Dessiner le score
+    function drawScore() {
+        ctx.fillStyle = '#000';
+        ctx.font = '20px Arial';
+        ctx.fillText('Score: ' + score, 20, 30);
+    }
 
-        // Démarrer le jeu
-        spawnObstacles();
-        updateScore();
+    // Redémarrer le jeu
+    function restartGame() {
+        score = 0;
+        obstacles.length = 0;
+        renne.y = canvas.height - 100;
+        renne.velocityY = 0;
+        renne.jumping = false;
+        gameOver = false;
+        document.getElementById('gameOver').style.display = 'none';
+        document.getElementById('restartButton').style.display = 'none';
+        document.getElementById('loserModeButton').style.display = 'none';
         gameLoop();
-    </script>
+    }
+
+    // Boucle du jeu
+    function gameLoop() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (gameOver) return;
+
+        drawRenne();
+        drawObstacles();
+        moveObstacles();
+        updateRenne();
+        drawScore();
+
+        // Vérification du score
+        if (score >= 5) {
+            window.location.href = 'liste.html'; // Redirige si le score est atteint
+        }
+
+        // Création aléatoire d'obstacles
+        if (Math.random() < 0.01) {
+            createObstacle();
+        }
+
+        requestAnimationFrame(gameLoop);
+    }
+
+    // Ajouter des événements pour recommencer et rediriger
+    document.getElementById('restartButton').addEventListener('click', restartGame);
+
+    document.getElementById('loserModeButton').addEventListener('click', function() {
+        window.location.href = 'liste.html';
+    });
+
+    // Commencer le jeu une fois que les images sont chargées
+    renneImage.onload = function () {
+        sapinImage.onload = function () {
+            gameLoop(); // Démarre la boucle du jeu une fois les images chargées
+        };
+    };
+</script>
+
 </body>
 </html>
