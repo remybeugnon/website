@@ -11,11 +11,11 @@ authors:
 - Stephan Hättenschwiler
 date: "2024-03-18T00:00:00Z"
 doi: "10.1111/gcb.17214"
-featured: true
+featured: true 
 image:
   focal_point: ""
   preview_only: false
-projects: [SoilDivTemp]
+projects: ["B-M-EF"] 
 publication: '*Global Change Biology*'
 publication_short: ""
 publication_types: ""
