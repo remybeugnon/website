@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Moving Targets — Click to Reveal Photo</title>
+  <style>
+    :root{--bg:#0f1724;--card-bg:#0b1220;--accent:#10b981}
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
+    body{background:url('https://www.touteleurope.eu/wp-content/uploads/2020/12/traditions-noel-europe.jpg?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;color:#e6eef6;display:flex;align-items:center;justify-content:center;padding:24px}
+
+    .stage{position:relative;width:min(1100px,100%);height:min(700px,70vh);background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border-radius:12px;border:1px solid rgba(255,255,255,0.03);overflow:hidden;box-shadow:0 10px 40px rgba(2,6,23,0.6)}
+
+    /* targets */
+    .target{position:absolute;width:60px;height:60px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #fff6, #fff2 40%, #0003);border:2px solid #fff8;display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none;touch-action:none;box-shadow:0 6px 18px rgba(0,0,0,0.45);transition:transform .12s ease}
+    .target:active{transform:scale(.9)}
+    .target .dot{width:18px;height:18px;border-radius:50%;background:#d11;box-shadow:0 0 12px #f55}
+
+    /* card */
+    .card{position:absolute;min-width:220px;max-width:320px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:10px;padding:10px;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.06);box-shadow:0 8px 30px rgba(2,6,23,0.6);z-index:100}
+    .card .thumb{width:100%;height:140px;border-radius:6px;object-fit:cover;display:block}
+    .card .meta{display:flex;align-items:center;justify-content:space-between;padding-top:8px}
+    .card .meta .title{font-weight:600;font-size:14px;color:#e6eef6}
+    .card .close{background:transparent;border:0;color:#9fb4c9;font-size:18px;cursor:pointer}
+
+    /* small instructions */
+    .hud{position:absolute;left:12px;top:12px;font-size:13px;color:rgba(230,238,246,0.85);background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.03)}
+
+    /* responsive */
+    @media (max-width:520px){.stage{height:60vh}.card .thumb{height:120px}.target{width:42px;height:42px}.card{min-width:180px}}
+  </style>
+</head>
+<body>
+  <div class="stage" id="stage">
+    <div class="hud">Click or tap a moving target to open the photo</div>
+  </div>
+
+  <script>
+    // Configuration
+    const NUM_TARGETS = 22;
+    const TARGET_SIZE = 48; // px (kept in sync with CSS)
+
+    // A small gallery of images (Unsplash). Replace URLs if you want other photos.
+    const PHOTOS = [
+      {url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQc18Ed90O3YG0hX7_PUmNIgOh2TDoMuaG6Jg&s?w=800&q=60', 
+        title: 'Système Arrosage'},
+      {url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdEnmw0XXoK934uM-hk-BwF-tJNpLqEyoi8w&s?w=800&q=60', 
+        title: 'Station météo'},
+      {url: 'https://www.linfodurable.fr/sites/linfodurable/files/2019-03/2_0.JPG?w=800&q=60', 
+        title: 'Box semis '},
+      {url: 'https://magazine.hortus-focus.fr/wp-content/uploads/sites/2/2018/01/the_garland-david-austin.jpg?w=800&q=60', 
+        title: 'Rosier grimpant fleurs blanches'},
+      {url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2pcFS7zpO62NT7Brj59zi_srMz4t5UKpF7Q&s?w=800&q=60', title: 'Figuier'},
+      {url: 'https://www.bexley.fr/fstrz/r/s/www.bexley.fr/media/catalog/product/cache/bc591ea1e15be6c82eb2a6d8638291c5/0/1/0179407h-irving_ii_gomme_cognac_patine_et_taupe_6.jpg?w=800&q=60', 
+        title: 'Bottes cuir'},
+      {url: 'https://image.uniqlo.com/UQ/ST3/eu/imagesgoods/478249/item/eugoods_34_478249_3x4.jpg?w=800&q=60', title: 'Veste velour '},
+      {url: 'https://www.bexley.fr/media/catalog/product/cache/906ae4fa6fb3024c53a8cefa99b208d4/0/1/0156200n-sean_ii_havane_1.jpg?w=800&q=60', title: 'Veste cuir'},
+      {url: 'https://assets.adidas.com/images/w_600,f_auto,q_auto/242d09cebfa44d02a829a89fa808b6cb_9366/Chaussure_Gazelle_Indoor_Vert_JI2062_01_standard.jpg?w=800&q=60', title: 'Gazette'},
+      {url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOvpkjKm18EVQ6g_XligJuEps8fGyXLw7pAw&s?v=1741369441&width=180?w=800&q=60', title: 'Impression The Obvious Mind'},
+      {url: 'https://i.etsystatic.com/13282289/r/il/adda83/5737743953/il_1588xN.5737743953_bcj2.jpg?w=800&q=60', title: 'Epicier boule verre'},
+      {url: 'https://static.fnac-static.com/multimedia/PE/Images/FR/NR/15/27/e4/14952213/1540-1/tsp20251101075036/Le-Cout-de-la-virilite.jpg?w=800&q=60', title: 'Le Coût de la virilité'},
+      {url: 'https://actes-sud.fr/sites/default/files/couvertures/9782330213251.jpg?w=800&q=60', title: 'L‘appart du futur'},
+      {url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkA526bUVPs_sTEYiBhctHqP7GQlg8AymUPg&s?w=800&q=60', title: 'Petit poste à souder arc'},
+      {url: 'https://kb.shelly.cloud/__attachments/229146742/Shelly%20Wall%20Display%20X2_1000x500.jpg?inst-v=5bf62ed3-a19e-46f0-82f2-f0643494e2e9?w=800&q=60', title: 'Shelly XL'},
+      {url: 'https://im.qccdn.fr/node/guide-d-achat-outils-multifonctions-25908/thumbnail_800x480px-119702.jpg?w=800&q=60', title: 'Outil multifonction'}
+    ];
+
+    const stage = document.getElementById('stage');
+    let bounds = stage.getBoundingClientRect();
+
+    // Keep track of active card
+    let activeCard = null;
+
+    window.addEventListener('resize', ()=>{ bounds = stage.getBoundingClientRect(); });
+
+    // Utility: clamp function
+    const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
+    // Create targets with random positions and velocities
+    const targets = [];
+    for (let i=0;i<NUM_TARGETS;i++){
+      const el = document.createElement('div');
+      el.className = 'target';
+      el.style.width = TARGET_SIZE + 'px';
+      el.style.height = TARGET_SIZE + 'px';
+      el.innerHTML = '<div class="dot" aria-hidden="true"></div>';
+      // choose a photo for this target (round-robin)
+      const photo = PHOTOS[i % PHOTOS.length];
+      el.dataset.photo = photo.url;
+      el.dataset.title = photo.title;
+
+      // random start position inside stage (keeping fully visible)
+      const x = Math.random() * (bounds.width - TARGET_SIZE);
+      const y = Math.random() * (bounds.height - TARGET_SIZE);
+      el.style.transform = `translate(${x}px, ${y}px)`;
+
+      // velocity px per second
+      const speed = 40 + Math.random()*120; // 40..160
+      const angle = Math.random() * Math.PI * 2;
+      const vx = Math.cos(angle) * speed;
+      const vy = Math.sin(angle) * speed;
+
+      stage.appendChild(el);
+
+      targets.push({el, x, y, vx, vy, size: TARGET_SIZE});
+
+      // Click / tap handler
+      el.addEventListener('pointerdown', (ev)=>{
+        ev.stopPropagation();
+        showCardForTarget(el);
+        clickCount++;
+        if (clickCount >= MAX_CLICKS) {
+          window.location.href = 'liste.html';
+        }
+      });
+    }
+
+    // Close card when clicking stage
+    stage.addEventListener('pointerdown', (e)=>{
+      if (activeCard) removeCard(activeCard);
+    });
+
+    // Animation loop with requestAnimationFrame
+    let last = performance.now();
+    function frame(now){
+      const dt = (now - last) / 1000; last = now;
+      // update bounds (in case of CSS layout changes)
+      bounds = stage.getBoundingClientRect();
+
+      for (const t of targets){
+        t.x += t.vx * dt;
+        t.y += t.vy * dt;
+
+        // bounce off walls — keep within [0, bounds - size]
+        if (t.x <= 0){ t.x = 0; t.vx *= -1; }
+        if (t.y <= 0){ t.y = 0; t.vy *= -1; }
+        if (t.x >= bounds.width - t.size){ t.x = bounds.width - t.size; t.vx *= -1; }
+        if (t.y >= bounds.height - t.size){ t.y = bounds.height - t.size; t.vy *= -1; }
+
+        t.el.style.transform = `translate(${t.x}px, ${t.y}px)`;
+      }
+
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+
+    let clickCount = 0;
+const MAX_CLICKS = 10;
+
+// Show card next to the clicked target
+    function showCardForTarget(targetEl){
+      if (activeCard) removeCard(activeCard);
+
+      const imgUrl = targetEl.dataset.photo;
+      const title = targetEl.dataset.title || 'Photo';
+
+      const rect = targetEl.getBoundingClientRect();
+      const stageRect = stage.getBoundingClientRect();
+
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <img class="thumb" src="${imgUrl}" alt="${title}">
+        <div class="meta">
+          <div class="title">${escapeHtml(title)}</div>
+          <button class="close" aria-label="Close">✕</button>
+        </div>`;
+
+      // append then position (so we can measure)
+      stage.appendChild(card);
+
+      // position the card near the target — try above-right by default
+      const cardRect = card.getBoundingClientRect();
+      const margin = 8;
+
+      // compute coordinates relative to stage
+      let left = rect.left - stageRect.left + rect.width + margin; // right side
+      let top = rect.top - stageRect.top - (cardRect.height - rect.height)/2;
+
+      // if off right edge, flip to left
+      if (left + cardRect.width > stageRect.width) {
+        left = rect.left - stageRect.left - cardRect.width - margin;
+      }
+      // clamp vertically
+      top = clamp(top, 8, stageRect.height - cardRect.height - 8);
+      left = clamp(left, 8, Math.max(8, stageRect.width - cardRect.width - 8));
+
+      card.style.left = left + 'px';
+      card.style.top = top + 'px';
+
+      // close button
+      card.querySelector('.close').addEventListener('click', (ev)=>{
+        ev.stopPropagation();
+        removeCard(card);
+      });
+
+      // prevent click inside card from closing it via stage listener
+      card.addEventListener('pointerdown', (ev)=>{ ev.stopPropagation(); });
+
+      activeCard = card;
+    }
+
+    function removeCard(card){
+      if (!card) return;
+      card.remove();
+      if (activeCard === card) activeCard = null;
+    }
+
+    // small HTML escape helper
+    function escapeHtml(s){ return String(s).replace(/[&<>"']/g, function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+
+    // Accessibility: allow keyboard selection (tab + enter)
+    const allTargets = Array.from(document.querySelectorAll('.target'));
+    allTargets.forEach((t, idx)=>{
+      t.setAttribute('tabindex','0');
+      t.setAttribute('role','button');
+      t.addEventListener('keydown', (ev)=>{
+        if (ev.key === 'Enter' || ev.key === ' '){
+          ev.preventDefault();
+          showCardForTarget(t);
+        }
+      });
+    });
+
+  </script>
+</body>
+</html>
+
