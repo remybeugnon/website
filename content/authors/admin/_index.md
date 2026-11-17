@@ -2,14 +2,12 @@
 bio: I am a PosDoc between iDiv, the CEFE and LIM working biodiversity-microclimate-ecosystem functioning nexus.
 email: "remy.beugnon@idiv.de"
 organizations:
-- name: German Center for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig 
-  url: "https://www.idiv.de/en"
-  role: Postdoctoral researcher
 - name: Centre d’Ecologie Fonctionnelle et Evolutive (CEFE), CNRS 
   url: "https://www.cefe.cnrs.fr/"
   role: Postdoctoral researcher
-- name: Leipzig Institute for Meteorology
-  url: "https://www.physgeo.uni-leipzig.de/en/institute-for-meteorology"
+- name: German Center for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig 
+  url: "https://www.idiv.de/en"
+  role: Postdoctoral researcher
 social:
 - icon: envelope
   icon_pack: fas
@@ -59,9 +57,9 @@ To advance this emerging field, I have taken on an active leadership role in the
 <p>
 
 
-1. Publications (2019-2025): I have authored 28 peer-reviewed articles, including in Nature Communications, Science Advances, Ecological Monographs, Ecology Letters, and Global Change Biology.
+1. Publications (2019-2026): I have authored 32 peer-reviewed articles, including in Nature Communications, Science Advances, Ecological Monographs, Ecology Letters, and Global Change Biology.
 
-2. Supervision (2019-2025): I have co-supervised 2 PhD students and mentored 4 MSc, 2 BSc, 1 ENS Lyon gap-year, and 2 IUT Perpignan final-year students.
+2. Supervision (2019-2026): I have co-supervised 3 PhD students and mentored 5 MSc, 2 BSc, 1 ENS Lyon gap-year, and 2 IUT Perpignan final-year students.
 
 3. Teaching: I lectured in Ecology, Biodiversity, and Statistics at the bachelor’s and master’s levels (2021–2025), including module coordination.
 
@@ -72,5 +70,7 @@ To advance this emerging field, I have taken on an active leadership role in the
 6. Outreach: I was interviewed by EOS (AGU) as a BEF expert (Sidik, 2023), and co-edited the Frontiers for Young Minds eBook Soil Biodiversity, featuring 33 articles by 50 scientists and translated into 22+ languages (Beugnon et al., 2022; 2024).
 
 7. Peer Review: I serve as a reviewer for top-tier journals, including Ecology Letters, Functional Ecology, Global Change Biology, and Nature Communications.
+
+8. Funding: I am currently self-founded by the ERC Starting Grant - projet BioMiCaD
 </p>
 </div>

@@ -4,7 +4,8 @@
 .Ruserdata
 .Rhistory
 .Rproj.user/shared/notebooks/paths
-content/.DS_Store
 /.Rproj.user/shared/notebooks
 /.Rproj.user
+content/.DS_Store
+*.DS_Store
 content/.DS_Store
